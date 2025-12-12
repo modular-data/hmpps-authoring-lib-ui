@@ -1,0 +1,7 @@
+{% from "authoring/components/table/macro.njk" import table %}
+
+{{ table({
+  classes: "data-products-table",
+  head: params.head,
+  rows: params.rows
+}) }}

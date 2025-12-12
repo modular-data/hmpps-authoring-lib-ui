@@ -1,0 +1,67 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "authoring/pages/loading/macro.njk" import loadingPage %}
+{% from "authoring/features/datasets/components/dataset-state-tag/macro.njk" import datasetStateTag %}
+{% from "authoring/features/datasets/components/dataset-form/macro.njk" import datasetForm %}
+{% from "authoring/features/datasets/components/dataset-actions/macro.njk" import datasetActions %}
+
+{% set heading = dataset.name %}
+
+{% set breadcrumbItems = [
+  { text: "Datasets", href: routeDefinitions.datasets.createUrl() },
+  { text: heading }
+] %}
+
+{% block styles %}
+  <link href="{{ '/assets/styles/features/datasets/pages/[id].entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block actions %}
+  {{ govukButton({
+    text: 'Bookmark',
+    classes: "govuk-button--secondary"
+  }) }}
+{% endblock %}
+
+{% block afterHeadingContent %}
+  {{ datasetStateTag(dataset.state) }}
+
+  <p class="dataset-details__description">
+    {{ dataset.description or 'No description provided.' }}
+  </p>
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+
+  {{ datasetForm(
+    method = 'PUT',
+    formId = form.id,
+    formMetadata = form.metadata,
+    csrfToken = csrfToken,
+    values = form.values,
+    errors = form.errors.fields,
+    disabled = form.disabled,
+    dependentFormSelectors = '#' + actions.actionsFormId,
+    dataSourceOptions = form.dataSourceOptions
+  ) }}
+
+  {{ datasetActions(
+    actions = actions,
+    csrfToken = csrfToken
+  ) }}
+
+  <script id="dataset-preview-loading-page-template" type="text/template">
+    {{ loadingPage({
+      label: "Just a moment — we're preparing your preview...",
+      pageContext: pageContext
+    }) }}
+  </script>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+
+  <script type="module" src="{{ '/assets/js/features/datasets/pages/details.entry.js' | authoringAssetMap }}"></script>
+{% endblock bodyEnd %}

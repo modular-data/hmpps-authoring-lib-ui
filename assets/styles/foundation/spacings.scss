@@ -1,0 +1,22 @@
+@use "sass:math";
+@use "sass:meta";
+@use "./base";
+
+@mixin child-spacing($spacing, $direction: column) {
+  @if $direction != column and $direction != row {
+    @error "Invalid direction `#{$direction}`. Must be 'column' or 'row'.";
+  }
+
+  $is-unitless-spacing: meta.type-of($spacing) == 'number' and math.unit($spacing) == '';
+
+  $margin-property: if($direction == column, 'margin-top', 'margin-left');
+  $margin-value: if($is-unitless-spacing, base.govuk-spacing($spacing), $spacing);
+
+  & > * {
+    #{$margin-property}: $margin-value;
+
+    &:first-child {
+      #{$margin-property}: 0;
+    }
+  }
+}

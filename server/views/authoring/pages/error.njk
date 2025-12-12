@@ -1,0 +1,9 @@
+{% extends "authoring/layouts/base.njk" %}
+
+{% set pageTitle = applicationName + " - Error" %}
+
+{% block content %}
+  <span class="govuk-caption-xl">{{ status }}</span>
+  <h1 class="govuk-heading-xl">{{ message }}</h1>
+  <pre class="govuk-body">{{ stack }}</pre>
+{% endblock %}

@@ -1,0 +1,97 @@
+@use '../foundation/base';
+
+// TODO: Prototype: Fully review this file after first priority tasks
+// This code requires a full review and cleanup, since it was written in a hurry to meet a deadline.
+
+.sql-editor-container {
+  margin-top: base.govuk-spacing(2);
+}
+
+.sql-editor {
+  .cm-editor {
+    border: 0.125rem solid base.$govuk-input-border-colour;
+    border-radius: 0;
+    font-family: base.$govuk-font-family;
+    font-size: 1.1875rem;
+    line-height: 1.5;
+    min-height: 10.5rem;
+    // padding: base.govuk-spacing(2);
+    background-color: #fff; // TODO: Prototype: Use variable
+    //background-color: base.$govuk-input-background-colour;
+    color: base.$govuk-text-colour;
+
+    &:focus-within {
+      border-color: base.$govuk-focus-colour;
+      outline: 0.1875rem solid base.$govuk-focus-colour;
+      outline-offset: 0;
+    }
+
+    &.cm-focused {
+      border-color: base.$govuk-focus-colour;
+      outline: 0.1875rem solid base.$govuk-focus-colour;
+      outline-offset: 0;
+    }
+  }
+
+  .cm-scroller {
+    font-family: base.$govuk-font-family;
+    font-size: 1.1875rem;
+    line-height: 1.5;
+  }
+
+  .cm-content {
+    min-height: 10.5rem;
+    padding: base.govuk-spacing(2);
+  }
+
+  .cm-line {
+    padding: 0;
+  }
+
+  .cm-gutters {
+    background-color: base.govuk-colour('light-grey');
+    border-right: 0.0625rem solid base.$govuk-border-colour;
+  }
+
+  .cm-lineNumbers {
+    .cm-gutterElement {
+      min-width: 2.5rem;
+      padding: 0 base.govuk-spacing(1);
+      color: base.govuk-colour('mid-grey');
+      font-size: 1rem;
+    }
+  }
+}
+
+.govuk-form-group--error {
+  .sql-editor {
+    .cm-editor {
+      border-color: base.$govuk-error-colour;
+
+      &:focus-within {
+        border-color: base.$govuk-error-colour;
+        outline-color: base.$govuk-error-colour;
+      }
+
+      &.cm-focused {
+        border-color: base.$govuk-error-colour;
+        outline-color: base.$govuk-error-colour;
+      }
+    }
+  }
+}
+
+.sql-editor-container[data-disabled='true'] {
+  .sql-editor {
+    .cm-editor {
+      background-color: base.govuk-colour('light-grey');
+      border-color: base.$govuk-border-colour;
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      .cm-content {
+        cursor: not-allowed;
+      }
+    }
+  }
+}

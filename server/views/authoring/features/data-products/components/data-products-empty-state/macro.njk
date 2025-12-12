@@ -1,0 +1,33 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "authoring/components/empty-state/macro.njk" import emptyState %}
+
+{% macro dataProductsEmptyState({
+  hasUserQuery: false,
+  createDataProductText: 'Create Data Product',
+  routeDefinitions: null
+}) %}
+  {% set body %}
+    No Data Products available. Click '{{createDataProductText}}' button to get started.
+  {% endset %}
+
+  {% set actions = govukButton({
+    text: createDataProductText,
+    href: routeDefinitions.dataProductsCreate.createUrl()
+  }) %}
+
+  {% if hasUserQuery %}
+    {% set body = "No matches to your query. Try refining your search or clearing filters." %}
+
+    {% set actions = actions ~ govukButton({
+      classes: "govuk-button--secondary",
+      text: "Clear query parameters",
+      href: routeDefinitions.dataProducts.createUrl()
+    }) %}
+  {% endif %}
+
+  {{ emptyState(
+    body = body,
+    actions = actions | safe,
+    heading = 'No Data Products found'
+  ) }}
+{% endmacro %}

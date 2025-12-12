@@ -1,0 +1,44 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "moj/components/date-picker/macro.njk" import mojDatePicker %}
+
+{% macro appDateRangePicker({
+  name: '',
+  label: '',
+  from: {},
+  to: {}
+}) %}
+  {% set moduleName = 'app-date-range-picker' %}
+
+  {% set commonDatePickerOptions = {
+    hint: {
+      text: 'For example, 17/5/2024.'
+    }
+  } %}
+
+  {% set fromDatePickerOptions = commonDatePickerOptions | merge ({
+    name: name + '[from]',
+    label: {
+      text: "From"
+    }
+  }) | merge(from) %}
+
+  {% set toDatePickerOptions = commonDatePickerOptions | merge ({
+    name: name + '[to]',
+    label: {
+      text: "To"
+    }
+  }) | merge(to) %}
+
+  {% call govukFieldset({
+    classes: moduleName,
+    legend: {
+      classes: 'govuk-fieldset__legend--s',
+      text: label
+    }
+  }) %}
+    <div class="{{ moduleName }}__date-pickers">
+      {{ mojDatePicker(fromDatePickerOptions) }}
+      {{ mojDatePicker(toDatePickerOptions) }}
+    </div>
+  {% endcall %}
+{% endmacro %}

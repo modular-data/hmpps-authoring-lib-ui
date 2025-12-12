@@ -1,0 +1,43 @@
+@use '../../../foundation/base';
+
+.datasets-table {
+  &__cell {
+    max-width: 18.75rem;
+
+    &--name {
+      min-width: 10rem;
+    }
+
+    &--owner {
+      min-width: 9.375rem;
+      max-width: 9.375rem;
+    }
+
+    &--data-source {
+      min-width: 13.125rem;
+      max-width: 13.125rem;
+    }
+
+    &--linked-data-products {
+      min-width: 13.125rem;
+      max-width: 13.125rem;
+    }
+
+    &--date {
+      min-width: 7.1875rem;
+      max-width: 7.1875rem;
+    }
+
+    &--tags {
+      min-width: 11.875rem;
+    }
+
+    &--description {
+      min-width: 18.75rem;
+    }
+  }
+
+  &__new-indicator {
+    margin-right: base.govuk-spacing(1);
+  }
+}

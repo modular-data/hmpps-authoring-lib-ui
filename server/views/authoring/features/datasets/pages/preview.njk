@@ -1,0 +1,38 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "authoring/components/table/macro.njk" import table %}
+
+{% set head = [
+  { text: "Prisoner ID" },
+  { text: "First Name" },
+  { text: "Last Name" },
+  { text: "Date of Birth" },
+  { text: "Prison Location" },
+  { text: "Sentence Start Date" },
+  { text: "Sentence Length (months)" },
+  { text: "Offence Category" }
+] %}
+
+{% set rows = [] %}
+
+{% for row in previewData %}
+  {% set rows = (rows.push([
+    { text: row.prisoner_id },
+    { text: row.first_name },
+    { text: row.last_name },
+    { text: row.date_of_birth },
+    { text: row.prison_location },
+    { text: row.sentence_start_date },
+    { text: row.sentence_length_months },
+    { text: row.offence_category }
+  ]), rows) %}
+{% endfor %}
+
+{% block content %}
+  {{ super() }}
+
+  {{ table({
+    head: head,
+    rows: rows
+  }) }}
+{% endblock %}

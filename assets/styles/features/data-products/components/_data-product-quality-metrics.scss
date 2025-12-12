@@ -1,0 +1,7 @@
+@use '../../../foundation/base';
+
+.data-product-quality-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 20rem);
+  grid-gap: base.govuk-spacing(3);
+}

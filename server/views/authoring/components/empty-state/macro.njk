@@ -1,0 +1,15 @@
+{% macro emptyState(heading, body, actions) %}
+  <div class="govuk-inset-text">
+    <h3 class="govuk-heading-m">{{ heading }}</h3>
+
+    {% if body %}
+      <p>{{ body }}</p>
+    {% endif %}
+
+    {% if actions %}
+      <div class="govuk-button-group">
+        {{ actions }}
+      </div>
+    {% endif %}
+  </div>
+{% endmacro %}

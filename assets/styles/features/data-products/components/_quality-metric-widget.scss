@@ -1,0 +1,45 @@
+@use '../../../foundation/base';
+
+.quality-metric-widget {
+  --quality-metric-widget-colour: #{base.govuk-colour('black')};
+
+  padding: base.govuk-spacing(4);
+  border: 0.125rem solid var(--quality-metric-widget-colour);
+
+  &__quality {
+    margin-bottom: base.govuk-spacing(1);
+    color: var(--quality-metric-widget-colour);
+    font-weight: 400;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
+    margin: 0 0 base.govuk-spacing(1) 0;
+  }
+
+  &__badge {
+    margin-right: base.govuk-spacing(1);
+  }
+
+  &__date {
+    color: base.govuk-colour('dark-grey');
+    margin: 0;
+  }
+
+  &--level-very-high {
+    --quality-metric-widget-colour: #{base.govuk-colour('green')};
+  }
+
+  &--level-high {
+    --quality-metric-widget-colour: #{base.govuk-colour('light-green')};
+  }
+
+  &--level-medium {
+    --quality-metric-widget-colour: #{base.govuk-colour('blue')};
+  }
+
+  &--level-low {
+    --quality-metric-widget-colour: #{base.govuk-colour('red')};
+  }
+}

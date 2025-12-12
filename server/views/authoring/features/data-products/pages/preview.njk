@@ -1,0 +1,35 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "authoring/components/table/macro.njk" import table %}
+
+{% set head = [
+  { text: "Prison Name" },
+  { text: "Total Prisoners" },
+  { text: "Average Age" },
+  { text: "Category Breakdown" },
+  { text: "Average Sentence (months)" },
+  { text: "Last Updated" }
+] %}
+
+{% set rows = [] %}
+
+{% for row in previewData %}
+  {% set rows = (rows.push([
+    { text: row.prison_name },
+    { text: row.total_prisoners },
+    { text: row.average_age },
+    { text: row.category_breakdown },
+    { text: row.average_sentence_months },
+    { text: row.last_updated }
+  ]), rows) %}
+{% endfor %}
+
+{% block content %}
+  {{ super() }}
+
+  {{ table({
+    head: head,
+    rows: rows
+  }) }}
+{% endblock %}
+

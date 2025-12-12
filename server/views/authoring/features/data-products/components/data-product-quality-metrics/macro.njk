@@ -1,0 +1,9 @@
+{%- from "authoring/features/data-products/components/quality-metric-widget/macro.njk" import qualityMetricWidget -%}
+
+{% macro dataProductQualityMetrics(qualityMetrics) %}
+  <div class="data-product-quality-metrics">
+    {%- for qualityMetric in qualityMetrics %}
+      {{ qualityMetricWidget(qualityMetric) }}
+    {%- endfor %}
+  </div>
+{% endmacro %}

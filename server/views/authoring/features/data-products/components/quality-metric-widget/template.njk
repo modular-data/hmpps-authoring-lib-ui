@@ -1,0 +1,54 @@
+{%- from "moj/components/badge/macro.njk" import mojBadge -%}
+
+{% macro _getLevel(value) -%}
+  {%- if value >= 90 -%}
+    very-high
+  {%- elif value >= 60 -%}
+    high
+  {%- elif value >= 30 -%}
+    medium
+  {%- else -%}
+    low
+  {%- endif -%}
+{%- endmacro %}
+
+{% macro _getLevelText(level) -%}
+  {%- if level == "very-high" -%}
+    Very high
+  {%- elif level == "high" -%}
+    High
+  {%- elif level == "medium" -%}
+    Medium
+  {%- elif level == "low" -%}
+    Low
+  {%- else -%}
+    Unknown
+  {%- endif -%}
+{%- endmacro %}
+
+{% set level = _getLevel(value) if value else null %}
+
+{% set levelText = _getLevelText(level) %}
+
+{% set rootClasses = classNames(
+  "quality-metric-widget",
+  level and ("quality-metric-widget--level-" + level)
+) %}
+
+<div class="{{ rootClasses }}" aria-label="{{ name }} quality metric">
+  <h3 class="quality-metric-widget__quality govuk-heading-m">
+    <strong>{{ levelText | upper }}</strong> quality
+  </h3>
+  <p class="quality-metric-widget__name">
+    {% if value %}
+      {{ mojBadge({
+        text: value | formatPercents,
+        classes: "quality-metric-widget__badge moj-badge--grey"
+      }) }}
+    {% endif %}
+    {{ name }}
+  </p>
+  <p class="quality-metric-widget__date govuk-body-s">
+    Last updated: {{ lastUpdatedAt | mojDate("shortdatetime") if lastUpdatedAt else NO_DATA_PLACEHOLDER }}
+  </p>
+</div>

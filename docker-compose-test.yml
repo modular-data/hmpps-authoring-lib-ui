@@ -1,0 +1,15 @@
+# TODO: MOJ-333 | Revisit this file after first priority tasks
+
+services:
+
+  wiremock:
+    image: wiremock/wiremock
+    networks:
+    - hmpps_int
+    container_name: wiremock
+    restart: always
+    ports:
+      - "9091:8080"
+
+networks:
+  hmpps_int:

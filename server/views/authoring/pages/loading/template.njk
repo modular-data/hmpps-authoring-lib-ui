@@ -1,0 +1,13 @@
+{% from "authoring/components/loading-overlay/macro.njk" import loadingOverlay %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{ label }}</title>
+  <link href="{{ pageContext.origin }}{{ '/assets/styles/main.entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+</head>
+<body>
+  {{ loadingOverlay(isVisible = true, label = label) }}
+</body>
+</html>

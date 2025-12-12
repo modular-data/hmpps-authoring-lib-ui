@@ -1,0 +1,39 @@
+{% from "govuk/components/label/macro.njk" import govukLabel %}
+{% from "govuk/components/error-message/macro.njk" import govukErrorMessage %}
+
+{# TODO: Prototype: Fully review this file after first priority tasks #}
+
+{% macro sqlEditor({
+  name: '',
+  id: null,
+  label: '',
+  value: null,
+  errorMessage: null,
+  disabled: false
+}) %}
+  {% set fieldId = id or name %}
+  {% set errorId = fieldId + "-error" %}
+  {% set hasError = errorMessage is defined and errorMessage is not null %}
+
+  <div class="govuk-form-group {{ 'govuk-form-group--error' if hasError }}">
+    {{ govukLabel({
+      for: fieldId,
+      text: label
+    }) }}
+    {% if hasError %}
+      {{ govukErrorMessage({
+        id: errorId,
+        text: errorMessage.text
+      }) }}
+    {% endif %}
+    <div class="sql-editor-container" data-disabled="{{ 'true' if disabled else 'false' }}">
+      <textarea
+        id="{{ fieldId }}"
+        name="{{ name }}"
+        class="govuk-visually-hidden"
+        {% if disabled %}disabled{% endif %}
+      >{{ value or '' }}</textarea>
+      <div class="sql-editor" id="sql-editor-{{ fieldId }}"></div>
+    </div>
+  </div>
+{% endmacro %}

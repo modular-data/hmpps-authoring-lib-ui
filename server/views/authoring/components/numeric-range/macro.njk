@@ -1,0 +1,55 @@
+{% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% macro appNumericRange({
+  name: '',
+  label: '',
+  hint: null,
+  from: {},
+  to: {}
+}) %}
+  {% set moduleName = 'app-numeric-range' %}
+
+  {% set hintId = name + '--hint' %}
+
+  {% set commonInputOptions = {
+    formGroup: {
+      classes: moduleName + '__input-form-group'
+    },
+    inputmode: "numeric",
+    spellcheck: false,
+    pattern: "[0-9]*"
+  } %}
+
+  {% set fromInputOptions = commonInputOptions | merge({
+    name: name + '[from]',
+    label: {
+      text: "From"
+    }
+  }) | merge(from) %}
+
+  {% set toInputOptions = commonInputOptions | merge({
+    name: name + '[to]',
+    label: {
+      text: "To"
+    }
+  }) | merge(to) %}
+
+  {% call govukFieldset({
+    classes: moduleName,
+    legend: {
+      classes: 'govuk-fieldset__legend--s',
+      text: label
+    },
+    describedBy: hintId if hint
+  }) %}
+    {% if hint %}
+      <p class="govuk-hint" id="{{ hintId }}">{{ hint }}</p>
+    {% endif %}
+
+    <div class="{{ moduleName }}__inputs">
+      {{ govukInput(fromInputOptions) }}
+      {{ govukInput(toInputOptions) }}
+    </div>
+  {% endcall %}
+{% endmacro %}

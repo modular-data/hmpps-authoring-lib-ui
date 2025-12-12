@@ -1,0 +1,29 @@
+@use '../foundation/base';
+
+.stack {
+  &__container {
+    display: flex;
+    flex-direction: var(--stack-container-flex-direction, row);
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: var(--stack-container-max-width, none);
+    margin: calc(var(--stack-item-margin) / -2);
+
+    & > * {
+      margin: calc(var(--stack-item-margin) / 2)
+    }
+  }
+
+  &--direction-column {
+    --stack-container-flex-direction: column;
+    --stack-container-flex-max-width: 100%;
+  }
+
+  @each $spacing, $value in base.$govuk-spacing-points {
+    $margin: base.govuk-spacing($spacing);
+
+    &--spacing-#{$spacing} {
+      --stack-item-margin: #{$margin};
+    }
+  }
+}

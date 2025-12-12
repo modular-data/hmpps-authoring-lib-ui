@@ -1,0 +1,22 @@
+{%- from "govuk/components/button/macro.njk" import govukButton %}
+
+{% macro dataProductCreateActions({
+  actions: null
+}) %}
+  <div class="moj-button-group">
+    {{ govukButton({
+      text: "Save to draft",
+      type: "submit",
+      preventDoubleClick: true,
+      attributes: {
+        form: actions.formId
+      }
+    }) }}
+
+    {{ govukButton({
+      text: "Cancel",
+      href: actions.cancelUrl,
+      classes: "govuk-button--secondary"
+    }) }}
+  </div>
+{% endmacro %}

@@ -1,0 +1,47 @@
+@use '../foundation/base';
+
+.app-new-indicator {
+  position: relative;
+  display: inline-block;
+  width: 0.625em;
+  height: 0.625em;
+  vertical-align: middle;
+  color: base.$govuk-success-colour;
+
+  &__dot,
+  &__pulsating-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background-color: currentColor;
+  }
+
+  &__dot {
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%, -50%);
+  }
+
+  &__pulsating-dot {
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%) scale(0.1);
+    animation: new-indicator-pulsate 1s linear infinite;
+  }
+}
+
+@keyframes new-indicator-pulsate {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,87 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "moj/components/button-menu/macro.njk" import mojButtonMenu %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "authoring/components/column-picker-form/macro.njk" import columnPickerForm %}
+{% from "authoring/features/data-products/components/data-products-filter/macro.njk" import dataProductsFilter %}
+{% from "authoring/features/data-products/components/data-products-table/macro.njk" import dataProductsTable %}
+{% from "authoring/features/data-products/components/data-products-empty-state/macro.njk" import dataProductsEmptyState %}
+
+{% set heading = "Data Products" %}
+
+{% set breadcrumbItems = [{ text: heading }] %}
+
+{% set createDataProductText = 'Create Data Product' %}
+
+{% block styles %}
+  <link href="{{ '/assets/styles/features/data-products/pages/index.entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block actions %}
+  {{ govukButton({
+    text: createDataProductText,
+    href: routeDefinitions.dataProductsCreate.createUrl()
+  }) }}
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+
+  <div class="moj-filter-layout">
+    <div class="moj-filter-layout__filter">
+      {{ dataProductsFilter(
+        options = filterOptions,
+        values = filterValues,
+        selectedFiltersCategories = selectedFiltersCategories,
+        clearFiltersHref = clearFiltersHref,
+        hiddenInputFields = filterHiddenInputFields
+      ) }}
+    </div>
+
+    <div class="moj-filter-layout__content">
+      <div class="moj-action-bar">
+        <div class="moj-action-bar__filter"></div>
+
+        {{ mojButtonMenu({
+          button: {
+            text: "More actions",
+            classes: "govuk-button--secondary"
+          },
+          items: [
+            {
+              text: "Toggle Fullscreen"
+            }
+          ]
+        }) }}
+      </div>
+
+      {{ columnPickerForm(
+        items = columnPickerItems,
+        values = columnPickerValues,
+        resetHref = columnPickerResetHref,
+        hiddenInputFields = columnPickerHiddenInputFields
+      ) }}
+
+      {{ dataProductsTable(table) }}
+
+      {% if not table.rows.length %}
+        {{ dataProductsEmptyState(
+          createDataProductText = createDataProductText,
+          hasUserQuery = hasUserQuery,
+          routeDefinitions = routeDefinitions
+        ) }}
+      {% endif %}
+    </div>
+  </div>
+
+  {% if pagination %}
+    {{ mojPagination(pagination) }}
+  {% endif %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+
+  <script type="module" src="{{ '/assets/js/features/data-products/pages/index.entry.js' | authoringAssetMap }}"></script>
+{% endblock bodyEnd %}

@@ -1,0 +1,8 @@
+{%- from "govuk/components/tag/macro.njk" import govukTag -%}
+
+{% macro datasetStateTag(state) %}
+  {{ govukTag({
+    classes: "govuk-tag--" + CONSTANTS.datasetStateTagColourMap[state],
+    text: CONSTANTS.datasetStateLabelMap[state]
+  }) }}
+{% endmacro %}

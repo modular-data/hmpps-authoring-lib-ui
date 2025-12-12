@@ -1,0 +1,14 @@
+@use '../foundation/base';
+@use '../foundation/spacings';
+
+.app-date-range-picker {
+  @include base.govuk-responsive-margin(6, "bottom");
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &__date-pickers {
+    @include spacings.child-spacing(3);
+  }
+}

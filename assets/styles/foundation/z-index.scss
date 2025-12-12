@@ -1,0 +1,14 @@
+@use "sass:map";
+
+$z-indexes: (
+  overlay: 2,
+  progress-bar: 3,
+);
+
+@function get-z-index($name) {
+  @if not map.has-key($z-indexes, $name) {
+    @error "Unknown z-index `#{$name}`";
+  }
+
+  @return map.get($z-indexes, $name);
+}

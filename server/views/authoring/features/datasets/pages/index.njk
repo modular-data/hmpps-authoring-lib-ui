@@ -1,0 +1,87 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "moj/components/button-menu/macro.njk" import mojButtonMenu %}
+{% from "moj/components/pagination/macro.njk" import mojPagination %}
+{% from "authoring/components/column-picker-form/macro.njk" import columnPickerForm %}
+{% from "authoring/features/datasets/components/datasets-filter/macro.njk" import datasetsFilter %}
+{% from "authoring/features/datasets/components/datasets-table/macro.njk" import datasetsTable %}
+{% from "authoring/features/datasets/components/datasets-empty-state/macro.njk" import datasetsEmptyState %}
+
+{% set heading = "Datasets" %}
+
+{% set breadcrumbItems = [{ text: heading }] %}
+
+{% set createDatasetText = 'Create Dataset' %}
+
+{% block styles %}
+  <link href="{{ '/assets/styles/features/datasets/pages/index.entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block actions %}
+  {{ govukButton({
+    text: createDatasetText,
+    href: routeDefinitions.datasetsCreate.createUrl()
+  }) }}
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+
+  <div class="moj-filter-layout">
+    <div class="moj-filter-layout__filter">
+      {{ datasetsFilter(
+        options = filterOptions,
+        values = filterValues,
+        selectedFiltersCategories = selectedFiltersCategories,
+        clearFiltersHref = clearFiltersHref,
+        hiddenInputFields = filterHiddenInputFields
+      ) }}
+    </div>
+
+    <div class="moj-filter-layout__content">
+      <div class="moj-action-bar">
+        <div class="moj-action-bar__filter"></div>
+
+        {{ mojButtonMenu({
+          button: {
+            text: "More actions",
+            classes: "govuk-button--secondary"
+          },
+          items: [
+            {
+              text: "Toggle Fullscreen"
+            }
+          ]
+        }) }}
+      </div>
+
+      {{ columnPickerForm(
+        items = columnPickerItems,
+        values = columnPickerValues,
+        resetHref = columnPickerResetHref,
+        hiddenInputFields = columnPickerHiddenInputFields
+      ) }}
+
+      {{ datasetsTable(table) }}
+
+      {% if not table.rows.length %}
+        {{ datasetsEmptyState(
+          createDatasetText = createDatasetText,
+          hasUserQuery = hasUserQuery,
+          routeDefinitions = routeDefinitions
+        ) }}
+      {% endif %}
+    </div>
+  </div>
+
+  {% if pagination %}
+    {{ mojPagination(pagination) }}
+  {% endif %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+
+  <script type="module" src="{{ '/assets/js/features/datasets/pages/index.entry.js' | authoringAssetMap }}"></script>
+{% endblock bodyEnd %}

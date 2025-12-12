@@ -1,0 +1,7 @@
+@use '../../../foundation/base';
+
+.dataset-details {
+  &__description {
+    @include base.govuk-responsive-margin(5, top);
+  }
+}

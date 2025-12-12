@@ -1,0 +1,23 @@
+@use '../foundation/base';
+
+.app-numeric-range {
+  @include base.govuk-responsive-margin(6, "bottom");
+
+  &__inputs {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  &__input-form-group {
+    margin-bottom: 0;
+    margin-right: base.govuk-spacing(2);
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

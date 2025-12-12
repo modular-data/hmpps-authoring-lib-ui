@@ -1,0 +1,69 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "authoring/pages/loading/macro.njk" import loadingPage %}
+{% from "authoring/features/data-products/components/data-product-state-tag/macro.njk" import dataProductStateTag %}
+{% from "authoring/features/data-products/components/data-product-quality-metrics/macro.njk" import dataProductQualityMetrics %}
+{% from "authoring/features/data-products/components/data-product-form/macro.njk" import dataProductForm %}
+{% from "authoring/features/data-products/components/data-product-actions/macro.njk" import dataProductActions %}
+
+{% set heading = dataProduct.name %}
+
+{% set breadcrumbItems = [
+  { text: "Data Products", href: routeDefinitions.dataProducts.createUrl() },
+  { text: heading }
+] %}
+
+{% block styles %}
+  <link href="{{ '/assets/styles/features/data-products/pages/[id].entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block actions %}
+  {{ govukButton({
+    text: 'Bookmark',
+    classes: "govuk-button--secondary"
+  }) }}
+{% endblock %}
+
+{% block afterHeadingContent %}
+  {{ dataProductStateTag(dataProduct.state) }}
+
+  <p class="data-product-details__description">
+    Think of a domain as a virtual database. It has some metadata and can contain many tables/views of data. Domain names must be unique within the account. Table names must be unique within a domain.
+  </p>
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+
+  {{ dataProductQualityMetrics(qualityMetrics) }}
+
+  {{ dataProductForm(
+    method = 'PUT',
+    formId = form.id,
+    formMetadata = form.metadata,
+    csrfToken = csrfToken,
+    values = form.values,
+    errors = form.errors.fields,
+    disabled = form.disabled,
+    dependentFormSelectors = '#' + actions.actionsFormId
+  ) }}
+
+  {{ dataProductActions(
+    actions = actions,
+    csrfToken = csrfToken
+  ) }}
+
+  <script id="data-product-preview-loading-page-template" type="text/template">
+    {{ loadingPage({
+      label: "Just a moment — we're preparing your preview...",
+      pageContext: pageContext
+    }) }}
+  </script>
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+
+  <script type="module" src="{{ '/assets/js/features/data-products/pages/details.entry.js' | authoringAssetMap }}"></script>
+{% endblock bodyEnd %}

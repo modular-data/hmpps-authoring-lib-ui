@@ -1,0 +1,38 @@
+{% extends "authoring/layouts/subpage.njk" %}
+
+{% from "authoring/features/datasets/components/dataset-form/macro.njk" import datasetForm %}
+{% from "authoring/features/datasets/components/dataset-create-actions/macro.njk" import datasetCreateActions %}
+
+{% set heading = "New Dataset" %}
+
+{% set breadcrumbItems = [
+  { text: "Datasets", href: routeDefinitions.datasets.createUrl() },
+  { text: heading }
+] %}
+
+{% block afterHeadingContent %}
+  <p class="datasets-create__description">
+    Create a new dataset with a query to define the data structure and content.
+  </p>
+{% endblock %}
+
+{% block content %}
+  {{ super() }}
+
+  {{ datasetForm(
+    formId = form.id,
+    formMetadata = form.metadata,
+    csrfToken = csrfToken,
+    values = form.values,
+    errors = form.errors.fields,
+    dataSourceOptions = form.dataSourceOptions
+  ) }}
+
+  {{ datasetCreateActions(actions = actions) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {{ super() }}
+
+  <script type="module" src="{{ '/assets/js/features/datasets/pages/create.entry.js' | authoringAssetMap }}"></script>
+{% endblock bodyEnd %}

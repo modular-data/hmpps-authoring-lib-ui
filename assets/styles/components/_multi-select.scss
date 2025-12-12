@@ -1,0 +1,53 @@
+@use '../foundation/base';
+@use '../foundation/shadows';
+
+$details-text-padding-left: base.govuk-spacing(4);
+
+.app-multi-select {
+  & .govuk-details__text {
+    padding-left: $details-text-padding-left;
+    padding-bottom: 0;
+  }
+
+  &__fieldset {
+    margin-bottom: base.govuk-spacing(4);
+  }
+
+  &__form-group {
+    margin-bottom: 0;
+  }
+
+  &__search-text-input {
+    max-width: 20rem;
+  }
+
+  &__checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+    grid-column-gap: base.govuk-spacing(6);
+    align-items: flex-start;
+    max-height: 23.75rem;
+    overflow-y: auto;
+    margin-left: -$details-text-padding-left;
+    padding-left: $details-text-padding-left;
+    @include shadows.scroll-shadows;
+  }
+
+  &__empty-message {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &--error {
+    & .govuk-details {
+      &__summary {
+        color: base.$govuk-error-colour;
+      }
+
+      &__text {
+        border-color: base.$govuk-error-colour;
+      }
+    }
+  }
+}

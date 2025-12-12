@@ -1,0 +1,15 @@
+@use './base';
+
+$shadow-colour: rgba(base.govuk-colour('black'), 0.2);
+
+@mixin scroll-shadows {
+  $shadow-cover-top: linear-gradient(base.$govuk-body-background-colour 30%, transparent) center top;
+  $shadow-cover-bottom: linear-gradient(transparent, base.$govuk-body-background-colour 70%) center bottom;
+  $shadow-top: radial-gradient(farthest-side at 50% 0, $shadow-colour, transparent) center top;
+  $shadow-bottom: radial-gradient(farthest-side at 50% 100%, $shadow-colour, transparent) center bottom;
+
+  background: $shadow-cover-top, $shadow-cover-bottom, $shadow-top, $shadow-bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 2.5rem, 100% 2.5rem, 150% 1rem, 150% 1rem;
+  background-attachment: local, local, scroll, scroll;
+}

@@ -1,0 +1,46 @@
+{% extends "authoring/layouts/base.njk" %}
+
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "authoring/components/breadcrumbs/macro.njk" import breadcrumbs %}
+{% from "authoring/components/alerts/macro.njk" import appAlerts %}
+
+{% set pageTitle = pageTitle | default(applicationName + " - " + heading) %}
+{% set breadcrumbItems = breadcrumbItems | default([])  %}
+
+{% if errorSummaryList.length %}
+  {% set pageTitle = "Error: " + pageTitle %}
+{% endif %}
+
+{% block head %}
+  {{ super() }}
+
+  {% block styles %}{% endblock %}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ breadcrumbs(items = breadcrumbItems, routeDefinitions = routeDefinitions) }}
+{% endblock %}
+
+{% block content %}
+  {% if errorSummaryList.length %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: errorSummaryList
+    }) }}
+  {% endif %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if heading %}
+        <h1 class="govuk-heading-xl">{{ heading }}</h1>
+      {% endif %}
+
+      {% block afterHeadingContent %}{% endblock %}
+    </div>
+    <div class="govuk-grid-column-one-third subpage__actions">
+      {% block actions %}{% endblock %}
+    </div>
+  </div>
+
+  {{ appAlerts(alerts = alerts) }}
+{% endblock %}

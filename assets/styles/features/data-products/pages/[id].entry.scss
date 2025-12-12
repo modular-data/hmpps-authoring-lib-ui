@@ -1,0 +1,10 @@
+@use '../../../foundation/base';
+@use '../components/quality-metric-widget';
+@use '../components/data-product-quality-metrics';
+
+.data-product-details {
+  &__description {
+    @include base.govuk-responsive-margin(5, top);
+  }
+}
+

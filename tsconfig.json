@@ -1,0 +1,22 @@
+{
+  "extends": "@tsconfig/node22/tsconfig.json",
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "rootDir": "./server",
+    "outDir": "./dist",
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "allowJs": false,
+    "strict": false, // TODO: MOJ-238 | Make it strict after first priority tasks
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true
+  },
+  "include": ["server/**/*.ts"],
+  "exclude": ["server/**/*.test.ts", "server/**/*.spec.ts"]
+}

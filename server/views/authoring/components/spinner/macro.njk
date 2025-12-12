@@ -1,0 +1,33 @@
+{% macro spinner({ className: '' }) %}
+  {% set dots = [
+    { cx: 69, cy: 40 },
+    { cx: 65, cy: 25 },
+    { cx: 55, cy: 14 },
+    { cx: 40, cy: 10 },
+    { cx: 25, cy: 14 },
+    { cx: 14, cy: 25 },
+    { cx: 10, cy: 40 },
+    { cx: 14, cy: 55 },
+    { cx: 25, cy: 66 },
+    { cx: 40, cy: 70 },
+    { cx: 55, cy: 66 },
+    { cx: 65, cy: 55 }
+  ] %}
+
+  <svg
+    class="app-spinner {{ className }}"
+    viewBox="0 0 80 80"
+    role="status"
+    aria-live="polite"
+    aria-label="Loading"
+  >
+    {% for dot in dots %}
+      <circle
+        class="app-spinner__dot"
+        cx="{{ dot.cx }}"
+        cy="{{ dot.cy }}"
+        r="3"
+      />
+    {% endfor %}
+  </svg>
+{% endmacro %}

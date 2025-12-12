@@ -1,0 +1,24 @@
+{% extends "govuk/template.njk" %}
+
+{% from "authoring/components/service-navigation/macro.njk" import serviceNavigation %}
+{% from "authoring/components/progress-bar/macro.njk" import progressBar %}
+
+{% block head %}
+  <link href="{{ '/assets/styles/main.entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
+
+{% block header %}
+  {% include "authoring/partials/header.njk" %}
+
+  {{ serviceNavigation(serviceNavigationItems = serviceNavigationItems) }}
+{% endblock %}
+
+{% block bodyStart %}
+  {{ progressBar() }}
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="{{ '/assets/js/main.entry.js' | authoringAssetMap }}"></script>
+{% endblock %}

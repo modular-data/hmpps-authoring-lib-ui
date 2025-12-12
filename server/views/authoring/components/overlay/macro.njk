@@ -1,0 +1,17 @@
+{% from "govuk/macros/attributes.njk" import govukAttributes %}
+
+{% macro overlay({
+  classes: '',
+  isVisible: false
+}) %}
+  {% set attributes = govukAttributes({
+    'data-visible': isVisible
+  }) %}
+
+  <div class="overlay {{ classes }}" {{ attributes }}>
+    <div class="overlay__backdrop" role="presentation"></div>
+    <div class="overlay__content">
+      {{ caller() }}
+    </div>
+  </div>
+{% endmacro %}

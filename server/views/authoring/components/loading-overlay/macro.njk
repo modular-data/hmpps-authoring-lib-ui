@@ -1,0 +1,15 @@
+{% from "authoring/components/overlay/macro.njk" import overlay %}
+{% from "authoring/components/spinner/macro.njk" import spinner %}
+
+{% macro loadingOverlay({
+  isVisible: false,
+  label: null
+}) %}
+  {% call overlay(isVisible = isVisible) %}
+    {{ spinner() }}
+
+    {% if label %}
+      <p class="loading-overlay__label">{{ label }}</p>
+    {% endif %}
+  {% endcall %}
+{% endmacro %}

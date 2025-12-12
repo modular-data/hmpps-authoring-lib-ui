@@ -1,0 +1,39 @@
+@use '../foundation/base';
+
+.govuk-main-wrapper {
+  min-height: 600px;
+}
+
+.govuk-tag {
+  margin: 0;
+}
+
+.moj-scrollable-pane {
+  .govuk-table__cell {
+    white-space: normal;
+  }
+}
+
+.govuk-tag {
+  margin: 0;
+}
+
+.moj-button-menu {
+  &__wrapper {
+    background-color: base.govuk-colour('light-grey');
+  }
+
+  & .moj-button-menu__item {
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: inherit;
+        color: inherit;
+      }
+    }
+  }
+}

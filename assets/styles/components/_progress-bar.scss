@@ -1,0 +1,60 @@
+@use '../foundation/base';
+@use '../foundation/z-index';
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.1875rem;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: z-index.get-z-index('progress-bar');
+
+  &:before,
+  &:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: base.$govuk-brand-colour;
+    transform-origin: left;
+    will-change: transform;
+    transform: scaleX(0);
+  }
+
+  &:before {
+    animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  }
+
+  &:after {
+    animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+    animation-delay: 1.15s;
+  }
+
+  &--visible {
+    display: block;
+  }
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-35%) scaleX(0.35);
+  }
+
+  60%,
+  100% {
+    transform: translateX(100%) scaleX(1.9);
+  }
+}
+
+@keyframes indeterminate-short {
+  0% {
+    transform: translateX(-200%) scaleX(2);
+  }
+
+  60%,
+  100% {
+    transform: translateX(107%) scaleX(0.01);
+  }
+}
