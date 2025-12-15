@@ -1,6 +1,6 @@
 {
-  "name": "hmpps-authoring-lib-ui",
-  "version": "0.0.1",
+  "name": "@ministryofjustice/hmpps-authoring-lib-ui",
+  "version": "9999.9999.9999",
   "description": "Authoring UI for HMPPS Digital Prison Reporting (DPR), aligned with GOV.UK Design System and MOJ Frontend",
   "repository": {
     "type": "git",
@@ -13,9 +13,11 @@
   },
   "scripts": {
     "prepare": "husky",
+    "setup": "npm ci",
     "watch-ts": "tsc -w",
     "build": "node esbuild/esbuild.config.js --build",
     "build:types": "tsc --project tsconfig.json",
+    "package": "npm run build && npm run build:types",
     "start": "node $NODE_OPTIONS dist/server.js | bunyan -o short",
     "start:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js --build --watch\" \"node esbuild/esbuild.config.js --dev-server\" \"tsc --project tsconfig.json --watch\"",
     "start-feature": " node $NODE_DEBUG_OPTION --env-file=feature.env dist/server.js | bunyan -o short",

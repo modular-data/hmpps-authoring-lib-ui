@@ -150,6 +150,12 @@ import type { DataAccess, Services } from 'hmpps-authoring-lib-ui'
 import type { DataAccessConfig, SupabaseClientConfig } from 'hmpps-authoring-lib-ui'
 ```
 
+## Publishing
+
+This library is published to NPM using the ["Publish package" GitHub action](https://github.com/modular-data/hmpps-authoring-lib-ui/actions/workflows/publish.yml).
+
+**Note on version placeholder**: The `package.json` file uses `9999.9999.9999` as a placeholder version. This is replaced with the actual semantic version during the publish workflow, which bumps the version based on the selected version type (major/feature/bug). This approach follows the same pattern as [hmpps-digital-prison-reporting-frontend](https://github.com/ministryofjustice/hmpps-digital-prison-reporting-frontend).
+
 # Instructions
 
 If this is a HMPPS project then the project will be created as part of bootstrapping -

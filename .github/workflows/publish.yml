@@ -1,0 +1,55 @@
+name: Publish package
+
+on:
+  workflow_dispatch:
+    inputs:
+      version-type:
+        description: 'The semantic version segment to increment'
+        required: true
+        default: feature
+        type: choice
+        options:
+          - major
+          - feature
+          - bug
+
+jobs:
+  publish-package:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22.x'
+
+      # Ensure npm 11.5.1 or later is installed, to support OIDC publishing
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - run: npm run setup
+      - run: npm run package
+
+      - name: Get version
+        id: get-version
+        run: |
+          CURRENT_VERSION=$(npm view @ministryofjustice/hmpps-authoring-lib-ui version)
+          echo "Current version: $CURRENT_VERSION"
+          echo "current_version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Bump version
+        id: bump-version
+        uses: christian-draeger/increment-semantic-version@1.1.0
+        with:
+          current-version: ${{ steps.get-version.outputs.current_version }}
+          version-fragment: ${{ inputs.version-type }}
+
+      - name: Set version
+        run: sed -i -e 's/9999.9999.9999/${{ steps.bump-version.outputs.next-version }}/' package.json
+
+      - name: Publish
+        run: npm publish --access public
