@@ -13,7 +13,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "setup": "npm ci",
+    "setup": "npm ci && hmpps-npm-script-run-allowlist",
     "watch-ts": "tsc -w",
     "build": "node esbuild/esbuild.config.js --build",
     "build:types": "tsc --project tsconfig.json",
@@ -139,6 +139,7 @@
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
     "@ministryofjustice/eslint-config-hmpps": "^0.0.1-beta.2",
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@tsconfig/node22": "^22.0.1",
     "@types/bunyan": "^1.8.11",
     "@types/bunyan-format": "^0.2.9",

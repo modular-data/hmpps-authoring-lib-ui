@@ -1,6 +1,13 @@
 import createHmppsConfig from '@ministryofjustice/eslint-config-hmpps'
 
-const eslintConfig = createHmppsConfig()
+const extraIgnorePaths = ['.history']
+
+const extraPathsAllowingDevDependencies = ['.allowed-scripts.mjs']
+
+const eslintConfig = createHmppsConfig({
+  extraIgnorePaths,
+  extraPathsAllowingDevDependencies,
+})
 
 eslintConfig.push({
   name: 'common-rules',

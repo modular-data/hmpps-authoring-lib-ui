@@ -9,6 +9,7 @@ export class ProgressBar {
 
     if (!progressBarElement) {
       console.warn(`Progress bar element "${SELECTOR}" not found`)
+
       return null
     }
 
