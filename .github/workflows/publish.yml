@@ -37,7 +37,7 @@ jobs:
       - name: Get version
         id: get-version
         run: |
-          CURRENT_VERSION=$(npm view @ministryofjustice/hmpps-authoring-lib-ui version)
+          CURRENT_VERSION=$(npm view @modular-data/hmpps-authoring-lib-ui version)
           echo "Current version: $CURRENT_VERSION"
           echo "current_version=$CURRENT_VERSION" >> "$GITHUB_OUTPUT"
 

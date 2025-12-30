@@ -1,5 +1,5 @@
 {
-  "name": "@ministryofjustice/hmpps-authoring-lib-ui",
+  "name": "@modular-data/hmpps-authoring-lib-ui",
   "version": "9999.9999.9999",
   "description": "Authoring UI for HMPPS Digital Prison Reporting (DPR), aligned with GOV.UK Design System and MOJ Frontend",
   "repository": {
