@@ -165,7 +165,6 @@ the `github_template_repo` attribute to clone without the need to manually do th
 This project is community managed by the mojdt `#typescript` slack channel.
 Please raise any questions or queries there. Contributions welcome!
 
-
 More information about the template project including features can be
 found [here](https://dsdmoj.atlassian.net/wiki/spaces/NDSS/pages/3488677932/Typescript+template+project).
 
