@@ -91,11 +91,11 @@
     ]
   },
   "lint-staged": {
-    "*.{ts,js,css}": [
+    "*.{ts,js,mjs}": [
       "prettier --write",
       "eslint --fix"
     ],
-    "*.json": [
+    "*.{json,css,scss}": [
       "prettier --write"
     ]
   },
