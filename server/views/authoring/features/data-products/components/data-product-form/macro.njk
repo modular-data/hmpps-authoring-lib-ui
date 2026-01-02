@@ -3,164 +3,191 @@
 {% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 {% from "authoring/components/multi-select/macro.njk" import multiSelect %}
 
-{% macro dataProductForm({
-  method: 'POST',
-  formId: null,
-  descriptionMaxLength: 255,
-  formMetadata: null,
-  values: {},
-  errors: {},
-  csrfToken: null,
-  disabled: false,
-  dependentFormSelectors: ''
-}) %}
+{%
+  macro dataProductForm({
+    method: 'POST',
+    formId: null,
+    descriptionMaxLength: 255,
+    formMetadata: null,
+    values: {},
+    errors: {},
+    csrfToken: null,
+    disabled: false,
+    dependentFormSelectors: ''
+  })
+%}
   {% set hrClass = "govuk-section-break govuk-section-break--m govuk-section-break--visible" %}
 
-  <form id="{{ formId }}" method="POST" data-module="app-form-manager" data-dependent-form-selectors="{{ dependentFormSelectors }}">
-    <input type="hidden" name="_method" value="{{ method }}">
+  <form
+    id="{{ formId }}"
+    method="POST"
+    data-module="app-form-manager"
+    data-dependent-form-selectors="{{ dependentFormSelectors }}"
+  >
+    <input type="hidden" name="_method" value="{{ method }}" />
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-        {{ govukInput({
-          name: "name",
-          value: values.name,
-          errorMessage: errors["name"],
-          label: {
-            text: "Product name"
-          },
-          disabled: disabled
-        }) }}
+        {{
+          govukInput({
+            name: "name",
+            value: values.name,
+            errorMessage: errors["name"],
+            label: {
+              text: "Product name"
+            },
+            disabled: disabled
+          })
+        }}
 
-        {{ govukInput({
-          name: "metadata[version]",
-          value: values.metadata.version,
-          errorMessage: errors["metadata[version]"],
-          label: {
-            text: "Version"
-          },
-          disabled: disabled,
-          attributes: {
-            readOnly: true
-          }
-        }) }}
+        {{
+          govukInput({
+            name: "metadata[version]",
+            value: values.metadata.version,
+            errorMessage: errors["metadata[version]"],
+            label: {
+              text: "Version"
+            },
+            disabled: disabled,
+            attributes: {
+              readOnly: true
+            }
+          })
+        }}
 
-        {{ govukInput({
-          name: "domainName",
-          value: values.domainName,
-          errorMessage: (errors["domainName"] or errors["domainId"]),
-          label: {
-            text: "Domain"
-          },
-          disabled: disabled,
-          attributes: {
-            readOnly: true
-          }
-        }) }}
+        {{
+          govukInput({
+            name: "domainName",
+            value: values.domainName,
+            errorMessage: (errors["domainName"] or errors["domainId"]),
+            label: {
+              text: "Domain"
+            },
+            disabled: disabled,
+            attributes: {
+              readOnly: true
+            }
+          })
+        }}
         <input name="domainId" value="{{ values.domainId }}" hidden />
 
-        {{ govukInput({
-          name: "metadata[owner]",
-          value: values.metadata.owner,
-          errorMessage: errors["metadata[owner]"],
-          label: {
-            text: "Owner"
-          },
-          disabled: disabled,
-          attributes: {
-            readOnly: true
-          }
-        }) }}
-        <input name="metadata[author]" value="{{ values.metadata.author}}" hidden>
+        {{
+          govukInput({
+            name: "metadata[owner]",
+            value: values.metadata.owner,
+            errorMessage: errors["metadata[owner]"],
+            label: {
+              text: "Owner"
+            },
+            disabled: disabled,
+            attributes: {
+              readOnly: true
+            }
+          })
+        }}
+        <input name="metadata[author]" value="{{ values.metadata.author }}" hidden />
 
-        {{ govukInput({
-          name: "collaborators",
-          value: '–',
-          label: {
-            text: "Collaborators"
-          },
-          disabled: true
-        }) }}
+        {{
+          govukInput({
+            name: "collaborators",
+            value: '–',
+            label: {
+              text: "Collaborators"
+            },
+            disabled: true
+          })
+        }}
       </div>
     </div>
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <h3 class="govuk-heading-s">Assets</h3>
     {% for key, assetType in ENUMS.AssetType %}
-      {{ multiSelect(
-        name = "assets[" + assetType + "][]",
-        idPrefix = "assets[" + assetType + "]",
-        values = values.assets[assetType],
-        errorMessage = errors["assets[" + assetType + "]"],
-        label = CONSTANTS.assetTypeLabelMap[assetType],
-        items = formMetadata.assetReferencesByType[assetType] | toCheckboxItems,
-        disabled = disabled
-      ) }}
+      {{
+        multiSelect(
+          name = "assets[" + assetType + "][]",
+          idPrefix = "assets[" + assetType + "]",
+          values = values.assets[assetType],
+          errorMessage = errors["assets[" + assetType + "]"],
+          label = CONSTANTS.assetTypeLabelMap[assetType],
+          items = formMetadata.assetReferencesByType[assetType] | toCheckboxItems,
+          disabled = disabled
+        )
+      }}
     {% endfor %}
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <h3 class="govuk-heading-s">Outputs</h3>
     {% for key, outputType in ENUMS.OutputType %}
-      {{ multiSelect(
-        name = "outputs[" + outputType + "][]",
-        idPrefix = "outputs[" + outputType + "]",
-        values = values.outputs[outputType],
-        errorMessage = errors["outputs[" + outputType + "]"],
-        label = CONSTANTS.outputTypeLabelMap[outputType],
-        items = formMetadata.outputReferencesByType[outputType] | toCheckboxItems,
-        disabled = disabled
-      ) }}
+      {{
+        multiSelect(
+          name = "outputs[" + outputType + "][]",
+          idPrefix = "outputs[" + outputType + "]",
+          values = values.outputs[outputType],
+          errorMessage = errors["outputs[" + outputType + "]"],
+          label = CONSTANTS.outputTypeLabelMap[outputType],
+          items = formMetadata.outputReferencesByType[outputType] | toCheckboxItems,
+          disabled = disabled
+        )
+      }}
     {% endfor %}
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <h3 class="govuk-heading-s">Policies</h3>
-    {{ multiSelect(
-      name = 'policies[]',
-      idPrefix = "policies",
-      values = values.policies,
-      errorMessage = errors["policies"],
-      label = 'Policies',
-      items = formMetadata.policies | toCheckboxItems,
-      disabled = disabled
-    ) }}
+    {{
+      multiSelect(
+        name = 'policies[]',
+        idPrefix = "policies",
+        values = values.policies,
+        errorMessage = errors["policies"],
+        label = 'Policies',
+        items = formMetadata.policies | toCheckboxItems,
+        disabled = disabled
+      )
+    }}
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        {{ govukCharacterCount({
-          name: "description",
-          value: values.description,
-          errorMessage: errors["description"],
-          label: {
-            text: "Description"
-          },
-          rows: 4,
-          maxlength: descriptionMaxLength,
-          attributes: {
-            disabled: {
-              value: disabled,
-              optional: true
+        {{
+          govukCharacterCount({
+            name: "description",
+            value: values.description,
+            errorMessage: errors["description"],
+            label: {
+              text: "Description"
+            },
+            rows: 4,
+            maxlength: descriptionMaxLength,
+            attributes: {
+              disabled: {
+                value: disabled,
+                optional: true
+              }
             }
-          }
-        }) }}
+          })
+        }}
       </div>
     </div>
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
-    {{ multiSelect(
-      name = 'tags[]',
-      values = values.tags,
-      errorMessage = errors["tags"],
-      label = 'Tags',
-      items = formMetadata.tags | toCheckboxItems,
-      disabled = disabled
-    ) }}
+    {{
+      multiSelect(
+        name = 'tags[]',
+        values = values.tags,
+        errorMessage = errors["tags"],
+        label = 'Tags',
+        items = formMetadata.tags | toCheckboxItems,
+        disabled = disabled
+      )
+    }}
 
     <input name="_csrf" value="{{ csrfToken }}" hidden />
   </form>

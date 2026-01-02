@@ -1,11 +1,10 @@
 {% extends "authoring/layouts/base.njk" %}
-
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "authoring/components/breadcrumbs/macro.njk" import breadcrumbs %}
 {% from "authoring/components/alerts/macro.njk" import appAlerts %}
 
 {% set pageTitle = pageTitle | default(applicationName + " - " + heading) %}
-{% set breadcrumbItems = breadcrumbItems | default([])  %}
+{% set breadcrumbItems = breadcrumbItems | default([]) %}
 
 {% if errorSummaryList.length %}
   {% set pageTitle = "Error: " + pageTitle %}
@@ -14,7 +13,8 @@
 {% block head %}
   {{ super() }}
 
-  {% block styles %}{% endblock %}
+  {% block styles %}
+  {% endblock %}
 {% endblock %}
 
 {% block beforeContent %}
@@ -23,10 +23,12 @@
 
 {% block content %}
   {% if errorSummaryList.length %}
-    {{ govukErrorSummary({
-      titleText: "There is a problem",
-      errorList: errorSummaryList
-    }) }}
+    {{
+      govukErrorSummary({
+        titleText: "There is a problem",
+        errorList: errorSummaryList
+      })
+    }}
   {% endif %}
 
   <div class="govuk-grid-row">
@@ -35,10 +37,12 @@
         <h1 class="govuk-heading-xl">{{ heading }}</h1>
       {% endif %}
 
-      {% block afterHeadingContent %}{% endblock %}
+      {% block afterHeadingContent %}
+      {% endblock %}
     </div>
     <div class="govuk-grid-column-one-third subpage__actions">
-      {% block actions %}{% endblock %}
+      {% block actions %}
+      {% endblock %}
     </div>
   </div>
 

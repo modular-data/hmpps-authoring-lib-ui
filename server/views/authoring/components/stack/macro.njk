@@ -1,12 +1,12 @@
-{%- macro stack(
-  className = '',
-  classNameContainer = '',
-  spacing = 1,
-  direction = 'row'
-) -%}
+{%-
+  macro stack(
+    className = '',
+    classNameContainer = '',
+    spacing = 1,
+    direction = 'row'
+  )
+-%}
   <div class="stack stack--spacing-{{ spacing }} stack--direction-{{ direction }} {{ className }}">
-    <div class="stack__container {{ classNameContainer }}">
-      {{ caller() }}
-    </div>
+    <div class="stack__container {{ classNameContainer }}">{{ caller() }}</div>
   </div>
 {%- endmacro %}

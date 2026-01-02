@@ -1,14 +1,15 @@
 {% extends "authoring/layouts/subpage.njk" %}
-
 {% from "authoring/features/datasets/components/dataset-form/macro.njk" import datasetForm %}
 {% from "authoring/features/datasets/components/dataset-create-actions/macro.njk" import datasetCreateActions %}
 
 {% set heading = "New Dataset" %}
 
-{% set breadcrumbItems = [
-  { text: "Datasets", href: routeDefinitions.datasets.createUrl() },
-  { text: heading }
-] %}
+{%
+  set breadcrumbItems = [
+    { text: "Datasets", href: routeDefinitions.datasets.createUrl() },
+    { text: heading }
+  ]
+%}
 
 {% block afterHeadingContent %}
   <p class="datasets-create__description">
@@ -19,14 +20,16 @@
 {% block content %}
   {{ super() }}
 
-  {{ datasetForm(
-    formId = form.id,
-    formMetadata = form.metadata,
-    csrfToken = csrfToken,
-    values = form.values,
-    errors = form.errors.fields,
-    dataSourceOptions = form.dataSourceOptions
-  ) }}
+  {{
+    datasetForm(
+      formId = form.id,
+      formMetadata = form.metadata,
+      csrfToken = csrfToken,
+      values = form.values,
+      errors = form.errors.fields,
+      dataSourceOptions = form.dataSourceOptions
+    )
+  }}
 
   {{ datasetCreateActions(actions = actions) }}
 {% endblock %}

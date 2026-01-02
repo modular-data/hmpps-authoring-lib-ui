@@ -1,31 +1,35 @@
 {% extends "authoring/layouts/subpage.njk" %}
-
 {% from "authoring/features/data-products/components/data-product-form/macro.njk" import dataProductForm %}
 {% from "authoring/features/data-products/components/data-product-create-actions/macro.njk" import dataProductCreateActions %}
 
 {% set heading = "New Data Product" %}
 
-{% set breadcrumbItems = [
-  { text: "Data Products", href: routeDefinitions.dataProducts.createUrl() },
-  { text: heading }
-] %}
+{%
+  set breadcrumbItems = [
+    { text: "Data Products", href: routeDefinitions.dataProducts.createUrl() },
+    { text: heading }
+  ]
+%}
 
 {% block afterHeadingContent %}
   <p class="data-products-create__description">
-    Think of a domain as a virtual database. It has some metadata and can contain many tables/views of data. Domain names must be unique within the account. Table names must be unique within a domain.
+    Think of a domain as a virtual database. It has some metadata and can contain many tables/views of data. Domain
+    names must be unique within the account. Table names must be unique within a domain.
   </p>
 {% endblock %}
 
 {% block content %}
   {{ super() }}
 
-  {{ dataProductForm(
-    formId = form.id,
-    formMetadata = form.metadata,
-    csrfToken = csrfToken,
-    values = form.values,
-    errors = form.errors.fields
-  ) }}
+  {{
+    dataProductForm(
+      formId = form.id,
+      formMetadata = form.metadata,
+      csrfToken = csrfToken,
+      values = form.values,
+      errors = form.errors.fields
+    )
+  }}
 
   {{ dataProductCreateActions(actions = actions) }}
 {% endblock %}
