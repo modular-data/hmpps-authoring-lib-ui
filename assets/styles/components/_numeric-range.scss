@@ -1,7 +1,7 @@
 @use '../foundation/base';
 
 .app-numeric-range {
-  @include base.govuk-responsive-margin(6, "bottom");
+  @include base.govuk-responsive-margin(6, 'bottom');
 
   &__inputs {
     display: flex;

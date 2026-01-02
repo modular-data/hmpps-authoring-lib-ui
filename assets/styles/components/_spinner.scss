@@ -1,12 +1,15 @@
-@use "sass:math";
-@use "../foundation/base";
+@use 'sass:math';
+@use '../foundation/base';
 
 $dotsCount: 12;
 $animation-duration: 1200ms;
 $dot-animation-delay-step: math.div($animation-duration, $dotsCount);
 
 @keyframes app-spinner-dot-animation {
-  0%, 20%, 80%, 100% {
+  0%,
+  20%,
+  80%,
+  100% {
     transform: scale(1);
   }
 
@@ -17,7 +20,7 @@ $dot-animation-delay-step: math.div($animation-duration, $dotsCount);
 
 .app-spinner {
   width: 5rem;
-  color: base.govuk-colour("light-blue");
+  color: base.govuk-colour('light-blue');
 
   &__dot {
     fill: currentColor;
