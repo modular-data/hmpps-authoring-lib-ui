@@ -24,7 +24,7 @@ jobs:
         run: npm run typecheck
 
       - name: Run ESLint check
-        run: npm run lint
+        run: npm run lint:check
 
       - name: Run code format check
         run: npm run format:check
