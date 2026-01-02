@@ -1,0 +1,30 @@
+name: PR Code Quality Checks
+
+on: pull_request
+
+jobs:
+  code-quality-checks:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+          cache: 'npm'
+
+      - name: Setup project
+        run: npm run setup
+
+      - name: Run TypeScript type check
+        run: npm run typecheck
+
+      - name: Run ESLint check
+        run: npm run lint:check
+
+      - name: Run code format check
+        run: npm run format:check

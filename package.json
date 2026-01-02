@@ -22,8 +22,10 @@
     "start:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js --build --watch\" \"node esbuild/esbuild.config.js --dev-server\" \"tsc --project tsconfig.json --watch\"",
     "start-feature": " node $NODE_DEBUG_OPTION --env-file=feature.env dist/server.js | bunyan -o short",
     "start-feature:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js  --build --watch \" \"node esbuild/esbuild.config.js --dev-test-server\"",
-    "lint": "eslint . --cache --max-warnings 0",
-    "lint-fix": "eslint . --cache --max-warnings 0 --fix",
+    "lint:check": "eslint . --cache --max-warnings 0",
+    "lint:fix": "eslint . --cache --max-warnings 0 --fix",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "typecheck": "tsc && tsc -p integration_tests",
     "test": "jest",
     "test:ci": "jest --runInBand",
@@ -50,7 +52,7 @@
   ],
   "engines": {
     "node": "^22",
-    "npm": "^11"
+    "npm": ">=10 <12"
   },
   "jest": {
     "transform": {
@@ -89,11 +91,11 @@
     ]
   },
   "lint-staged": {
-    "*.{ts,js,css}": [
+    "*.{ts,js,mjs}": [
       "prettier --write",
       "eslint --fix"
     ],
-    "*.json": [
+    "*.{json,css,scss}": [
       "prettier --write"
     ]
   },
