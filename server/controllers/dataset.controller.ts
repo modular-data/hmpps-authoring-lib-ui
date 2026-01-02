@@ -4,6 +4,7 @@ import { type Services } from '../services'
 import { FlashKey } from '../types/flash'
 import { createErrorAlert, createSuccessAlert } from '../utils/alerts'
 import { isJsonRequest } from '../utils/is-json-request'
+import { logger } from '../logger'
 import { DatasetAction } from '../types/entities/dataset'
 import { DatasetsPagePresenter } from '../presenters/datasets/datasets-page'
 import { DatasetPagePresenter } from '../presenters/datasets/dataset-page'
@@ -149,7 +150,7 @@ export class DatasetController {
       })
     } catch (error) {
       // TODO: Prototype: Improve error handling and logging
-      console.error(error)
+      logger.error(error)
       res.redirect(303, routeDefinitions.datasets.createUrl())
     }
   }
@@ -180,7 +181,7 @@ export class DatasetController {
 
       res.redirect(303, previewUrl)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       const errorMessage = 'Something went wrong while preparing your preview. Please try again.'
 
       req.flash(FlashKey.Alerts, [createErrorAlert({ text: errorMessage })])
@@ -208,7 +209,7 @@ export class DatasetController {
     } catch (error) {
       const errorMessage = 'Something went wrong while approving & publishing the dataset. Please try again.'
 
-      console.error(error)
+      logger.error(error)
       req.flash(FlashKey.Alerts, createErrorAlert({ text: errorMessage }))
     } finally {
       res.redirect(303, redirectUrl)

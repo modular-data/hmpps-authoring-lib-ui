@@ -4,6 +4,7 @@ import { type Services } from '../services'
 import { FlashKey } from '../types/flash'
 import { createErrorAlert, createSuccessAlert } from '../utils/alerts'
 import { isJsonRequest } from '../utils/is-json-request'
+import { logger } from '../logger'
 import { DataProductAction } from '../types/entities/data-product'
 import { DataProductsPagePresenter } from '../presenters/data-products/data-products-page'
 import { DataProductPagePresenter } from '../presenters/data-products/data-product-page'
@@ -37,7 +38,7 @@ export class DataProductController {
       res.render('authoring/features/data-products/pages/index', presenter.present())
     } catch (error) {
       // TODO: MOJ-45 | Implement basic error handling
-      console.error(error)
+      logger.error(error)
 
       next(error)
     }
@@ -155,7 +156,7 @@ export class DataProductController {
         errorSummaryList: [],
       })
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       res.redirect(303, routeDefinitions.dataProducts.createUrl())
     }
   }
@@ -186,7 +187,7 @@ export class DataProductController {
 
       res.redirect(303, previewUrl)
     } catch (error) {
-      console.error(error)
+      logger.error(error)
       const errorMessage = 'Something went wrong while preparing your preview. Please try again.'
 
       req.flash(FlashKey.Alerts, [createErrorAlert({ text: errorMessage })])
@@ -214,7 +215,7 @@ export class DataProductController {
     } catch (error) {
       const errorMessage = 'Something went wrong while approving & publishing the data product. Please try again.'
 
-      console.error(error)
+      logger.error(error)
       req.flash(FlashKey.Alerts, createErrorAlert({ text: errorMessage }))
     } finally {
       res.redirect(303, redirectUrl)

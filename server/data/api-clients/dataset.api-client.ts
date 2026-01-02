@@ -305,8 +305,6 @@ export class DatasetApiClient {
       throw new Error(`Failed to update dataset: ${updateError?.message ?? 'Unknown error'}`)
     }
 
-    const updated = updatedDataset as SupabaseDatasetRow
-
     if (data.tags !== undefined) {
       try {
         await this.supabaseClient.from(DatasetApiClient.TAGS_TABLE_NAME).delete().eq('dataset_id', data.id)
@@ -489,7 +487,7 @@ export class DatasetApiClient {
       DatasetApiClient.parser.astify(sql)
 
       return null
-    } catch (error) {
+    } catch {
       return 'The SQL query is incorrect.'
     }
   }
