@@ -30,21 +30,23 @@
 
 {% set levelText = _getLevelText(level) %}
 
-{% set rootClasses = classNames(
-  "quality-metric-widget",
-  level and ("quality-metric-widget--level-" + level)
-) %}
+{%
+  set rootClasses = classNames(
+    "quality-metric-widget",
+    level and ("quality-metric-widget--level-" + level)
+  )
+%}
 
 <div class="{{ rootClasses }}" aria-label="{{ name }} quality metric">
-  <h3 class="quality-metric-widget__quality govuk-heading-m">
-    <strong>{{ levelText | upper }}</strong> quality
-  </h3>
+  <h3 class="quality-metric-widget__quality govuk-heading-m"><strong>{{ levelText | upper }}</strong> quality</h3>
   <p class="quality-metric-widget__name">
     {% if value %}
-      {{ mojBadge({
-        text: value | formatPercents,
-        classes: "quality-metric-widget__badge moj-badge--grey"
-      }) }}
+      {{
+        mojBadge({
+          text: value | formatPercents,
+          classes: "quality-metric-widget__badge moj-badge--grey"
+        })
+      }}
     {% endif %}
     {{ name }}
   </p>

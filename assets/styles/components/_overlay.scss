@@ -11,13 +11,15 @@
   z-index: z-index.get-z-index('overlay');
   opacity: 0;
   visibility: hidden;
-  transition: visibility animations.$animation-time, opacity animations.$animation-time;
+  transition:
+    visibility animations.$animation-time,
+    opacity animations.$animation-time;
 
   &__backdrop {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: rgba(base.govuk-colour("white"), 0.5);
+    background: rgba(base.govuk-colour('white'), 0.5);
   }
 
   &__content {
@@ -30,7 +32,7 @@
     height: 100%;
   }
 
-  &[data-visible="true"] {
+  &[data-visible='true'] {
     opacity: 1;
     visibility: visible;
   }

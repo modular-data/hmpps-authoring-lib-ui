@@ -1,8 +1,10 @@
 {%- from "moj/components/alert/macro.njk" import mojAlert -%}
 
-{% macro appAlerts({
-  alerts: []
-}) %}
+{%
+  macro appAlerts({
+    alerts: []
+  })
+%}
   {% for alert in alerts %}
     {{ mojAlert(alert) }}
   {% endfor %}

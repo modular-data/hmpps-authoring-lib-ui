@@ -1,4 +1,5 @@
 import { ProgressBar } from '../../../components/progress-bar.mjs'
+import { logger } from '../../../utils/logger.mjs'
 
 const getPreviewNewTabInitialContent = () => {
   const template = document.getElementById('data-product-preview-loading-page-template')
@@ -43,7 +44,7 @@ const handlePreviewFormSubmit = async event => {
     newTab.location = data.redirectUrl
     newTab.focus()
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     newTab.close()
     window.focus()
   } finally {

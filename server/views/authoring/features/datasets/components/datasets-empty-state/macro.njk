@@ -1,31 +1,39 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "authoring/components/empty-state/macro.njk" import emptyState %}
 
-{% macro datasetsEmptyState({
-  hasUserQuery: false,
-  createDatasetText: 'Create Dataset',
-  routeDefinitions: null
-}) %}
-  {% set body %} No Datasets available. Click '{{ createDatasetText }}' button to get started. {% endset %}
+{%
+  macro datasetsEmptyState({
+    hasUserQuery: false,
+    createDatasetText: 'Create Dataset',
+    routeDefinitions: null
+  })
+%}
+  {% set body %}No Datasets available. Click '{{ createDatasetText }}' button to get started.{% endset %}
 
-  {% set actions = govukButton({
-    text: createDatasetText,
-    href: routeDefinitions.datasetsCreate.createUrl()
-  }) %}
+  {%
+    set actions = govukButton({
+      text: createDatasetText,
+      href: routeDefinitions.datasetsCreate.createUrl()
+    })
+  %}
 
   {% if hasUserQuery %}
     {% set body = "No matches to your query. Try refining your search or clearing filters." %}
 
-    {% set actions = actions ~ govukButton({
-      classes: "govuk-button--secondary",
-      text: "Clear query parameters",
-      href: routeDefinitions.datasets.createUrl()
-    }) %}
+    {%
+      set actions = actions ~ govukButton({
+        classes: "govuk-button--secondary",
+        text: "Clear query parameters",
+        href: routeDefinitions.datasets.createUrl()
+      })
+    %}
   {% endif %}
 
-  {{ emptyState(
-    body = body,
-    actions = actions | safe,
-    heading = 'No Datasets found'
-  ) }}
+  {{
+    emptyState(
+      body = body,
+      actions = actions | safe,
+      heading = 'No Datasets found'
+    )
+  }}
 {% endmacro %}

@@ -5,107 +5,131 @@
 {%- from "authoring/components/date-range-picker/macro.njk" import appDateRangePicker -%}
 {%- from "authoring/components/hidden-inputs/macro.njk" import hiddenInputs -%}
 
-{% macro datasetsFilter({
-  options: null,
-  values: null,
-  selectedFiltersCategories: [],
-  clearFiltersHref: '',
-  hiddenInputFields: []
-}) %}
+{%
+  macro datasetsFilter({
+    options: null,
+    values: null,
+    selectedFiltersCategories: [],
+    clearFiltersHref: '',
+    hiddenInputFields: []
+  })
+%}
   {% set hrClass = "govuk-section-break govuk-section-break--m govuk-section-break--visible" %}
 
+
   {% set datesHtml %}
-    {{ appDateRangePicker(
-      name = 'filters[createdAt]',
-      label = 'Created Date',
-      from = { value: values.createdAt.from },
-      to = { value: values.createdAt.to }
-    ) }}
-    {{ appDateRangePicker(
-      name = 'filters[updatedAt]',
-      label = 'Modified Date',
-      from = { value: values.updatedAt.from },
-      to = { value: values.updatedAt.to }
-    ) }}
-    {{ appDateRangePicker(
-      name = 'filters[previewedAt]',
-      label = 'Previewed Date',
-      from = { value: values.previewedAt.from },
-      to = { value: values.previewedAt.to }
-    ) }}
+    {{
+      appDateRangePicker(
+        name = 'filters[createdAt]',
+        label = 'Created Date',
+        from = { value: values.createdAt.from },
+        to = { value: values.createdAt.to }
+      )
+    }}
+    {{
+      appDateRangePicker(
+        name = 'filters[updatedAt]',
+        label = 'Modified Date',
+        from = { value: values.updatedAt.from },
+        to = { value: values.updatedAt.to }
+      )
+    }}
+    {{
+      appDateRangePicker(
+        name = 'filters[previewedAt]',
+        label = 'Previewed Date',
+        from = { value: values.previewedAt.from },
+        to = { value: values.previewedAt.to }
+      )
+    }}
   {% endset %}
 
+
   {% set filterOptionsHtml %}
-    {{ govukInput({
-      name: "filters[search]",
-      value: values.search,
-      label: {
-        text: "Search",
-        classes: "govuk-label--s"
-      }
-    }) }}
+    {{
+      govukInput({
+        name: "filters[search]",
+        value: values.search,
+        label: {
+          text: "Search",
+          classes: "govuk-label--s"
+        }
+      })
+    }}
 
-    {{ govukInput({
-      name: "filters[owner]",
-      value: values.owner,
-      label: {
-        text: "Owner",
-        classes: "govuk-label--s"
-      }
-    }) }}
+    {{
+      govukInput({
+        name: "filters[owner]",
+        value: values.owner,
+        label: {
+          text: "Owner",
+          classes: "govuk-label--s"
+        }
+      })
+    }}
 
-    {{ govukInput({
-      name: "filters[version]",
-      value: values.version,
-      label: {
-        text: "Version",
-        classes: "govuk-label--s"
-      }
-    }) }}
+    {{
+      govukInput({
+        name: "filters[version]",
+        value: values.version,
+        label: {
+          text: "Version",
+          classes: "govuk-label--s"
+        }
+      })
+    }}
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
-    {{ multiSelect(
-      name = 'filters[states][]',
-      values = values.states,
-      label = 'States',
-      items = options.states
-    ) }}
+    {{
+      multiSelect(
+        name = 'filters[states][]',
+        values = values.states,
+        label = 'States',
+        items = options.states
+      )
+    }}
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
-    {{ multiSelect(
-      name = 'filters[tags][]',
-      values = values.tags,
-      label = 'Tags',
-      items = options.tags
-    ) }}
+    {{
+      multiSelect(
+        name = 'filters[tags][]',
+        values = values.tags,
+        label = 'Tags',
+        items = options.tags
+      )
+    }}
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
-    {{ govukDetails({
-      summaryText: "Dates",
-      html: datesHtml
-    }) }}
+    {{
+      govukDetails({
+        summaryText: "Dates",
+        html: datesHtml
+      })
+    }}
   {% endset %}
 
   <form>
-    {{ mojFilter({
-      heading: {
-        text: "Filter"
-      },
-      selectedFilters: {
+    {{
+      mojFilter({
         heading: {
-          text: 'Selected filters'
+          text: "Filter"
         },
-        clearLink: {
-          text: 'Clear filters',
-          href: clearFiltersHref
-        },
-        categories: selectedFiltersCategories
-      } if selectedFiltersCategories | length,
-      optionsHtml: filterOptionsHtml
-    }) }}
+        selectedFilters: {
+          heading: {
+            text: 'Selected filters'
+          },
+          clearLink: {
+            text: 'Clear filters',
+            href: clearFiltersHref
+          },
+          categories: selectedFiltersCategories
+        } if selectedFiltersCategories | length,
+        optionsHtml: filterOptionsHtml
+      })
+    }}
 
     {{ hiddenInputs(fields = hiddenInputFields) }}
   </form>

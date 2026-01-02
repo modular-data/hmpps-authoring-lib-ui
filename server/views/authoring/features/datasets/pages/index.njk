@@ -1,5 +1,4 @@
 {% extends "authoring/layouts/subpage.njk" %}
-
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "moj/components/button-menu/macro.njk" import mojButtonMenu %}
 {% from "moj/components/pagination/macro.njk" import mojPagination %}
@@ -15,14 +14,16 @@
 {% set createDatasetText = 'Create Dataset' %}
 
 {% block styles %}
-  <link href="{{ '/assets/styles/features/datasets/pages/index.entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+  <link href="{{ '/assets/styles/features/datasets/pages/index.entry.css' | authoringAssetMap }}" rel="stylesheet" />
 {% endblock %}
 
 {% block actions %}
-  {{ govukButton({
-    text: createDatasetText,
-    href: routeDefinitions.datasetsCreate.createUrl()
-  }) }}
+  {{
+    govukButton({
+      text: createDatasetText,
+      href: routeDefinitions.datasetsCreate.createUrl()
+    })
+  }}
 {% endblock %}
 
 {% block content %}
@@ -30,47 +31,55 @@
 
   <div class="moj-filter-layout">
     <div class="moj-filter-layout__filter">
-      {{ datasetsFilter(
-        options = filterOptions,
-        values = filterValues,
-        selectedFiltersCategories = selectedFiltersCategories,
-        clearFiltersHref = clearFiltersHref,
-        hiddenInputFields = filterHiddenInputFields
-      ) }}
+      {{
+        datasetsFilter(
+          options = filterOptions,
+          values = filterValues,
+          selectedFiltersCategories = selectedFiltersCategories,
+          clearFiltersHref = clearFiltersHref,
+          hiddenInputFields = filterHiddenInputFields
+        )
+      }}
     </div>
 
     <div class="moj-filter-layout__content">
       <div class="moj-action-bar">
         <div class="moj-action-bar__filter"></div>
 
-        {{ mojButtonMenu({
-          button: {
-            text: "More actions",
-            classes: "govuk-button--secondary"
-          },
-          items: [
-            {
-              text: "Toggle Fullscreen"
-            }
-          ]
-        }) }}
+        {{
+          mojButtonMenu({
+            button: {
+              text: "More actions",
+              classes: "govuk-button--secondary"
+            },
+            items: [
+              {
+                text: "Toggle Fullscreen"
+              }
+            ]
+          })
+        }}
       </div>
 
-      {{ columnPickerForm(
-        items = columnPickerItems,
-        values = columnPickerValues,
-        resetHref = columnPickerResetHref,
-        hiddenInputFields = columnPickerHiddenInputFields
-      ) }}
+      {{
+        columnPickerForm(
+          items = columnPickerItems,
+          values = columnPickerValues,
+          resetHref = columnPickerResetHref,
+          hiddenInputFields = columnPickerHiddenInputFields
+        )
+      }}
 
       {{ datasetsTable(table) }}
 
       {% if not table.rows.length %}
-        {{ datasetsEmptyState(
-          createDatasetText = createDatasetText,
-          hasUserQuery = hasUserQuery,
-          routeDefinitions = routeDefinitions
-        ) }}
+        {{
+          datasetsEmptyState(
+            createDatasetText = createDatasetText,
+            hasUserQuery = hasUserQuery,
+            routeDefinitions = routeDefinitions
+          )
+        }}
       {% endif %}
     </div>
   </div>

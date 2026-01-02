@@ -8,137 +8,160 @@
 
 {# TODO: Prototype: Fully review this file after first priority tasks #}
 
-{% macro datasetForm({
-  method: 'POST',
-  formId: null,
-  descriptionMaxLength: 255,
-  formMetadata: null,
-  values: {},
-  errors: {},
-  csrfToken: null,
-  disabled: false,
-  dependentFormSelectors: '',
-  dataSourceOptions: []
-}) %}
+{%
+  macro datasetForm({
+    method: 'POST',
+    formId: null,
+    descriptionMaxLength: 255,
+    formMetadata: null,
+    values: {},
+    errors: {},
+    csrfToken: null,
+    disabled: false,
+    dependentFormSelectors: '',
+    dataSourceOptions: []
+  })
+%}
   {% set hrClass = "govuk-section-break govuk-section-break--m govuk-section-break--visible" %}
 
-  <form id="{{ formId }}" method="POST" data-module="app-form-manager" data-dependent-form-selectors="{{ dependentFormSelectors }}">
-    <input type="hidden" name="_method" value="{{ method }}">
+  <form
+    id="{{ formId }}"
+    method="POST"
+    data-module="app-form-manager"
+    data-dependent-form-selectors="{{ dependentFormSelectors }}"
+  >
+    <input type="hidden" name="_method" value="{{ method }}" />
 
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-third">
-        {{ govukInput({
-          name: "name",
-          value: values.name,
-          errorMessage: errors["name"],
-          label: {
-            text: "Dataset name"
-          },
-          disabled: disabled
-        }) }}
+        {{
+          govukInput({
+            name: "name",
+            value: values.name,
+            errorMessage: errors["name"],
+            label: {
+              text: "Dataset name"
+            },
+            disabled: disabled
+          })
+        }}
 
-        {{ govukInput({
-          name: "metadata[version]",
-          value: values.metadata.version,
-          errorMessage: errors["metadata[version]"],
-          label: {
-            text: "Version"
-          },
-          disabled: disabled,
-          attributes: {
-            readOnly: true
-          }
-        }) }}
-
-        {{ govukInput({
-          name: "domainName",
-          value: values.domainName,
-          errorMessage: (errors["domainName"] or errors["domainId"]),
-          label: {
-            text: "Domain"
-          },
-          disabled: disabled,
-          attributes: {
-            readOnly: true
-          }
-        }) }}
-        <input name="domainId" value="{{ values.domainId }}" hidden/>
-
-        {{ govukInput({
-          name: "metadata[owner]",
-          value: values.metadata.owner,
-          errorMessage: errors["metadata.owner"],
-          label: {
-            text: "Owner"
-          },
-          disabled: disabled,
-          attributes: {
-            readOnly: true
-          }
-        }) }}
-
-        {{ govukSelect({
-          name: "dataSourceId",
-          label: {
-            text: "Data Source"
-          },
-          items: dataSourceOptions,
-          errorMessage: errors["dataSourceId"],
-          disabled: disabled
-        }) }}
-      </div>
-    </div>
-
-    <hr class="{{ hrClass }}">
-
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        {{ govukCharacterCount({
-          name: "description",
-          value: values.description,
-          errorMessage: errors["description"],
-          label: {
-            text: "Description"
-          },
-          rows: 4,
-          maxlength: descriptionMaxLength,
-          attributes: {
-            disabled: {
-              value: disabled,
-              optional: true
+        {{
+          govukInput({
+            name: "metadata[version]",
+            value: values.metadata.version,
+            errorMessage: errors["metadata[version]"],
+            label: {
+              text: "Version"
+            },
+            disabled: disabled,
+            attributes: {
+              readOnly: true
             }
-          }
-        }) }}
+          })
+        }}
+
+        {{
+          govukInput({
+            name: "domainName",
+            value: values.domainName,
+            errorMessage: (errors["domainName"] or errors["domainId"]),
+            label: {
+              text: "Domain"
+            },
+            disabled: disabled,
+            attributes: {
+              readOnly: true
+            }
+          })
+        }}
+        <input name="domainId" value="{{ values.domainId }}" hidden />
+
+        {{
+          govukInput({
+            name: "metadata[owner]",
+            value: values.metadata.owner,
+            errorMessage: errors["metadata.owner"],
+            label: {
+              text: "Owner"
+            },
+            disabled: disabled,
+            attributes: {
+              readOnly: true
+            }
+          })
+        }}
+
+        {{
+          govukSelect({
+            name: "dataSourceId",
+            label: {
+              text: "Data Source"
+            },
+            items: dataSourceOptions,
+            errorMessage: errors["dataSourceId"],
+            disabled: disabled
+          })
+        }}
       </div>
     </div>
 
-    <hr class="{{ hrClass }}">
-
-    {{ multiSelect(
-      name = 'tags[]',
-      values = values.tags,
-      errorMessage = errors["tags"],
-      label = 'Tags',
-      items = formMetadata.tags | toCheckboxItems,
-      disabled = disabled
-    ) }}
-
-    <hr class="{{ hrClass }}">
+    <hr class="{{ hrClass }}" />
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        {{ sqlEditor({
-          name: "query",
-          label: "Query",
-          value: values.query,
-          errorMessage: errors["query"],
-          disabled: disabled
-        }) }}
+        {{
+          govukCharacterCount({
+            name: "description",
+            value: values.description,
+            errorMessage: errors["description"],
+            label: {
+              text: "Description"
+            },
+            rows: 4,
+            maxlength: descriptionMaxLength,
+            attributes: {
+              disabled: {
+                value: disabled,
+                optional: true
+              }
+            }
+          })
+        }}
       </div>
     </div>
 
-    <input name="_csrf" value="{{ csrfToken }}" hidden/>
+    <hr class="{{ hrClass }}" />
+
+    {{
+      multiSelect(
+        name = 'tags[]',
+        values = values.tags,
+        errorMessage = errors["tags"],
+        label = 'Tags',
+        items = formMetadata.tags | toCheckboxItems,
+        disabled = disabled
+      )
+    }}
+
+    <hr class="{{ hrClass }}" />
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        {{
+          sqlEditor({
+            name: "query",
+            label: "Query",
+            value: values.query,
+            errorMessage: errors["query"],
+            disabled: disabled
+          })
+        }}
+      </div>
+    </div>
+
+    <input name="_csrf" value="{{ csrfToken }}" hidden />
   </form>
 {% endmacro %}

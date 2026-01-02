@@ -1,13 +1,14 @@
 {% extends "govuk/template.njk" %}
-
 {% from "authoring/components/service-navigation/macro.njk" import serviceNavigation %}
 {% from "authoring/components/progress-bar/macro.njk" import progressBar %}
 
 {% block head %}
-  <link href="{{ '/assets/styles/main.entry.css' | authoringAssetMap }}" rel="stylesheet"/>
+  <link href="{{ '/assets/styles/main.entry.css' | authoringAssetMap }}" rel="stylesheet" />
 {% endblock %}
 
-{% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
+{% block pageTitle %}
+  {{ pageTitle | default(applicationName) }}
+{% endblock pageTitle %}
 
 {% block header %}
   {% include "authoring/partials/header.njk" %}

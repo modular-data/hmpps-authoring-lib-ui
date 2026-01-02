@@ -7,13 +7,15 @@
 {% set govukTableClasses = classNames("govuk-table--small-text-until-tablet", classes) %}
 
 <div class="moj-scrollable-pane">
-  {{ govukTable({
-    classes: govukTableClasses,
-    firstCellIsHeader: true,
-    attributes: {
-      "data-module": "app-server-side-sortable-table"
-    },
-    head: head,
-    rows: rows | fallbackTableEmptyCells
-  }) }}
+  {{
+    govukTable({
+      classes: govukTableClasses,
+      firstCellIsHeader: true,
+      attributes: {
+        "data-module": "app-server-side-sortable-table"
+      },
+      head: head,
+      rows: rows | fallbackTableEmptyCells
+    })
+  }}
 </div>

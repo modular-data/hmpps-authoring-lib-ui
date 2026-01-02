@@ -1,10 +1,12 @@
 {%- from "govuk/components/button/macro.njk" import govukButton %}
 {%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
 
-{% macro dataProductActions({
-  actions: null,
-  csrfToken: null
-}) %}
+{%
+  macro dataProductActions({
+    actions: null,
+    csrfToken: null
+  })
+%}
   <form id="{{ actions.actionsFormId }}" method="post">
     <input name="_csrf" value="{{ csrfToken }}" hidden />
   </form>
@@ -12,12 +14,14 @@
   <div class="moj-button-group">
     {{ govukButton(actions.primaryAction) }}
 
-    {{ mojButtonMenu({
-      button: {
-        text: "More actions",
-        classes: "govuk-button--secondary"
-      },
-      items: actions.secondaryActions
-    }) }}
+    {{
+      mojButtonMenu({
+        button: {
+          text: "More actions",
+          classes: "govuk-button--secondary"
+        },
+        items: actions.secondaryActions
+      })
+    }}
   </div>
 {% endmacro %}

@@ -3,36 +3,45 @@
 
 {# TODO: Prototype: Fully review this file after first priority tasks #}
 
-{% macro sqlEditor({
-  name: '',
-  id: null,
-  label: '',
-  value: null,
-  errorMessage: null,
-  disabled: false
-}) %}
+{%
+  macro sqlEditor({
+    name: '',
+    id: null,
+    label: '',
+    value: null,
+    errorMessage: null,
+    disabled: false
+  })
+%}
   {% set fieldId = id or name %}
   {% set errorId = fieldId + "-error" %}
   {% set hasError = errorMessage is defined and errorMessage is not null %}
 
   <div class="govuk-form-group {{ 'govuk-form-group--error' if hasError }}">
-    {{ govukLabel({
-      for: fieldId,
-      text: label
-    }) }}
+    {{
+      govukLabel({
+        for: fieldId,
+        text: label
+      })
+    }}
     {% if hasError %}
-      {{ govukErrorMessage({
-        id: errorId,
-        text: errorMessage.text
-      }) }}
+      {{
+        govukErrorMessage({
+          id: errorId,
+          text: errorMessage.text
+        })
+      }}
     {% endif %}
     <div class="sql-editor-container" data-disabled="{{ 'true' if disabled else 'false' }}">
+      {# prettier-ignore-start #}
       <textarea
         id="{{ fieldId }}"
         name="{{ name }}"
-        class="govuk-visually-hidden"
-        {% if disabled %}disabled{% endif %}
-      >{{ value or '' }}</textarea>
+        class="govuk-visually-hidden" {% if disabled %}disabled{% endif %}
+      >
+        {{ value or '' }}
+      </textarea>
+      {# prettier-ignore-end #}
       <div class="sql-editor" id="sql-editor-{{ fieldId }}"></div>
     </div>
   </div>

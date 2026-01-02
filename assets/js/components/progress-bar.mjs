@@ -1,3 +1,5 @@
+import { logger } from '../utils/logger.mjs'
+
 const SELECTOR = '.progress-bar'
 const VISIBLE_CLASS = 'progress-bar--visible'
 
@@ -8,7 +10,7 @@ export class ProgressBar {
     const progressBarElement = document.querySelector(SELECTOR)
 
     if (!progressBarElement) {
-      console.warn(`Progress bar element "${SELECTOR}" not found`)
+      logger.warn(`Progress bar element "${SELECTOR}" not found`)
 
       return null
     }

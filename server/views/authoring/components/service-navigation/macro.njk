@@ -1,8 +1,9 @@
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% macro serviceNavigation(serviceNavigationItems) %}
-  {{ govukServiceNavigation({
-    navigation: serviceNavigationItems
-  }) }}
+  {{
+    govukServiceNavigation({
+      navigation: serviceNavigationItems
+    })
+  }}
 {% endmacro %}
-

@@ -4,20 +4,23 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro multiSelect({
-  name: '',
-  idPrefix: null,
-  label: '',
-  summaryText: '(%{count} of %{total} selected)',
-  items: [],
-  values: [],
-  errorMessage: null,
-  disabled: false,
-  detailsOptions: {},
-  slots: {}
-}) %}
+{%
+  macro multiSelect({
+    name: '',
+    idPrefix: null,
+    label: '',
+    summaryText: '(%{count} of %{total} selected)',
+    items: [],
+    values: [],
+    errorMessage: null,
+    disabled: false,
+    detailsOptions: {},
+    slots: {}
+  })
+%}
   {% set moduleName = 'app-multi-select' %}
   {% set errorMessageId = name + '--error' %}
+
 
   {% set detailsSummaryHtml %}
     <span>
@@ -26,48 +29,57 @@
     </span>
   {% endset %}
 
+
   {% set detailsHtml %}
-    {% call govukFieldset({
-      classes: moduleName + "__fieldset",
-      legend: {
-        classes: "govuk-fieldset__legend--s",
-        text: "Select " + label
-      },
-      describedBy: errorMessageId if errorMessage,
-      attributes: {
-        disabled: {
-          value: disabled,
-          optional: true
+    {%
+      call govukFieldset({
+        classes: moduleName + "__fieldset",
+        legend: {
+          classes: "govuk-fieldset__legend--s",
+          text: "Select " + label
+        },
+        describedBy: errorMessageId if errorMessage,
+        attributes: {
+          disabled: {
+            value: disabled,
+            optional: true
+          }
         }
-      }
-    }) %}
+      })
+    %}
       {% if errorMessage %}
-        {{ govukErrorMessage({
-          id: errorMessageId,
-          text: errorMessage.text
-        }) }}
+        {{
+          govukErrorMessage({
+            id: errorMessageId,
+            text: errorMessage.text
+          })
+        }}
       {% endif %}
 
-      {{ govukInput({
-        formGroup: {
-          classes: moduleName + "__search-text-input"
-        },
-        label: {
-          text: "Search"
-        }
-      }) }}
+      {{
+        govukInput({
+          formGroup: {
+            classes: moduleName + "__search-text-input"
+          },
+          label: {
+            text: "Search"
+          }
+        })
+      }}
 
       {% if items.length %}
-        {{ govukCheckboxes({
-          classes: classNames("govuk-checkboxes--small", moduleName + "__checkboxes"),
-          name: name,
-          idPrefix: idPrefix,
-          formGroup: {
-            classes: moduleName + "__form-group"
-          },
-          items: items,
-          values: values
-        }) }}
+        {{
+          govukCheckboxes({
+            classes: classNames("govuk-checkboxes--small", moduleName + "__checkboxes"),
+            name: name,
+            idPrefix: idPrefix,
+            formGroup: {
+              classes: moduleName + "__form-group"
+            },
+            items: items,
+            values: values
+          })
+        }}
       {% endif %}
 
       <p
@@ -81,14 +93,16 @@
     {{ slots.afterFieldset }}
   {% endset %}
 
-  {{ govukDetails({
-    classes: classNames(moduleName, errorMessage and (moduleName + '--error')),
-    summaryHtml: detailsSummaryHtml,
-    html: detailsHtml,
-    open: true if errorMessage,
-    attributes: {
-      "data-module": moduleName,
-      "data-i18n.summary.other": summaryText
-    }
-  } | merge(detailsOptions)) }}
+  {{
+    govukDetails({
+      classes: classNames(moduleName, errorMessage and (moduleName + '--error')),
+      summaryHtml: detailsSummaryHtml,
+      html: detailsHtml,
+      open: true if errorMessage,
+      attributes: {
+        "data-module": moduleName,
+        "data-i18n.summary.other": summaryText
+      }
+    } | merge(detailsOptions))
+  }}
 {% endmacro %}

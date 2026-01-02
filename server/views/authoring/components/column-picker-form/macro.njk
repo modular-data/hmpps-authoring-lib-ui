@@ -2,19 +2,23 @@
 {% from "authoring/components/multi-select/macro.njk" import multiSelect %}
 {% from "authoring/components/hidden-inputs/macro.njk" import hiddenInputs %}
 
-{% macro columnPickerForm({
-  items: [],
-  values: {},
-  resetHref: null,
-  hiddenInputFields: []
-}) %}
+{%
+  macro columnPickerForm({
+    items: [],
+    values: {},
+    resetHref: null,
+    hiddenInputFields: []
+  })
+%}
   {% set actions %}
     <div class="govuk-button-group">
-      {{ govukButton({
-        text: "Apply columns",
-        type: "submit",
-        preventDoubleClick: true
-      }) }}
+      {{
+        govukButton({
+          text: "Apply columns",
+          type: "submit",
+          preventDoubleClick: true
+        })
+      }}
 
       {% if resetHref %}
         <a class="govuk-link" href="{{ resetHref }}">Reset columns</a>
@@ -23,15 +27,17 @@
   {% endset %}
 
   <form>
-    {{ multiSelect(
-      name = 'columns[]',
-      label = 'Columns',
-      values = values,
-      items = items,
-      slots = {
-        afterFieldset: actions | safe
-      }
-    ) }}
+    {{
+      multiSelect(
+        name = 'columns[]',
+        label = 'Columns',
+        values = values,
+        items = items,
+        slots = {
+          afterFieldset: actions | safe
+        }
+      )
+    }}
 
     <input name="columnPickerApplied" value="true" hidden />
 
