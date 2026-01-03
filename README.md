@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/@modular-data/hmpps-authoring-lib-ui)](https://www.npmjs.com/package/@modular-data/hmpps-authoring-lib-ui)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-> **Embeddable Express router and Nunjucks views for authoring Data Products and Datasets in HMPPS Digital Prison Reporting (DPR).**
+> **Embeddable UI module that simplifies Data Product Definitions (DPD) creation in HMPPS Digital Prison Reporting.**
 >
 > Aligned with GOV.UK Design System and MOJ Frontend.
 
@@ -15,7 +15,7 @@
 - [Quick Start](#-quick-start)
 - [Requirements](#-requirements)
 - [API Reference](#-api-reference)
-- [TypeScript Support](#-typescript-support)
+- [Types](#-types)
 - [Publishing](#-publishing)
 - [Development](#-development)
 
@@ -59,13 +59,13 @@ import {
   configureNunjucksFilters,
 } from '@modular-data/hmpps-authoring-lib-ui'
 
-const njkEnv = nunjucks.configure([
-  getViewsPath(), // Add authoring views
+const nunjucksEnvironment = nunjucks.configure([
   // ...your other view paths
+  getViewsPath(), // Add Authoring views
 ])
 
-configureNunjucksGlobals(njkEnv)
-configureNunjucksFilters(njkEnv)
+configureNunjucksGlobals(nunjucksEnvironment)
+configureNunjucksFilters(nunjucksEnvironment)
 ```
 
 ### 4️⃣ Serve Static Assets
@@ -81,136 +81,150 @@ router.use('/assets', express.static(getAssetsPath()))
 ```typescript
 import { createRouter } from '@modular-data/hmpps-authoring-lib-ui'
 
-const authoringRouter = createRouter(authoringServices, njkEnv)
+const authoringRouter = createRouter(authoringServices, nunjucksEnvironment)
+
 router.use('/authoring', authoringRouter)
 ```
+
+### Verify Integration
+
+Start your application and visit the authoring home page (e.g. `http://localhost:3000/authoring`).
+
+**Success!** 🎉 You should see the authoring home page with correct styles and assets.
 
 ---
 
 ## 📋 Requirements
 
-| Requirement | Version |
-|-------------|---------|
-| Node.js | `^22` |
-| npm | `>=10 <12` |
-
-### Backend Dependencies
-
-> [!IMPORTANT]
+> ⚠️
 > The following services must be running and accessible:
 
 | Service | Purpose |
 |---------|---------|
-| **HMPPS Auth** | Authentication and authorization |
-| **Authoring Core API** | Data products, domains, assets, outputs, policies, tags |
+| **HMPPS Auth** | Identity provider (or compatible mock) for authentication and authorization |
+| **Authoring Core API** | Core business logic and resource management |
 | **Supabase** | Data sources and datasets *(prototype)* |
 
 ---
 
 ## 📚 API Reference
 
-### `createDataAccess(config)`
+### createDataAccess
+
+```typescript
+function createDataAccess(config: DataAccessConfig): DataAccess
+```
 
 Creates API clients for the data layer.
 
-<details>
-<summary><strong>⚙️ Config: DataAccessConfig</strong></summary>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `config` | [`DataAccessConfig`](#dataaccessconfig) | Configuration for APIs and authentication |
 
-```typescript
-interface DataAccessConfig {
-  // Core API connection
-  coreApiConfig: {
-    url: string
-    timeout: {
-      response: number
-      deadline: number
-    }
-  }
-
-  // HMPPS Auth connection
-  authConfig: {
-    url: string
-    systemClientId: string
-    systemClientSecret: string
-  }
-
-  // Token storage (from @ministryofjustice/hmpps-auth-clients)
-  tokenStore: TokenStore
-
-  // Supabase connection
-  supabaseConfig: {
-    url: string
-    anonKey: string
-  }
-}
-```
-
-</details>
-
-<details>
-<summary><strong>📦 Returns: DataAccess object</strong></summary>
-
-| Client | Purpose |
-|--------|---------|
-| `hmppsAuthClient` | Authentication |
-| `domainApiClient` | Domain operations |
-| `assetApiClient` | Asset operations |
-| `outputApiClient` | Output operations |
-| `policyApiClient` | Policy operations |
-| `tagApiClient` | Tag operations |
-| `dataSourceApiClient` | Data source operations *(Supabase)* |
-| `datasetApiClient` | Dataset operations *(Supabase)* |
-| `dataProductApiClient` | Data product operations |
-
-</details>
+**Returns:** [`DataAccess`](#dataaccess)
 
 ---
 
-### `createServices(dataAccess)`
+### createServices
+
+```typescript
+function createServices(dataAccess: DataAccess): Services
+```
 
 Creates business logic services from the data access layer.
 
-<details>
-<summary><strong>📦 Returns: Services object</strong></summary>
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `dataAccess` | [`DataAccess`](#dataaccess) | Data access object from `createDataAccess()` |
 
-| Service | Purpose |
-|---------|---------|
-| `domainService` | Domain business logic |
-| `assetService` | Asset business logic |
-| `outputService` | Output business logic |
-| `policyService` | Policy business logic |
-| `tagService` | Tag business logic |
-| `dataSourceService` | Data source business logic |
-| `datasetService` | Dataset business logic |
-| `dataProductService` | Data product business logic |
-
-</details>
+**Returns:** [`Services`](#services)
 
 ---
 
-### Nunjucks Configuration
+### createRouter
 
-#### `getViewsPath(): string`
-Returns path to Nunjucks views. Include in your `nunjucks.configure()` paths array.
+```typescript
+function createRouter(
+  services: Services,
+  nunjucksEnvironment: NunjucksEnvironment
+): Router
+```
 
-#### `configureNunjucksGlobals(env)`
+Creates an Express router with all authoring routes.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `services` | [`Services`](#services) | Services from `createServices()` |
+| `nunjucksEnvironment` | `NunjucksEnvironment` | Nunjucks environment instance |
+
+**Returns:** `Router` – Express router containing all authoring routes.
+
+---
+
+### getViewsPath
+
+```typescript
+function getViewsPath(): string
+```
+
+Returns absolute path to the package's Nunjucks views. Include in your `nunjucks.configure()` paths array.
+
+---
+
+### getAssetsPath
+
+```typescript
+function getAssetsPath(): string
+```
+
+Returns absolute path to the package's static assets (images, scripts, styles). Use with `express.static()`:
+
+```typescript
+router.use('/assets', express.static(getAssetsPath()))
+```
+
+---
+
+### configureNunjucksGlobals
+
+```typescript
+function configureNunjucksGlobals(nunjucksEnvironment: NunjucksEnvironment): void
+```
+
+Adds global variables to Nunjucks environment.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `nunjucksEnvironment` | `NunjucksEnvironment` | Nunjucks environment instance |
 
 <details>
-<summary><strong>📦 Adds global variables</strong></summary>
+<summary><strong>Globals added</strong></summary>
 
 | Global | Description |
 |--------|-------------|
 | `classNames` | Conditional CSS classes utility |
-| `ENUMS` | DatasetState, AssetType, OutputType, DataProductState |
-| `CONSTANTS` | Label and color mappings |
+| `ENUMS` | Shared enum definitions used in views |
+| `CONSTANTS` | Label and color mappings used in views |
 | `NO_DATA_PLACEHOLDER` | Placeholder for empty data |
 
 </details>
 
-#### `configureNunjucksFilters(env)`
+---
+
+### configureNunjucksFilters
+
+```typescript
+function configureNunjucksFilters(nunjucksEnvironment: NunjucksEnvironment): void
+```
+
+Adds custom filters to Nunjucks environment.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `nunjucksEnvironment` | `NunjucksEnvironment` | Nunjucks environment instance |
 
 <details>
-<summary><strong>📦 Adds filters</strong></summary>
+<summary><strong>Filters added</strong></summary>
 
 | Filter | Description |
 |--------|-------------|
@@ -226,40 +240,88 @@ Returns path to Nunjucks views. Include in your `nunjucks.configure()` paths arr
 
 ---
 
-### `getAssetsPath(): string`
+## 🔷 Types
 
-Returns path to compiled CSS/JS assets.
+### DataAccessConfig
 
-```typescript
-router.use('/assets', express.static(getAssetsPath()))
-```
+Configuration object for `createDataAccess`.
 
----
+<details>
+<summary><strong>Properties</strong></summary>
 
-### `createRouter(services, nunjucksEnv)`
+| Property | Type | Description |
+|----------|------|-------------|
+| `coreApiConfig` | `ApiConfig` | Core API connection details (from `@ministryofjustice/hmpps-rest-client`) |
+| `authConfig` | `AuthConfig` | HMPPS Auth connection details (from `@ministryofjustice/hmpps-auth-clients`) |
+| `tokenStore` | `TokenStore` | Token storage implementation (from `@ministryofjustice/hmpps-auth-clients`) |
+| `supabaseConfig` | [`SupabaseClientConfig`](#supabaseclientconfig) | Supabase connection details |
 
-Returns an Express router with all authoring routes:
-
-| Feature | Routes |
-|---------|--------|
-| **Datasets** | List, create, view, edit |
-| **Data Products** | List, create, view, edit |
-| **Home** | Landing page |
+</details>
 
 ---
 
-## 🔷 TypeScript Support
+### SupabaseClientConfig
 
-Types are included and exported:
+Configuration for Supabase client.
 
-```typescript
-import type {
-  DataAccess,
-  Services,
-  DataAccessConfig,
-  SupabaseClientConfig
-} from '@modular-data/hmpps-authoring-lib-ui'
-```
+<details>
+<summary><strong>Properties</strong></summary>
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `url` | `string` | Supabase project URL |
+| `anonKey` | `string` | Supabase anonymous key |
+
+</details>
+
+---
+
+### DataAccess
+
+Object containing all API clients.
+
+<details>
+<summary><strong>Properties</strong></summary>
+
+| Property | Description |
+|----------|-------------|
+| `hmppsAuthClient` | Authentication |
+| `domainApiClient` | Domain operations |
+| `assetApiClient` | Asset operations |
+| `outputApiClient` | Output operations |
+| `policyApiClient` | Policy operations |
+| `tagApiClient` | Tag operations |
+| `dataSourceApiClient` | Data source operations *(Supabase)* |
+| `datasetApiClient` | Dataset operations *(Supabase)* |
+| `dataProductApiClient` | Data product operations |
+
+</details>
+
+---
+
+### Services
+
+Object containing all business logic services.
+
+<details>
+<summary><strong>Properties</strong></summary>
+
+| Property | Description |
+|----------|-------------|
+| `domainService` | Domain business logic |
+| `assetService` | Asset business logic |
+| `outputService` | Output business logic |
+| `policyService` | Policy business logic |
+| `tagService` | Tag business logic |
+| `dataSourceService` | Data source business logic |
+| `datasetService` | Dataset business logic |
+| `dataProductService` | Data product business logic |
+
+</details>
+
+
+
+
 
 ---
 
@@ -267,7 +329,7 @@ import type {
 
 Published to npm via the ["Publish package" GitHub action](https://github.com/modular-data/hmpps-authoring-lib-ui/actions/workflows/publish.yml).
 
-> [!NOTE]
+> ⚠️
 > `package.json` uses `9999.9999.9999` as a placeholder version.
 > This is replaced with the actual semantic version during the publish workflow.
 
@@ -280,57 +342,51 @@ Published to npm via the ["Publish package" GitHub action](https://github.com/mo
 
 ### Running the Standalone App
 
+#### Running Locally
+
 The package includes a standalone Express app for local development.
 
-#### With Docker Compose
+1. **Start dependencies**
+   Run backend services (Redis, HMPPS Auth) using Docker:
+   ```bash
+   docker compose up --scale=app=0 -d
+   ```
 
-```bash
-docker compose pull
-docker compose up
-```
+2. **Configure environment**
+   Create a `.env` file and populate it with **real values** (credentials, API URLs):
+   ```bash
+   cp .env.example .env
+   ```
 
-#### For Development (Hot Reload)
+3. **Install dependencies**
+   ```bash
+   npm run setup
+   ```
 
-```bash
-# Start dependencies only
-docker compose up --scale=app=0
-
-# Set up environment
-cp .env.example .env
-
-# Install and run
-npm install
-npm run start:dev
-```
+4. **Start the application**
+   ```bash
+   npm run start:dev
+   ```
 
 ---
 
-### Available Scripts
+### Helpful NPM Scripts
 
 | Script | Purpose |
 |--------|---------|
-| `npm run start:dev` | Dev server with hot reload |
-| `npm run build` | Build assets |
-| `npm run lint:check` | Run ESLint |
-| `npm run typecheck` | TypeScript type checking |
-| `npm run test` | Unit tests |
-| `npm run int-test` | Cypress integration tests (headless) |
-| `npm run int-test-ui` | Cypress integration tests (UI) |
+| `npm run setup` | Installs dependencies and runs script allowance checks |
+| `npm run start:dev` | Starts the standalone app in development mode with hot-reloading |
+| `npm run build` | Compiles frontend assets (CSS/JS) using ESBuild |
+| `npm run build:types` | Generates TypeScript declaration files (`.d.ts`) |
+| `npm run package` | Prepares package for publishing (runs build and type generation) |
+| `npm run lint:check` | Runs ESLint to identify code quality issues |
+| `npm run lint:fix` | Automatically fixes ESLint errors where possible |
+| `npm run format:check` | Checks if code matches Prettier formatting rules |
+| `npm run format:fix` | Reformats all code using Prettier |
+| `npm run typecheck` | Validates TypeScript types across the project |
+| `npm run clean` | Removes `dist` and `test_results` directories |
 
 ---
-
-### Integration Tests
-
-```bash
-# Terminal 1: Start test dependencies
-docker compose -f docker-compose-test.yml up
-
-# Terminal 2: Start app in feature mode
-npm run start-feature:dev
-
-# Terminal 3: Run tests
-npm run int-test-ui
-```
 
 </details>
 
