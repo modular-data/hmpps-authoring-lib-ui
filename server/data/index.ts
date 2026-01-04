@@ -42,4 +42,4 @@ export const createDataAccess = ({ coreApiConfig, authConfig, tokenStore, supaba
 
 export type DataAccess = ReturnType<typeof createDataAccess>
 
-export { AuthenticationClient }
+export { AuthenticationClient, type SupabaseClientConfig }

@@ -1,7 +1,7 @@
 import path from 'path'
 
-export { createDataAccess } from './data'
-export { createServices } from './services'
+export { createDataAccess, type DataAccess, type DataAccessConfig, type SupabaseClientConfig } from './data'
+export { createServices, type Services } from './services'
 export { configureNunjucksGlobals, configureNunjucksFilters } from './utils/nunjucksSetup'
 export { createRouter } from './routes'
 
