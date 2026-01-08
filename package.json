@@ -51,7 +51,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": "^22",
+    "node": "^22 || ^24",
     "npm": ">=10 <12"
   },
   "jest": {
@@ -142,7 +142,7 @@
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
     "@ministryofjustice/eslint-config-hmpps": "^0.0.1-beta.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
-    "@tsconfig/node22": "^22.0.1",
+    "@tsconfig/node24": "24.0.3",
     "@types/bunyan": "^1.8.11",
     "@types/bunyan-format": "^0.2.9",
     "@types/compression": "^1.7.5",
@@ -152,7 +152,7 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/method-override": "^3.0.0",
-    "@types/node": "^22.15.12",
+    "@types/node": "^24.10.4",
     "@types/nunjucks": "^3.2.6",
     "@types/passport": "^1.0.17",
     "@types/passport-oauth2": "^1.4.17",

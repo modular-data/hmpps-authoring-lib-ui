@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version-type:
-        description: 'The semantic version segment to increment'
+        description: "The semantic version segment to increment"
         required: true
         default: feature
         type: choice
@@ -25,7 +25,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: '22.x'
+          node-version: "24.x"
 
       # Ensure npm 11.5.1 or later is installed, to support OIDC publishing
       - name: Update npm

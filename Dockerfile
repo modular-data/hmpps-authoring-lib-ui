@@ -1,7 +1,7 @@
 # TODO: MOJ-333 | Revisit this file after first priority tasks
 
 # Stage: base image
-FROM node:22-alpine AS base
+FROM node:24-alpine AS base
 
 LABEL maintainer="HMPPS Digital Studio <info@digital.justice.gov.uk>"
 
