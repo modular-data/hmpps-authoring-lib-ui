@@ -51,7 +51,7 @@
     "LICENSE"
   ],
   "engines": {
-    "node": "^22",
+    "node": "^22 || ^24",
     "npm": ">=10 <12"
   },
   "jest": {
@@ -105,8 +105,8 @@
     "@codemirror/state": "^6.5.2",
     "@faker-js/faker": "^9.8.0",
     "@ministryofjustice/frontend": "^6.0.0",
-    "@ministryofjustice/hmpps-auth-clients": "^0.0.1-alpha.4",
-    "@ministryofjustice/hmpps-rest-client": "^0.0.1-alpha.9",
+    "@ministryofjustice/hmpps-auth-clients": "^1.0.1",
+    "@ministryofjustice/hmpps-rest-client": "^1.0.0",
     "@preact/signals-core": "^1.11.0",
     "@supabase/supabase-js": "^2.47.10",
     "body-parser": "^2.2.0",
@@ -140,9 +140,9 @@
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
-    "@ministryofjustice/eslint-config-hmpps": "^0.0.1-beta.2",
+    "@ministryofjustice/eslint-config-hmpps": "^1.0.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
-    "@tsconfig/node22": "^22.0.1",
+    "@tsconfig/node24": "24.0.3",
     "@types/bunyan": "^1.8.11",
     "@types/bunyan-format": "^0.2.9",
     "@types/compression": "^1.7.5",
@@ -152,7 +152,7 @@
     "@types/jest": "^29.5.14",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/method-override": "^3.0.0",
-    "@types/node": "^22.15.12",
+    "@types/node": "^24.10.4",
     "@types/nunjucks": "^3.2.6",
     "@types/passport": "^1.0.17",
     "@types/passport-oauth2": "^1.4.17",
