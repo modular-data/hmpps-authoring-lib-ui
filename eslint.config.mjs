@@ -35,10 +35,10 @@ eslintConfig.push({
 })
 
 eslintConfig.push({
-  name: 'frontend-es2024',
+  name: 'frontend-es2022',
   files: ['assets/**/*.js', 'assets/**/*.mjs'],
   languageOptions: {
-    ecmaVersion: 2024,
+    ecmaVersion: 2022,
     sourceType: 'module',
   },
 })
