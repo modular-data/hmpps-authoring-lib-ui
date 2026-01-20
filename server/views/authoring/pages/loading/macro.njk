@@ -1,5 +1,0 @@
-{% macro loadingPage(params) %}
-  {% set pageContext = params.pageContext %}
-  {% set label = params.label | default("Just a moment — we're loading...") %}
-  {% include "./template.njk" %}
-{% endmacro %}

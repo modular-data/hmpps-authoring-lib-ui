@@ -1,46 +1,42 @@
-import createHmppsConfig from '@ministryofjustice/eslint-config-hmpps'
+import nx from '@nx/eslint-plugin';
 
-const extraIgnorePaths = ['.history']
-
-const extraPathsAllowingDevDependencies = ['.allowed-scripts.mjs']
-
-const eslintConfig = createHmppsConfig({
-  extraIgnorePaths,
-  extraPathsAllowingDevDependencies,
-})
-
-eslintConfig.push({
-  name: 'common-rules',
-  files: ['**/*.{js,ts,mjs}'],
-  rules: {
-    'import/prefer-default-export': 'off',
-    'no-duplicate-imports': 'error',
-    'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: ['return', 'if', 'switch'] }],
-    curly: ['error', 'all'],
+export default [
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
+  {
+    ignores: ['**/dist', '**/out-tsc'],
   },
-})
-
-eslintConfig.push({
-  name: 'typescript-rules',
-  files: ['**/*.{ts}'],
-  rules: {
-    '@typescript-eslint/consistent-type-imports': [
-      'error',
-      {
-        prefer: 'type-imports',
-        fixStyle: 'inline-type-imports',
-      },
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: true,
+          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+          depConstraints: [
+            {
+              sourceTag: '*',
+              onlyDependOnLibsWithTags: ['*'],
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: [
+      '**/*.ts',
+      '**/*.tsx',
+      '**/*.cts',
+      '**/*.mts',
+      '**/*.js',
+      '**/*.jsx',
+      '**/*.cjs',
+      '**/*.mjs',
     ],
+    // Override or add rules here
+    rules: {},
   },
-})
-
-eslintConfig.push({
-  name: 'frontend-es2024',
-  files: ['assets/**/*.js', 'assets/**/*.mjs'],
-  languageOptions: {
-    ecmaVersion: 2024,
-    sourceType: 'module',
-  },
-})
-
-export default eslintConfig
+];

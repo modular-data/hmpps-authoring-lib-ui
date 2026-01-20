@@ -1,7 +1,0 @@
-{%- from "authoring/components/stack/macro.njk" import stack -%}
-
-{%- macro tags() -%}
-  {% call stack() %}
-    {{ caller() }}
-  {% endcall %}
-{%- endmacro %}
