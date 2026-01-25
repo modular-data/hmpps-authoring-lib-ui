@@ -1,3 +1,48 @@
-export const Button = () => {
-  return <button>TODO: Change me asdfasdf asdfasd fasdfasdf asdf</button>;
+import { type FC } from 'react';
+import Link from 'next/link';
+import classNames from 'classnames';
+import { type ButtonProps, ButtonVariant } from './button.types';
+import { ButtonStartIcon } from './start-icon';
+
+export const Button: FC<ButtonProps> = (props) => {
+  const {
+    className,
+    variant = ButtonVariant.Default,
+    isInverse,
+    isStartButton,
+    disabled,
+    children,
+    ...restProps
+  } = props;
+
+  const combinedClassName = classNames(
+    'govuk-button',
+    {
+      'govuk-button--secondary': variant === ButtonVariant.Secondary,
+      'govuk-button--warning': variant === ButtonVariant.Warning,
+      'govuk-button--inverse': isInverse,
+      'govuk-button--start': isStartButton,
+    },
+    className,
+  );
+
+  const content = (
+    <>
+      {children}
+      {isStartButton && <ButtonStartIcon />}
+    </>
+  );
+
+  const commonProps = {
+    className: combinedClassName,
+    'data-module': 'govuk-button',
+    'aria-disabled': disabled ? true : undefined,
+    children: content,
+  };
+
+  if ('href' in restProps) {
+    return <Link {...restProps} {...commonProps} />;
+  } else {
+    return <button {...restProps} {...commonProps} disabled={disabled} />;
+  }
 };

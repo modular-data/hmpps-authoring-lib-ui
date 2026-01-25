@@ -17,8 +17,7 @@ export default function Index() {
               Welcome @modular-data/hmpps-authoring-lib-ui 👋
             </h1>
           </div>
-          Test Test 2
-          <Button />
+          Test Test 2<Button>Test Button</Button>
           <div id="hero" className="rounded">
             <div className="text-container">
               <h2>
