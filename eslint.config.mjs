@@ -37,6 +37,16 @@ export default [
       '**/*.mjs',
     ],
     // Override or add rules here
-    rules: {},
+    rules: {
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          'prefer': 'type-imports',
+          'fixStyle': 'inline-type-imports'
+        }
+      ],
+      indent: ['error', 2],
+      quotes: ['error', 'single', { avoidEscape: true }],
+    },
   },
 ];
