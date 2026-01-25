@@ -1,0 +1,17 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button Component
+
+React implementation of the [GDS Button component](https://design-system.service.gov.uk/components/button/).
+
+**GDS Source**: [govuk-frontend template](https://github.com/alphagov/govuk-frontend/tree/main/packages/govuk-frontend/src/govuk/components/button)
+
+## Key Differences from GDS Nunjucks macro
+
+- **Content**: GDS uses `text` or `html` params, React uses `children` prop
+- **Variants**: GDS uses `classes: "govuk-button--secondary"`, React uses `variant={ButtonVariant.Secondary}`
+- **Navigation**: GDS uses plain `<a>` tag, React uses Next.js `Link` component
+- **Props**: GDS uses explicit `attributes` params, React uses native React HTML attributes with props spreading
