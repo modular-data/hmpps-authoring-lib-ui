@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { ErrorMessage } from '../../components/error-message';
+import { ErrorMessage } from '../../../components/error-message';
 
 const description = `
 React implementation of the [GDS Error Message component](https://design-system.service.gov.uk/components/error-message/).
