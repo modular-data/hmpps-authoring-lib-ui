@@ -2,9 +2,9 @@ import { type Meta, type StoryObj } from '@storybook/react';
 import { Button, ButtonVariant } from '../../../components/button';
 
 const meta: Meta<typeof Button> = {
-  title: 'GDS Components/Button',
+  title: 'Components/Button',
   component: Button,
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
 
