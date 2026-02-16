@@ -2,9 +2,8 @@ import { type ButtonHTMLAttributes, type DetailedHTMLProps } from 'react';
 import { type NextJsLinkProps } from '../../types/nextjs';
 
 export enum ButtonVariant {
-  Default = 'default',
-  Warning = 'warning',
   Secondary = 'secondary',
+  Warning = 'warning',
 }
 
 type CommonButtonProps = {

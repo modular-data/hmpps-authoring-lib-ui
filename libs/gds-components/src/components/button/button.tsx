@@ -1,13 +1,13 @@
 import { type FC } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames';
-import { type ButtonProps, ButtonVariant } from './button.types';
+import { type ButtonProps } from './button.types';
 import { ButtonStartIcon } from './start-icon';
 
 export const Button: FC<ButtonProps> = (props) => {
   const {
     className,
-    variant = ButtonVariant.Default,
+    variant,
     isInverse,
     isStartButton,
     disabled,
@@ -17,9 +17,8 @@ export const Button: FC<ButtonProps> = (props) => {
 
   const combinedClassName = classNames(
     'govuk-button',
+    variant && `govuk-button--${variant}`,
     {
-      'govuk-button--secondary': variant === ButtonVariant.Secondary,
-      'govuk-button--warning': variant === ButtonVariant.Warning,
       'govuk-button--inverse': isInverse,
       'govuk-button--start': isStartButton,
     },
