@@ -1,28 +1,42 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { Button, ButtonVariant } from '../../../components/button';
 
-const meta: Meta<typeof Button> = {
+const description = `
+React implementation of the [GDS Button component](https://design-system.service.gov.uk/components/button/).
+
+**GDS Source**: [govuk-frontend template](https://github.com/alphagov/govuk-frontend/tree/main/packages/govuk-frontend/src/govuk/components/button)
+
+## Key Differences from GDS Nunjucks macro
+
+- **Content**: GDS uses \`text\` or \`html\` params, React uses \`children\` prop
+- **Variants**: Primary is default when \`variant\` is unset; React exposes explicit \`Secondary\` and \`Warning\` variants
+- **Navigation**: GDS uses plain \`<a>\` tag, React uses Next.js \`Link\` component
+- **preventDoubleClick**: GDS exposes \`preventDoubleClick\` to guard form submits in non-React templates; this React component intentionally omits it
+- **Props**: GDS uses explicit \`attributes\` params, React uses native React HTML attributes with props spreading
+`.trim();
+
+const meta = {
   title: 'Components/Button',
   component: Button,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: description,
+      },
+    },
+  },
+  args: {
+    children: 'Save and continue',
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
-/**
- * Default button example from GDS documentation.
- */
-export const Default: Story = {
-  args: {
-    children: 'Save and continue',
-  },
-};
+export const Default: Story = {};
 
-/**
- * Start button example from GDS documentation.
- * Use for the main call to action on your service's start page.
- */
 export const Start: Story = {
   args: {
     children: 'Start now',
@@ -31,9 +45,6 @@ export const Start: Story = {
   },
 };
 
-/**
- * Secondary button example from GDS documentation.
- */
 export const Secondary: Story = {
   args: {
     children: 'Find address',
@@ -41,9 +52,6 @@ export const Secondary: Story = {
   },
 };
 
-/**
- * Warning button example from GDS documentation.
- */
 export const Warning: Story = {
   args: {
     children: 'Delete account',
@@ -51,9 +59,6 @@ export const Warning: Story = {
   },
 };
 
-/**
- * Disabled button example from GDS documentation.
- */
 export const Disabled: Story = {
   args: {
     children: 'Disabled button',
@@ -61,10 +66,6 @@ export const Disabled: Story = {
   },
 };
 
-/**
- * Button group example from GDS documentation.
- * Shows primary button with a secondary link action.
- */
 export const ButtonGroup: Story = {
   render: () => (
     <div className="govuk-button-group">
@@ -76,10 +77,6 @@ export const ButtonGroup: Story = {
   ),
 };
 
-/**
- * Button group with mixed button types example from GDS documentation.
- * Shows primary and secondary buttons together.
- */
 export const SecondaryCombo: Story = {
   render: () => (
     <div className="govuk-button-group">
@@ -89,10 +86,6 @@ export const SecondaryCombo: Story = {
   ),
 };
 
-/**
- * Inverse button example from GDS documentation.
- * Use on dark backgrounds with the `isInverse` prop.
- */
 export const Inverse: Story = {
   args: {
     children: 'Create an account',
