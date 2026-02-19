@@ -8,7 +8,12 @@ const ALWAYS_INCLUDE_PROPS = new Set([
   'value',
   'href',
   'role',
+  'disabled',
   'aria-describedby',
+  'pattern',
+  'autoComplete',
+  'spellCheck',
+  'autoCapitalize',
 ]);
 
 export const reactDocgenPropFilter: PropFilter = (prop) => {
