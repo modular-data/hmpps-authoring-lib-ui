@@ -16,6 +16,23 @@ React implementation of the [GDS Fieldset component](https://design-system.servi
 - **Attributes**: GDS has explicit \`attributes\` and \`describedBy\`, React uses native fieldset attributes (for example \`aria-describedby\`)
 `.trim();
 
+const meta = {
+  title: 'Components/Fieldset',
+  component: Fieldset,
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: description,
+      },
+    },
+  },
+} satisfies Meta<typeof Fieldset>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
 const renderAddressFields = (idPrefix: string) => (
   <>
     <Input
@@ -46,23 +63,6 @@ const renderAddressFields = (idPrefix: string) => (
     />
   </>
 );
-
-const meta = {
-  title: 'Components/Fieldset',
-  component: Fieldset,
-  tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: description,
-      },
-    },
-  },
-} satisfies Meta<typeof Fieldset>;
-
-export default meta;
-
-type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
