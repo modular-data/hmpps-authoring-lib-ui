@@ -8,6 +8,7 @@ const ALWAYS_INCLUDE_PROPS = new Set([
   'value',
   'href',
   'role',
+  'rows',
   'disabled',
   'aria-describedby',
   'pattern',
