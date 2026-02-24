@@ -8,9 +8,9 @@ import { InputAffix } from './input-affix';
 import { type InputProps } from './input.types';
 
 export const Input = ({
+  className,
   id,
   name,
-  className,
   formGroup,
   label,
   hint,
@@ -69,11 +69,11 @@ export const Input = ({
 
   return (
     <FormGroup {...restFormGroupProps} withError={withError}>
-      <Label htmlFor={resolvedId} {...label} />
+      <Label {...label} htmlFor={resolvedId} />
 
-      {hint && <Hint id={hintId} {...hint} />}
+      {hint && <Hint {...hint} id={hintId} />}
 
-      {errorMessage && <ErrorMessage id={errorId} {...errorMessage} />}
+      {errorMessage && <ErrorMessage {...errorMessage} id={errorId} />}
 
       {wrapperElement || inputElement}
     </FormGroup>

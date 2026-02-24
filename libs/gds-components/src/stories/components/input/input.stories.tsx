@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { Input, InputWidth } from '../../../components/input';
 import { LabelVariant } from '../../../components/label';
+import { createAutoCapitalizeArgType } from '../../helpers/arg-types';
 
 const description = `
 React implementation of the [GDS Text input component](https://design-system.service.gov.uk/components/text-input/).
@@ -17,7 +18,7 @@ React implementation of the [GDS Text input component](https://design-system.ser
   - \`autocomplete\` -> \`autoComplete\`
   - \`spellcheck\` -> \`spellCheck\`
   - \`inputmode\` -> \`inputMode\`
-  - \`label.for\` -> \`label.htmlFor\`
+- **GDS docs mismatch**: docs options imply \`label.for\`, \`hint.id\`, and \`errorMessage.id\` are overridable, but the original templates derive them from field \`id\`/\`name\` and ignore overrides. This implementation follows template behavior exactly.
 `.trim();
 
 const meta = {
@@ -30,6 +31,9 @@ const meta = {
         component: description,
       },
     },
+  },
+  argTypes: {
+    autoCapitalize: createAutoCapitalizeArgType(),
   },
   args: {
     name: 'example',

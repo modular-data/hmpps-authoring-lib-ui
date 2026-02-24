@@ -28,15 +28,15 @@ interface InputFormGroupProps
   afterInput?: ReactNode;
 }
 
-interface InputLabelProps extends LabelProps {
+interface InputLabelProps extends Omit<LabelProps, 'htmlFor'> {
   children: ReactNode;
 }
 
-interface InputHintProps extends HintProps {
+interface InputHintProps extends Omit<HintProps, 'id'> {
   children: ReactNode;
 }
 
-interface InputErrorMessageProps extends ErrorMessageProps {
+interface InputErrorMessageProps extends Omit<ErrorMessageProps, 'id'> {
   children: ReactNode;
 }
 
@@ -54,6 +54,5 @@ export interface InputProps
   suffix?: Omit<InputAffixProps, 'type'>;
   width?: InputWidth;
   extraLetterSpacing?: boolean;
-  inputMode?: Exclude<NativeInputProps['inputMode'], 'decimal'>;
   describedBy?: string;
 }

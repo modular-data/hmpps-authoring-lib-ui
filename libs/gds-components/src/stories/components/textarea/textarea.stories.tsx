@@ -1,6 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { LabelVariant } from '../../../components/label';
 import { Textarea } from '../../../components/textarea';
+import { createAutoCapitalizeArgType } from '../../helpers/arg-types';
 
 const description = `
 React implementation of the [GDS Textarea component](https://design-system.service.gov.uk/components/textarea/).
@@ -25,6 +26,9 @@ const meta = {
         component: description,
       },
     },
+  },
+  argTypes: {
+    autoCapitalize: createAutoCapitalizeArgType(),
   },
   args: {
     name: 'moreDetail',
