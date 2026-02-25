@@ -1,5 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { Button, ButtonVariant } from '../../../components/button';
+import { inverseBackgroundDecorator } from '../../helpers/inverse-background-decorator';
 
 const description = `
 React implementation of the [GDS Button component](https://design-system.service.gov.uk/components/button/).
@@ -87,6 +88,7 @@ export const SecondaryCombo: Story = {
 };
 
 export const Inverse: Story = {
+  decorators: [inverseBackgroundDecorator],
   args: {
     children: 'Create an account',
     isInverse: true,
