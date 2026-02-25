@@ -1,0 +1,6 @@
+@use '../../../styles//base.scss';
+
+.storybook-inverse-background {
+  background-color: base.govuk-colour('blue');
+  padding: 1rem;
+}
