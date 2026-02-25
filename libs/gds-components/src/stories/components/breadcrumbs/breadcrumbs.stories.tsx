@@ -13,6 +13,7 @@ React implementation of the [GDS Breadcrumbs component](https://design-system.se
 - **Container classes**: GDS uses \`classes\`, React uses \`className\`
 - **Attributes**: GDS uses \`attributes\`, React uses native props spreading
 - **Item attributes**: GDS uses \`item.attributes\`, React uses native link props on items with \`href\`
+- **Inverse style**: GDS uses \`govuk-breadcrumbs--inverse\` class directly, React exposes \`isInverse\`
 `.trim();
 
 const meta = {
@@ -30,7 +31,7 @@ const meta = {
     items: [
       { children: 'Home', href: '#' },
       { children: 'Passports, travel and living abroad', href: '#' },
-      { children: 'Travel abroad' },
+      { children: 'Travel abroad', href: '#' },
     ],
   },
 } satisfies Meta<typeof Breadcrumbs>;
@@ -49,7 +50,7 @@ export const CollapseOnMobile: Story = {
       { children: 'Environment', href: '#' },
       { children: 'Rural and countryside', href: '#' },
       { children: 'Rural development and land management', href: '#' },
-      { children: 'Economic growth in rural areas' },
+      { children: 'Economic growth in rural areas', href: '#' },
     ],
   },
 };
@@ -57,6 +58,6 @@ export const CollapseOnMobile: Story = {
 export const Inverse: Story = {
   decorators: [inverseBackgroundDecorator],
   args: {
-    className: 'govuk-breadcrumbs--inverse',
+    isInverse: true,
   },
 };

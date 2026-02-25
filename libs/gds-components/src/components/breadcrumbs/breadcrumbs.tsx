@@ -10,6 +10,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({
   className,
   items,
   collapseOnMobile,
+  isInverse,
   labelText = 'Breadcrumb',
   'aria-label': ariaLabel,
   ...restProps
@@ -42,6 +43,7 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({
     'govuk-breadcrumbs',
     {
       'govuk-breadcrumbs--collapse-on-mobile': collapseOnMobile,
+      'govuk-breadcrumbs--inverse': isInverse,
     },
     className,
   );
