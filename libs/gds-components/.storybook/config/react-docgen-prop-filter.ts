@@ -17,6 +17,7 @@ const ALWAYS_INCLUDE_PROPS = new Set([
   'pattern',
   'autoComplete',
   'spellCheck',
+  'tabIndex',
 ]);
 
 export const reactDocgenPropFilter: PropFilter = (prop) => {
