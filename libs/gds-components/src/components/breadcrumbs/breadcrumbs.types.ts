@@ -22,5 +22,6 @@ export type BreadcrumbsItems = BreadcrumbsItem[];
 export interface BreadcrumbsProps extends Omit<NativeNavProps, 'children'> {
   items: BreadcrumbsItems;
   collapseOnMobile?: boolean;
+  isInverse?: boolean;
   labelText?: string;
 }
