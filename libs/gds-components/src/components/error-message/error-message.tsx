@@ -1,6 +1,6 @@
 import { type FC } from 'react';
 import classNames from 'classnames';
-import { VisuallyHidden } from '../visually-hidden';
+import { VisuallyHidden } from '../layout/visually-hidden';
 import { type ErrorMessageProps } from './error-message.types';
 
 export const ErrorMessage: FC<ErrorMessageProps> = ({
