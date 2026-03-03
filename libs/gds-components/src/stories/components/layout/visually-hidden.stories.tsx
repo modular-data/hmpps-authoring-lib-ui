@@ -1,5 +1,6 @@
 import { type Meta, type StoryObj } from '@storybook/react';
 import { VisuallyHidden } from '../../../components/layout';
+import { Typography } from '../../../components/typography';
 
 const description = `
 Official examples for visually hidden content from [GDS Layout](https://design-system.service.gov.uk/styles/layout/#hide-elements-and-keep-them-accessible-to-screen-readers).
@@ -30,10 +31,10 @@ export const Default: Story = {
     focusable: false,
   },
   render: (args) => (
-    <p className="govuk-body">
+    <Typography>
       Read the guidance
       <VisuallyHidden {...args} />
-    </p>
+    </Typography>
   ),
 };
 
@@ -43,5 +44,4 @@ export const Focusable: Story = {
     focusable: true,
     tabIndex: 0,
   },
-  render: (args) => <VisuallyHidden {...args} />,
 };
