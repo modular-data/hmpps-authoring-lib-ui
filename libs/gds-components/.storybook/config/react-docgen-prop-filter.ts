@@ -7,6 +7,7 @@ const ALWAYS_INCLUDE_PROPS = new Set([
   'name',
   'value',
   'href',
+  'hrefLang',
   'target',
   'rel',
   'role',
