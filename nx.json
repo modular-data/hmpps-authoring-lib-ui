@@ -56,6 +56,13 @@
       }
     }
   ],
+  "targetDefaults": {
+    "storybook": {
+      "options": {
+        "port": 6006
+      }
+    }
+  },
   "generators": {
     "@nx/next": {
       "application": {
