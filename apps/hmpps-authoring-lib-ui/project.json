@@ -1,0 +1,17 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@modular-data/hmpps-authoring-lib-ui",
+  "projectType": "application",
+  "sourceRoot": "apps/hmpps-authoring-lib-ui/src",
+  "targets": {
+    "generate-contracts": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "npm exec -- openapi-ts",
+        "cwd": "apps/hmpps-authoring-lib-ui",
+        "envFile": "apps/hmpps-authoring-lib-ui/.env"
+      }
+    }
+  }
+}
