@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "out-tsc/storybook",
     "module": "esnext",
