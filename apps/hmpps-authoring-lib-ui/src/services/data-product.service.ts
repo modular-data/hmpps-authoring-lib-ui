@@ -1,34 +1,52 @@
 import {
   type DataProduct,
-  type DataProductAction,
-  type DataProductId,
-  type PaginatedDataProducts,
-} from '../types/entities/data-product';
-import { type CreateDataProductDto } from '../schemas/data-product/dto/create-data-product.dto';
-import { type GetDataProductsQueryDto } from '../schemas/data-product/dto/get-data-products-query.dto';
-import { type DataProductApiClient } from '../data/api-clients';
+  type DataProductDefinition,
+  type DataProductStateActions,
+  type DataSet,
+  type Policy,
+  type Report,
+} from '@/generated/core-api';
+import { type DataProductApiClient } from '@/data/api-clients';
 
 export class DataProductService {
   constructor(private readonly dataProductApiClient: DataProductApiClient) {}
 
-  async create(data: CreateDataProductDto): Promise<DataProduct> {
+  async create(data: DataProduct): Promise<DataProduct> {
     return this.dataProductApiClient.create(data);
   }
 
-  async getList(
-    query: GetDataProductsQueryDto,
-  ): Promise<PaginatedDataProducts> {
-    return this.dataProductApiClient.getList(query);
+  async getList(): Promise<DataProduct[]> {
+    return this.dataProductApiClient.getList();
   }
 
-  async getById(id: DataProductId): Promise<DataProduct> {
+  async getById(id: string): Promise<DataProductDefinition> {
     return this.dataProductApiClient.getById(id);
   }
 
+  async saveOverview(id: string, data: DataProduct): Promise<DataProduct> {
+    return this.dataProductApiClient.saveOverview(id, data);
+  }
+
+  async saveDataSources(id: string, data: string[]): Promise<string[]> {
+    return this.dataProductApiClient.saveDataSources(id, data);
+  }
+
+  async saveDatasets(id: string, data: DataSet[]): Promise<DataSet[]> {
+    return this.dataProductApiClient.saveDatasets(id, data);
+  }
+
+  async savePolicies(id: string, data: Policy[]): Promise<Policy[]> {
+    return this.dataProductApiClient.savePolicies(id, data);
+  }
+
+  async saveReports(id: string, data: Report[]): Promise<Report[]> {
+    return this.dataProductApiClient.saveReports(id, data);
+  }
+
   async performAction(
-    id: DataProductId,
-    action: DataProductAction,
-  ): Promise<void> {
+    id: string,
+    action: DataProductStateActions,
+  ): Promise<DataProductDefinition> {
     return this.dataProductApiClient.postAction(id, action);
   }
 }
