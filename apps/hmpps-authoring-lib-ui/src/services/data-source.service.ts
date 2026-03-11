@@ -1,10 +1,10 @@
+import { type DataSource } from '@/generated/core-api';
 import { type DataSourceApiClient } from '../data/api-clients';
-import { type DataSources } from '../types/entities/data-source';
 
 export class DataSourceService {
   constructor(private readonly dataSourceApiClient: DataSourceApiClient) {}
 
-  async getList(): Promise<DataSources> {
+  async getList(): Promise<DataSource[]> {
     return this.dataSourceApiClient.getList();
   }
 }

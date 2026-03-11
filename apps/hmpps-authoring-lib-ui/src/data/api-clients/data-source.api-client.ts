@@ -1,5 +1,5 @@
 import { asSystem } from '@ministryofjustice/hmpps-rest-client';
-import { type GetDataSourcesResponses } from '@/generated/core-api';
+import { type GetDataSourcesResponse } from '@/generated/core-api';
 import { type CoreApiClient } from './core';
 
 export class DataSourceApiClient {
@@ -7,8 +7,8 @@ export class DataSourceApiClient {
 
   constructor(private readonly coreApiClient: CoreApiClient) {}
 
-  async getList(): Promise<GetDataSourcesResponses> {
-    return this.coreApiClient.get<GetDataSourcesResponses>(
+  async getList(): Promise<GetDataSourcesResponse> {
+    return this.coreApiClient.get<GetDataSourcesResponse>(
       { path: DataSourceApiClient.ROOT_PATH },
       asSystem(),
     );
