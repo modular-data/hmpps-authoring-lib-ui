@@ -1,14 +1,18 @@
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 import { type StorybookConfig } from '@storybook/nextjs';
-import { reactDocgenPropFilter } from './config/react-docgen-prop-filter';
+import { reactDocgenPropFilter } from './config/react-docgen-prop-filter.ts';
 
 const config: StorybookConfig = {
   stories: ['../**/*.@(mdx|stories.@(js|jsx|ts|tsx))'],
   addons: ['@storybook/addon-docs'],
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
-    options: {},
+    options: {
+      nextConfigPath: fileURLToPath(
+        new URL('./next.config.js', import.meta.url),
+      ),
+    },
   },
   typescript: {
     reactDocgen: 'react-docgen-typescript',

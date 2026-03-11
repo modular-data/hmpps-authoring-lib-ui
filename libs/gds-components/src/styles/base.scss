@@ -1,3 +1,6 @@
-@import './settings';
+@use './settings';
 
-@import 'govuk-frontend/dist/govuk/base';
+@forward 'govuk-frontend/dist/govuk/base' with (
+  $govuk-global-styles: settings.$govuk-global-styles,
+  $govuk-page-width: settings.$govuk-page-width
+);
