@@ -1,4 +1,5 @@
 @use './settings';
+
 @forward 'govuk-frontend/dist/govuk/base' with (
   $govuk-global-styles: settings.$govuk-global-styles,
   $govuk-page-width: settings.$govuk-page-width

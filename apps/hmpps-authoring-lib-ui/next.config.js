@@ -1,15 +1,6 @@
 //@ts-check
 
 const { composePlugins, withNx } = require('@nx/next');
-const path = require('path');
-
-const workspaceRoot = path.resolve(__dirname, '../..');
-
-// Inferred Nx targets run `next` from the app directory. `withNx` creates the
-// project graph and expects to resolve workspace paths from the workspace root.
-if (process.env.NX_TASK_TARGET_TARGET && process.cwd() !== workspaceRoot) {
-  process.chdir(workspaceRoot);
-}
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
