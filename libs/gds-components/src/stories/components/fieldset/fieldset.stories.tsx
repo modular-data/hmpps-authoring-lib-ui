@@ -13,7 +13,7 @@ React implementation of the [GDS Fieldset component](https://design-system.servi
 - **Legend classes**: GDS uses \`legend.classes\`, React uses \`legend.className\` and a type-safe \`legend.variant\`
 - **Fieldset classes**: GDS uses \`classes\`, React uses \`className\`
 - **Fieldset content**: GDS uses \`html\` or \`call\` blocks, React uses \`children\`
-- **Attributes**: GDS has explicit \`attributes\` and \`describedBy\`, React uses native fieldset attributes (for example \`aria-describedby\`)
+- **Attributes**: GDS has explicit \`attributes\` and \`describedBy\`; React uses native fieldset props for generic attributes and keeps \`describedBy\` for GOV.UK parity as source of truth
 `.trim();
 
 const meta = {
