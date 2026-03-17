@@ -1,3 +1,6 @@
 export * from './fieldset.types';
-export { FieldsetLegendVariant } from './fieldset-legend';
+export {
+  type FieldsetLegendProps,
+  FieldsetLegendVariant,
+} from './fieldset-legend';
 export * from './fieldset';
