@@ -18,7 +18,7 @@
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "classnames": "^2.5.1",
-    "govuk-frontend": "^5.14.0",
+    "govuk-frontend": "^6.1.0",
     "next": "~16.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
