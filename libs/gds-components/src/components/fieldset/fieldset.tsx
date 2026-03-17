@@ -4,6 +4,7 @@ import { type FieldsetProps } from './fieldset.types';
 
 export const Fieldset = ({
   className,
+  describedBy,
   legend,
   children,
   ...restProps
@@ -11,7 +12,11 @@ export const Fieldset = ({
   const combinedFieldsetClassName = classNames('govuk-fieldset', className);
 
   return (
-    <fieldset className={combinedFieldsetClassName} {...restProps}>
+    <fieldset
+      className={combinedFieldsetClassName}
+      aria-describedby={describedBy}
+      {...restProps}
+    >
       {legend && <FieldsetLegend {...legend} />}
       {children}
     </fieldset>
