@@ -1,6 +1,8 @@
 import { type ReactNode, useEffect } from 'react';
 import { type Decorator } from '@storybook/react';
 
+// TODO: Remove this decorator when we migrate to "govuk-frontend v6.x.x +
+
 interface RebrandHtmlClassWrapperProps {
   children: ReactNode;
 }
