@@ -4,6 +4,20 @@
   "projectType": "application",
   "sourceRoot": "apps/hmpps-authoring-lib-ui/src",
   "targets": {
+    "sync-assets": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "outputs": ["{projectRoot}/public/assets"],
+      "options": {
+        "command": "node apps/hmpps-authoring-lib-ui/scripts/sync-gds-assets.mjs"
+      }
+    },
+    "build": {
+      "dependsOn": ["sync-assets"]
+    },
+    "dev": {
+      "dependsOn": ["sync-assets"]
+    },
     "generate-contracts": {
       "executor": "nx:run-commands",
       "cache": false,
