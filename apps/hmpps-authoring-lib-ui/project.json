@@ -3,6 +3,7 @@
   "name": "@modular-data/hmpps-authoring-lib-ui",
   "projectType": "application",
   "sourceRoot": "apps/hmpps-authoring-lib-ui/src",
+  "root": "apps/hmpps-authoring-lib-ui",
   "targets": {
     "sync-assets": {
       "executor": "nx:run-commands",
@@ -15,6 +16,17 @@
     "build": {
       "dependsOn": ["sync-assets"]
     },
+    "build-runtime": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "main": "apps/hmpps-authoring-lib-ui/src/index.ts",
+        "outputPath": "apps/hmpps-authoring-lib-ui/dist",
+        "rootDir": "apps/hmpps-authoring-lib-ui/src",
+        "tsConfig": "apps/hmpps-authoring-lib-ui/tsconfig.server.json",
+        "generatePackageJson": false
+      }
+    },
     "dev": {
       "dependsOn": ["sync-assets"]
     },
@@ -25,6 +37,15 @@
         "command": "npm exec -- openapi-ts",
         "cwd": "apps/hmpps-authoring-lib-ui",
         "envFile": "apps/hmpps-authoring-lib-ui/.env"
+      }
+    },
+    "package": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "dependsOn": ["build", "build-runtime"],
+      "options": {
+        "command": "npm pack --dry-run",
+        "cwd": "apps/hmpps-authoring-lib-ui"
       }
     }
   }
