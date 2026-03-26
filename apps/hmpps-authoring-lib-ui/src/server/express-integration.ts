@@ -15,6 +15,8 @@ import { type Services } from '../services';
 // DO NOT refactor this file until after integration PoC testing is complete.
 // This file file is quickly hacked together to make sure the integration strategy working before final clean version is implemented.
 
+// TODO: Revisit CSP and other security-related settings.
+
 export interface AuthoringAppDependencies {
   services: Services;
 }
