@@ -28,6 +28,11 @@ const meta = {
       },
     },
   },
+  argTypes: {
+    description: {
+      control: 'text',
+    },
+  },
   args: {
     title: 'There is a problem',
   },
