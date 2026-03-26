@@ -1,7 +1,7 @@
 'use client';
 
 import { type FieldValues, type Path, useFormState } from 'react-hook-form';
-import { type FormFieldControlProps } from '../fields/types';
+import { type FormFieldControlProps } from '../types';
 import { toFormFieldErrorMessage } from '../utils/to-form-field-error-message';
 
 export const useFormFieldErrorMessage = <
