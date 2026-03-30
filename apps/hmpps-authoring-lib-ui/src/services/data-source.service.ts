@@ -1,4 +1,4 @@
-import { type DataSource } from '@/generated/core-api';
+import { type DataSource } from '../generated/core-api';
 import { type DataSourceApiClient } from '../data/api-clients';
 
 export class DataSourceService {

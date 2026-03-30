@@ -1,0 +1,23 @@
+// TODO: Fully revisit and cleanup this file after integraion PoC testing is complete.
+
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "rootDir": "./src",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2020"
+  },
+  "files": ["src/index.ts"],
+  "exclude": ["node_modules", "dist", ".next"]
+}

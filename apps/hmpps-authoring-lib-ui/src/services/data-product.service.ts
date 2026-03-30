@@ -5,8 +5,8 @@ import {
   type DataSet,
   type Policy,
   type Report,
-} from '@/generated/core-api';
-import { type DataProductApiClient } from '@/data/api-clients';
+} from '../generated/core-api';
+import { type DataProductApiClient } from '../data/api-clients';
 
 export class DataProductService {
   constructor(private readonly dataProductApiClient: DataProductApiClient) {}

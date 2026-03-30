@@ -17,7 +17,7 @@ import {
   type UpdatePoliciesResponse,
   type UpdateReportsData,
   type UpdateReportsResponse,
-} from '@/generated/core-api';
+} from '../../generated/core-api';
 import { type CoreApiClient } from './core';
 
 // TODO: Rename types after backend fixes OpenAPI naming issues
