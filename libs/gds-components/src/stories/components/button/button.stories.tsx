@@ -1,5 +1,5 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { Button, ButtonVariant } from '../../../components/button';
+import { Button, ButtonGroup, ButtonVariant } from '../../../components/button';
 import { inverseBackgroundDecorator } from '../../helpers/inverse-background-decorator';
 
 const description = `
@@ -12,6 +12,7 @@ React implementation of the [GDS Button component](https://design-system.service
 - **Content**: GDS uses \`text\` or \`html\` params, React uses \`children\` prop
 - **Variants**: Primary is default when \`variant\` is unset; React exposes explicit \`Secondary\` and \`Warning\` variants
 - **Navigation**: GDS uses plain \`<a>\` tag, React uses Next.js \`Link\` component
+- **Grouping**: GDS examples use raw \`<div class="govuk-button-group">\`; React exposes a companion \`ButtonGroup\` wrapper from the button module
 - **preventDoubleClick**: GDS exposes \`preventDoubleClick\` to guard form submits in non-React templates; this React component intentionally omits it
 - **Props**: GDS uses explicit \`attributes\` params, React uses native React HTML attributes with props spreading
 `.trim();
@@ -67,23 +68,23 @@ export const Disabled: Story = {
   },
 };
 
-export const ButtonGroup: Story = {
+export const GroupingButtons: Story = {
   render: () => (
-    <div className="govuk-button-group">
+    <ButtonGroup>
       <Button>Continue</Button>
       <a className="govuk-link" href="/cancel">
         Cancel
       </a>
-    </div>
+    </ButtonGroup>
   ),
 };
 
 export const SecondaryCombo: Story = {
   render: () => (
-    <div className="govuk-button-group">
+    <ButtonGroup>
       <Button>Save and continue</Button>
       <Button variant={ButtonVariant.Secondary}>Save as draft</Button>
-    </div>
+    </ButtonGroup>
   ),
 };
 
