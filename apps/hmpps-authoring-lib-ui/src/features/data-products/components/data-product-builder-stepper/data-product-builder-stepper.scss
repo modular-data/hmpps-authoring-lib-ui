@@ -1,0 +1,23 @@
+@use '@modular-data/gds-components/styles/base.scss';
+
+.data-product-builder-stepper {
+  &__list > &__item {
+    margin-bottom: base.govuk-spacing(4);
+  }
+
+  &__item {
+    &--current {
+      font-weight: 700;
+    }
+  }
+
+  &__step-tag {
+    min-width: 1.5rem;
+    margin-right: base.govuk-spacing(2);
+    text-align: center;
+  }
+
+  &__description {
+    margin: base.govuk-spacing(1) 0 0;
+  }
+}
