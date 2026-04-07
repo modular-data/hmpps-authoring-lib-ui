@@ -10,7 +10,6 @@ export type DataProductBuilderStepDefinition = {
   step: DataProductBuilderStep;
   title: string;
   description: string;
-  required: boolean;
 };
 
 export type DataProductBuilderStepDefinitions =

@@ -10,7 +10,9 @@ type DataProductBuilderStepDefinitionsMap = {
   };
 };
 
-const DATA_PRODUCT_BUILDER_STEP_ORDER = Object.values(DataProductBuilderStep);
+export const DATA_PRODUCT_BUILDER_STEP_ORDER = Object.values(
+  DataProductBuilderStep,
+);
 
 export const DATA_PRODUCT_BUILDER_STEP_DEFINITIONS_MAP: DataProductBuilderStepDefinitionsMap =
   {
