@@ -1,0 +1,12 @@
+@use '@modular-data/gds-components/styles/base.scss';
+
+.data-product-definition-viewer {
+  padding: base.govuk-spacing(4);
+  border: 0.0625rem solid base.$govuk-border-colour;
+
+  &__json {
+    padding: base.govuk-spacing(2);
+    background-color: base.govuk-colour('light-grey');
+    overflow: auto;
+  }
+}
