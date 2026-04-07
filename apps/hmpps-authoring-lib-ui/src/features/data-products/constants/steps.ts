@@ -14,6 +14,9 @@ export const DATA_PRODUCT_BUILDER_STEP_ORDER = Object.values(
   DataProductBuilderStep,
 );
 
+export const DATA_PRODUCT_BUILDER_LAST_STEP =
+  DATA_PRODUCT_BUILDER_STEP_ORDER[DATA_PRODUCT_BUILDER_STEP_ORDER.length - 1];
+
 export const DATA_PRODUCT_BUILDER_STEP_DEFINITIONS_MAP: DataProductBuilderStepDefinitionsMap =
   {
     [DataProductBuilderStep.Overview]: {

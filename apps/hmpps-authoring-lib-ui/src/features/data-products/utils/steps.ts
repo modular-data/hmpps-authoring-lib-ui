@@ -2,14 +2,14 @@ import {
   DataProductStateType,
   type DataProductDefinition,
 } from '@/generated/core-api';
-import { DATA_PRODUCT_BUILDER_STEP_ORDER } from '../constants/steps';
+import {
+  DATA_PRODUCT_BUILDER_LAST_STEP,
+  DATA_PRODUCT_BUILDER_STEP_ORDER,
+} from '../constants/steps';
 import {
   DataProductBuilderStep,
   type DataProductBuilderStepMetaMap,
 } from '../types/steps';
-
-const LAST_DATA_PRODUCT_BUILDER_STEP =
-  DATA_PRODUCT_BUILDER_STEP_ORDER[DATA_PRODUCT_BUILDER_STEP_ORDER.length - 1];
 
 type DataProductBuilderStepCompletionMap = Record<
   DataProductBuilderStep,
@@ -69,7 +69,7 @@ export const deriveDefaultStep = (
     (step) => !stepMetaByStep[step].completed,
   );
 
-  return firstIncompleteStep ?? LAST_DATA_PRODUCT_BUILDER_STEP;
+  return firstIncompleteStep ?? DATA_PRODUCT_BUILDER_LAST_STEP;
 };
 
 export const getPreviousAvailableStep = (
