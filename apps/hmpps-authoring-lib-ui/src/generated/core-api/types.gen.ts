@@ -4,146 +4,51 @@ export type ClientOptions = {
     baseUrl: 'http://localhost:8082' | (string & {});
 };
 
+export const DomainType = {
+    AUTHENTICATION: 'AUTHENTICATION',
+    AUTHORIZATION: 'AUTHORIZATION',
+    REQUEST_VALIDATION: 'REQUEST_VALIDATION',
+    DATABASE: 'DATABASE',
+    SERVER_INTERNAL: 'SERVER_INTERNAL',
+    APPLICATION_CONTEXT: 'APPLICATION_CONTEXT'
+} as const;
+
+export type DomainType = typeof DomainType[keyof typeof DomainType];
+
+export type ErrorItem = {
+    path?: Array<unknown>;
+    message?: string;
+};
+
+export type ErrorResponse = {
+    errors?: Array<ErrorItem>;
+    timestamp?: string;
+    status?: number;
+    domain?: DomainType;
+};
+
+export const FieldVisibilityType = {
+    TRUE: 'true',
+    FALSE: 'false',
+    MANDATORY: 'mandatory'
+} as const;
+
+export type FieldVisibilityType = typeof FieldVisibilityType[keyof typeof FieldVisibilityType];
+
+export const ReportRenderType = {
+    HTML: 'HTML',
+    PDF: 'PDF',
+    SVG: 'SVG'
+} as const;
+
+export type ReportRenderType = typeof ReportRenderType[keyof typeof ReportRenderType];
+
 export type ReportSpecification = {
-    template?: TemplateEnum;
-    field?: Array<DataProductReportField>;
+    template: ReportTemplate;
+    field: Array<DataProductReportField>;
 };
 
-export type PolicyCondition = {
-    condition?: ConditionEnum;
-    value?: Array<string>;
-};
-
-export type PolicyRule = {
-    id?: string;
-    effect: EffectEnum;
-    condition?: Array<PolicyCondition>;
-};
-
-export const DataProductStateType = {
-    INIT: 'INIT',
-    DRAFT: 'DRAFT',
-    PREVIEW: 'PREVIEW',
-    APPROVED: 'APPROVED',
-    PUBLISHED: 'PUBLISHED',
-    LAUNCHED: 'LAUNCHED',
-    NULL_OBJECT: 'NULL_OBJECT'
-} as const;
-
-export type DataProductStateType = typeof DataProductStateType[keyof typeof DataProductStateType];
-
-export type JsonNode = unknown;
-
-/**
- * Available actions for a data product state transition
- */
-export const DataProductStateActions = {
-    PREVIEW: 'preview',
-    APPROVE: 'approve',
-    PUBLISH: 'publish',
-    APPROVE_AND_PUBLISH: 'approve-and-publish',
-    PROMOTE: 'promote'
-} as const;
-
-/**
- * Available actions for a data product state transition
- */
-export type DataProductStateActions = typeof DataProductStateActions[keyof typeof DataProductStateActions];
-
-export type DataProductDefinition = {
-    id?: string;
-    name?: string;
-    description?: string;
-    metadata?: DataProductMetadata;
-    state?: DataProductStateType;
-    type?: TypeEnum;
-    datasource?: Array<DataSource>;
-    dataset?: Array<DataSet>;
-    report?: Array<Report>;
-    policy?: Array<Policy>;
-};
-
-export type DataProductReportField = {
-    name?: string;
-    description?: string;
-    display?: string;
-    formula?: string;
-    visible?: string;
-    sortable?: boolean;
-    defaultsort?: boolean;
-    sortdirection?: SortdirectionEnum;
-    wordwrap?: string;
-    alias?: Array<string>;
-    filter?: string;
-    type?: string;
-    header?: boolean;
-};
-
-export type Report = {
-    id?: string;
-    name?: string;
-    description?: string;
-    classification?: string;
-    version?: string;
-    render?: RenderEnum;
-    loadType?: string;
-    dataSetId?: string;
-    specification?: ReportSpecification;
-    createdAt?: string;
-    updatedAt?: string;
-};
-
-export type Policy = {
-    id?: string;
-    dataProductId?: string;
-    dataSetId?: string;
-    name: string;
-    description: string;
-    type: TypeEnum2;
-    createdAt?: string;
-    updatedAt?: string;
-    rule: Array<PolicyRule>;
-};
-
-export type DataProduct = {
-    id?: string;
-    name: string;
-    description: string;
-    state?: DataProductStateType;
-    type?: TypeEnum;
-    metadata: DataProductMetadata;
-};
-
-export type DataProductMetadata = {
-    version: string;
-    owner: string;
-    author?: string;
-    createdAt?: string;
-    updatedAt?: string;
-};
-
-export type DataSet = {
-    id?: string;
-    name: string;
-    description: string;
-    dataSourceId: string;
-    query: string;
-    schema: JsonNode;
-    schedule?: string;
-    createdAt?: string;
-    updatedAt?: string;
-};
-
-export type DataSource = {
-    id?: string;
-    name?: string;
-    connection?: string;
-    dialect?: string;
-    database?: string;
-    catalog?: string;
-};
-
-export const TemplateEnum = {
+export const ReportTemplate = {
     LIST: 'list',
     LIST_SECTION: 'list_section',
     LIST_TAB: 'list_tab',
@@ -155,48 +60,47 @@ export const TemplateEnum = {
     ROW_SECTION_CHILD: 'row_section_child'
 } as const;
 
-export type TemplateEnum = typeof TemplateEnum[keyof typeof TemplateEnum];
+export type ReportTemplate = typeof ReportTemplate[keyof typeof ReportTemplate];
 
-export const ConditionEnum = {
-    MATCH: 'MATCH',
-    NOT_MATCH: 'NOT_MATCH',
-    EQUALS: 'EQUALS',
-    NOT_EQUALS: 'NOT_EQUALS',
-    EXISTS: 'EXISTS',
-    NOT_EXISTS: 'NOT_EXISTS',
-    LIKE: 'LIKE',
-    NOT_LIKE: 'NOT_LIKE',
-    BETWEEN: 'BETWEEN',
-    NULL_OBJECT: 'NULL_OBJECT'
-} as const;
+export const SortDirectionType = { ASC: 'asc', DESC: 'desc' } as const;
 
-export type ConditionEnum = typeof ConditionEnum[keyof typeof ConditionEnum];
+export type SortDirectionType = typeof SortDirectionType[keyof typeof SortDirectionType];
 
-export const EffectEnum = { PERMIT: 'PERMIT', DENY: 'DENY' } as const;
+export type PolicyCondition = unknown;
 
-export type EffectEnum = typeof EffectEnum[keyof typeof EffectEnum];
+export type PolicyConditionBetween = {
+    value?: string;
+    start?: string;
+    end?: string;
+};
 
-export const TypeEnum = {
-    MI_REPORT: 'MI_REPORT',
-    OPERATIONAL_REPORT: 'OPERATIONAL_REPORT',
-    LIST: 'LIST'
-} as const;
+export type PolicyConditionBetweenWrapper = PolicyCondition & {
+    between: PolicyConditionBetween;
+};
 
-export type TypeEnum = typeof TypeEnum[keyof typeof TypeEnum];
+export type PolicyConditionLike = PolicyCondition & {
+    like: Array<string>;
+};
 
-export const SortdirectionEnum = { ASCENDING: 'ASCENDING', DESCENDING: 'DESCENDING' } as const;
+export type PolicyConditionMatch = PolicyCondition & {
+    match: Array<string>;
+};
 
-export type SortdirectionEnum = typeof SortdirectionEnum[keyof typeof SortdirectionEnum];
+export type PolicyConditionNotEquals = PolicyCondition & {
+    notequals: Array<string>;
+};
 
-export const RenderEnum = {
-    HTML: 'HTML',
-    PDF: 'PDF',
-    SVG: 'SVG'
-} as const;
+export const PolicyEffectType = { PERMIT: 'permit', DENY: 'deny' } as const;
 
-export type RenderEnum = typeof RenderEnum[keyof typeof RenderEnum];
+export type PolicyEffectType = typeof PolicyEffectType[keyof typeof PolicyEffectType];
 
-export const TypeEnum2 = {
+export type PolicyRule = {
+    id?: string;
+    effect: PolicyEffectType;
+    condition?: Array<PolicyConditionMatch | PolicyConditionNotEquals | PolicyConditionLike | PolicyConditionBetweenWrapper>;
+};
+
+export const PolicyType = {
     ACCESS: 'access',
     ROW_LEVEL: 'row-level',
     COLUMN_LEVEL: 'column-level',
@@ -208,7 +112,187 @@ export const TypeEnum2 = {
     RETENTION: 'retention'
 } as const;
 
-export type TypeEnum2 = typeof TypeEnum2[keyof typeof TypeEnum2];
+export type PolicyType = typeof PolicyType[keyof typeof PolicyType];
+
+export const DataProductStateType = {
+    DRAFT: 'DRAFT',
+    PUBLISHED: 'PUBLISHED',
+    LAUNCHED: 'LAUNCHED'
+} as const;
+
+export type DataProductStateType = typeof DataProductStateType[keyof typeof DataProductStateType];
+
+export type DataSourceIdsRequest = {
+    datasourceIds?: Array<string>;
+};
+
+export type DataSourceIdsResponse = {
+    datasourceIds?: Array<string>;
+};
+
+export type JsonNode = unknown;
+
+export const DataProductStateActions = {
+    PREVIEW: 'PREVIEW',
+    APPROVE: 'APPROVE',
+    PUBLISH: 'PUBLISH',
+    APPROVE_AND_PUBLISH: 'APPROVE_AND_PUBLISH',
+    PROMOTE: 'PROMOTE'
+} as const;
+
+export type DataProductStateActions = typeof DataProductStateActions[keyof typeof DataProductStateActions];
+
+export type DataProductReportField = {
+    name: string;
+    description?: string;
+    display?: string;
+    formula?: string;
+    visible: FieldVisibilityType;
+    sortable?: boolean;
+    wordwrap?: string;
+    alias?: Array<string>;
+    filter?: string;
+    type?: string;
+    header?: boolean;
+    defaultSort?: boolean;
+    sortDirection?: SortDirectionType;
+};
+
+export type Report = {
+    id: string;
+    name: string;
+    description: string;
+    classification?: string;
+    version?: string;
+    render: ReportRenderType;
+    loadType?: string;
+    dataSetId: string;
+    specification: ReportSpecification;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export type Policy = {
+    id: string;
+    dataProductId: string;
+    dataSetId: string;
+    name: string;
+    description: string;
+    type: PolicyType;
+    createdAt?: string;
+    updatedAt?: string;
+    valid?: boolean;
+    invalidReason?: string;
+    rule: Array<PolicyRule>;
+};
+
+export type DataProductMetadataInput = {
+    version: string;
+    owner: string;
+    author?: string;
+};
+
+export type DataProductUpdateInput = {
+    name: string;
+    description: string;
+    metadata: DataProductMetadataInput;
+};
+
+export type DataProductMetadata = {
+    version: string;
+    owner: string;
+    author?: string;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export type DataProductOverview = {
+    id?: string;
+    name: string;
+    description: string;
+    state?: StateEnum;
+    metadata: DataProductMetadata;
+};
+
+export type DataSet = {
+    id: string;
+    name: string;
+    description: string;
+    dataSourceId: string;
+    query: string;
+    schema: DataSetSchema;
+    schedule?: string;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export type DataSetSchema = {
+    field: Array<SchemaField>;
+};
+
+export type SchemaField = {
+    index?: number;
+    name: string;
+    display?: string;
+    description?: string;
+    type: string;
+    sensitivity?: string;
+    alias?: Array<string>;
+    tags?: Array<string>;
+    filter?: JsonNode;
+    glossaryindex?: string;
+    piiindex?: string;
+};
+
+export type DataProductCreateInput = {
+    name: string;
+    description: string;
+    metadata: DataProductMetadataInput;
+};
+
+export type DataProduct = {
+    id: string;
+    name: string;
+    description?: string;
+    state: StateEnum;
+    metadata: DataProductMetadata;
+    datasource: Array<DataSource>;
+    dataset: Array<DataSet>;
+    report: Array<Report>;
+    policy?: Array<Policy>;
+};
+
+export type DataSource = {
+    id: string;
+    name?: string;
+    connection?: string;
+    dialect?: string;
+    database?: string;
+    catalog?: string;
+};
+
+export type DataProductDefinition = {
+    id: string;
+    name: string;
+    description?: string;
+    scheduled?: boolean;
+    metadata: DataProductDefinitionMetadata;
+    datasource: Array<unknown>;
+    dataset: Array<unknown>;
+    dashboard?: Array<unknown>;
+    policy?: Array<unknown>;
+    report: Array<unknown>;
+    errors?: Array<unknown>;
+};
+
+export type DataProductDefinitionMetadata = {
+    version: string;
+    author?: string;
+    owner?: string;
+    tags?: Array<string>;
+};
+
+export type StateEnum = DataProductStateType;
 
 export type GetReportsData = {
     body?: never;
@@ -218,6 +302,27 @@ export type GetReportsData = {
     query?: never;
     url: '/data-products/{id}/reports';
 };
+
+export type GetReportsErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetReportsError = GetReportsErrors[keyof GetReportsErrors];
 
 export type GetReportsResponses = {
     /**
@@ -237,6 +342,27 @@ export type UpdateReportsData = {
     url: '/data-products/{id}/reports';
 };
 
+export type UpdateReportsErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type UpdateReportsError = UpdateReportsErrors[keyof UpdateReportsErrors];
+
 export type UpdateReportsResponses = {
     /**
      * OK
@@ -254,6 +380,27 @@ export type GetPoliciesData = {
     query?: never;
     url: '/data-products/{id}/policies';
 };
+
+export type GetPoliciesErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetPoliciesError = GetPoliciesErrors[keyof GetPoliciesErrors];
 
 export type GetPoliciesResponses = {
     /**
@@ -273,6 +420,27 @@ export type UpdatePoliciesData = {
     url: '/data-products/{id}/policies';
 };
 
+export type UpdatePoliciesErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type UpdatePoliciesError = UpdatePoliciesErrors[keyof UpdatePoliciesErrors];
+
 export type UpdatePoliciesResponses = {
     /**
      * OK
@@ -291,17 +459,38 @@ export type GetOverviewData = {
     url: '/data-products/{id}/overview';
 };
 
+export type GetOverviewErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetOverviewError = GetOverviewErrors[keyof GetOverviewErrors];
+
 export type GetOverviewResponses = {
     /**
      * OK
      */
-    200: DataProduct;
+    200: DataProductOverview;
 };
 
 export type GetOverviewResponse = GetOverviewResponses[keyof GetOverviewResponses];
 
 export type UpdateOverviewData = {
-    body: DataProduct;
+    body: DataProductUpdateInput;
     path: {
         id: string;
     };
@@ -309,11 +498,32 @@ export type UpdateOverviewData = {
     url: '/data-products/{id}/overview';
 };
 
+export type UpdateOverviewErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type UpdateOverviewError = UpdateOverviewErrors[keyof UpdateOverviewErrors];
+
 export type UpdateOverviewResponses = {
     /**
      * OK
      */
-    200: DataProduct;
+    200: DataProductOverview;
 };
 
 export type UpdateOverviewResponse = UpdateOverviewResponses[keyof UpdateOverviewResponses];
@@ -327,6 +537,27 @@ export type GetAllDataSourcesData = {
     url: '/data-products/{id}/datasources';
 };
 
+export type GetAllDataSourcesErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetAllDataSourcesError = GetAllDataSourcesErrors[keyof GetAllDataSourcesErrors];
+
 export type GetAllDataSourcesResponses = {
     /**
      * OK
@@ -337,7 +568,7 @@ export type GetAllDataSourcesResponses = {
 export type GetAllDataSourcesResponse = GetAllDataSourcesResponses[keyof GetAllDataSourcesResponses];
 
 export type PutAllDataSourcesData = {
-    body: Array<string>;
+    body: DataSourceIdsRequest;
     path: {
         id: string;
     };
@@ -345,11 +576,32 @@ export type PutAllDataSourcesData = {
     url: '/data-products/{id}/datasources';
 };
 
+export type PutAllDataSourcesErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type PutAllDataSourcesError = PutAllDataSourcesErrors[keyof PutAllDataSourcesErrors];
+
 export type PutAllDataSourcesResponses = {
     /**
      * OK
      */
-    200: Array<string>;
+    200: DataSourceIdsResponse;
 };
 
 export type PutAllDataSourcesResponse = PutAllDataSourcesResponses[keyof PutAllDataSourcesResponses];
@@ -362,6 +614,27 @@ export type GetDataSetsData = {
     query?: never;
     url: '/data-products/{id}/datasets';
 };
+
+export type GetDataSetsErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetDataSetsError = GetDataSetsErrors[keyof GetDataSetsErrors];
 
 export type GetDataSetsResponses = {
     /**
@@ -381,6 +654,27 @@ export type UpdateDataSetsData = {
     url: '/data-products/{id}/datasets';
 };
 
+export type UpdateDataSetsErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type UpdateDataSetsError = UpdateDataSetsErrors[keyof UpdateDataSetsErrors];
+
 export type UpdateDataSetsResponses = {
     /**
      * OK
@@ -397,27 +691,69 @@ export type GetAllDataProductsData = {
     url: '/data-products';
 };
 
+export type GetAllDataProductsErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetAllDataProductsError = GetAllDataProductsErrors[keyof GetAllDataProductsErrors];
+
 export type GetAllDataProductsResponses = {
     /**
      * OK
      */
-    200: Array<DataProduct>;
+    200: Array<DataProductOverview>;
 };
 
 export type GetAllDataProductsResponse = GetAllDataProductsResponses[keyof GetAllDataProductsResponses];
 
 export type CreateDraftData = {
-    body: DataProduct;
+    body: DataProductCreateInput;
     path?: never;
     query?: never;
     url: '/data-products';
 };
 
+export type CreateDraftErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type CreateDraftError = CreateDraftErrors[keyof CreateDraftErrors];
+
 export type CreateDraftResponses = {
     /**
      * OK
      */
-    200: DataProduct;
+    200: DataProductOverview;
 };
 
 export type CreateDraftResponse = CreateDraftResponses[keyof CreateDraftResponses];
@@ -435,14 +771,72 @@ export type ExecuteActionData = {
     url: '/data-products/{id}/{action}';
 };
 
+export type ExecuteActionErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type ExecuteActionError = ExecuteActionErrors[keyof ExecuteActionErrors];
+
 export type ExecuteActionResponses = {
     /**
      * OK
      */
-    200: DataProductDefinition;
+    200: DataProduct;
 };
 
 export type ExecuteActionResponse = ExecuteActionResponses[keyof ExecuteActionResponses];
+
+export type GetDataSourcesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/datasources';
+};
+
+export type GetDataSourcesErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetDataSourcesError = GetDataSourcesErrors[keyof GetDataSourcesErrors];
+
+export type GetDataSourcesResponses = {
+    /**
+     * OK
+     */
+    200: Array<DataSource>;
+};
+
+export type GetDataSourcesResponse = GetDataSourcesResponses[keyof GetDataSourcesResponses];
 
 export type DeleteDataProductData = {
     body?: never;
@@ -452,6 +846,27 @@ export type DeleteDataProductData = {
     query?: never;
     url: '/data-products/{id}';
 };
+
+export type DeleteDataProductErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type DeleteDataProductError = DeleteDataProductErrors[keyof DeleteDataProductErrors];
 
 export type DeleteDataProductResponses = {
     /**
@@ -469,27 +884,71 @@ export type GetDataProductData = {
     url: '/data-products/{id}';
 };
 
+export type GetDataProductErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetDataProductError = GetDataProductErrors[keyof GetDataProductErrors];
+
 export type GetDataProductResponses = {
+    /**
+     * OK
+     */
+    200: DataProduct;
+};
+
+export type GetDataProductResponse = GetDataProductResponses[keyof GetDataProductResponses];
+
+export type GetDataProductDefinitionData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/data-products/{id}/definition';
+};
+
+export type GetDataProductDefinitionErrors = {
+    /**
+     * Bad Request
+     */
+    400: ErrorResponse;
+    /**
+     * Not Found
+     */
+    404: ErrorResponse;
+    /**
+     * Unprocessable Entity
+     */
+    422: ErrorResponse;
+    /**
+     * Internal Server Error
+     */
+    500: ErrorResponse;
+};
+
+export type GetDataProductDefinitionError = GetDataProductDefinitionErrors[keyof GetDataProductDefinitionErrors];
+
+export type GetDataProductDefinitionResponses = {
     /**
      * OK
      */
     200: DataProductDefinition;
 };
 
-export type GetDataProductResponse = GetDataProductResponses[keyof GetDataProductResponses];
-
-export type GetDataSourcesData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/data-products/datasources';
-};
-
-export type GetDataSourcesResponses = {
-    /**
-     * OK
-     */
-    200: Array<DataSource>;
-};
-
-export type GetDataSourcesResponse = GetDataSourcesResponses[keyof GetDataSourcesResponses];
+export type GetDataProductDefinitionResponse = GetDataProductDefinitionResponses[keyof GetDataProductDefinitionResponses];

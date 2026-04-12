@@ -1,12 +1,16 @@
 import { asSystem } from '@ministryofjustice/hmpps-rest-client';
 import {
-  type CreateDraftData,
   type CreateDraftResponse,
+  type DataProduct,
+  type DataProductCreateInput,
+  type DataProductOverview,
+  type DataProductUpdateInput,
   type ExecuteActionData,
   type ExecuteActionResponse,
   type GetAllDataProductsResponse,
   type GetDataProductData,
   type GetDataProductResponse,
+  type Policy,
   type PutAllDataSourcesData,
   type PutAllDataSourcesResponse,
   type UpdateDataSetsData,
@@ -27,7 +31,7 @@ export class DataProductApiClient {
 
   constructor(private readonly coreApiClient: CoreApiClient) {}
 
-  async create(data: CreateDraftData['body']): Promise<CreateDraftResponse> {
+  async create(data: DataProductCreateInput): Promise<DataProductOverview> {
     return this.coreApiClient.post<CreateDraftResponse>(
       {
         path: DataProductApiClient.ROOT_PATH,
@@ -37,16 +41,14 @@ export class DataProductApiClient {
     );
   }
 
-  async getList(): Promise<GetAllDataProductsResponse> {
+  async getList(): Promise<DataProductOverview[]> {
     return this.coreApiClient.get<GetAllDataProductsResponse>(
       { path: DataProductApiClient.ROOT_PATH },
       asSystem(),
     );
   }
 
-  async getById(
-    id: GetDataProductData['path']['id'],
-  ): Promise<GetDataProductResponse> {
+  async getById(id: GetDataProductData['path']['id']): Promise<DataProduct> {
     return this.coreApiClient.get<GetDataProductResponse>(
       {
         path: `${DataProductApiClient.ROOT_PATH}/${id}`,
@@ -57,8 +59,8 @@ export class DataProductApiClient {
 
   async saveOverview(
     id: UpdateOverviewData['path']['id'],
-    data: UpdateOverviewData['body'],
-  ): Promise<UpdateOverviewResponse> {
+    data: DataProductUpdateInput,
+  ): Promise<DataProductOverview> {
     return this.coreApiClient.put<UpdateOverviewResponse>(
       {
         path: `${DataProductApiClient.ROOT_PATH}/${id}/overview`,
@@ -96,8 +98,8 @@ export class DataProductApiClient {
 
   async savePolicies(
     id: UpdatePoliciesData['path']['id'],
-    data: UpdatePoliciesData['body'],
-  ): Promise<UpdatePoliciesResponse> {
+    data: Policy[],
+  ): Promise<Policy[]> {
     return this.coreApiClient.put<UpdatePoliciesResponse>(
       {
         path: `${DataProductApiClient.ROOT_PATH}/${id}/policies`,
@@ -123,7 +125,7 @@ export class DataProductApiClient {
   async postAction(
     id: ExecuteActionData['path']['id'],
     action: ExecuteActionData['path']['action'],
-  ): Promise<ExecuteActionResponse> {
+  ): Promise<DataProduct> {
     return this.coreApiClient.post<ExecuteActionResponse>(
       {
         path: `${DataProductApiClient.ROOT_PATH}/${id}/${action}`,

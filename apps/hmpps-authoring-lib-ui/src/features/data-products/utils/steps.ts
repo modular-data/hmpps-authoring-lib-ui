@@ -1,7 +1,4 @@
-import {
-  DataProductStateType,
-  type DataProductDefinition,
-} from '@/generated/core-api';
+import { DataProductStateType, type DataProduct } from '@/generated/core-api';
 import {
   DATA_PRODUCT_BUILDER_LAST_STEP,
   DATA_PRODUCT_BUILDER_STEP_ORDER,
@@ -19,7 +16,7 @@ type DataProductBuilderStepCompletionMap = Record<
 const hasItems = (items?: unknown[]): boolean => (items?.length ?? 0) > 0;
 
 const deriveStepCompletionMap = (
-  dataProduct?: DataProductDefinition,
+  dataProduct?: DataProduct,
 ): DataProductBuilderStepCompletionMap => ({
   // TODO: Improve Overview completion logic after first priority tasks are completed
   [DataProductBuilderStep.Overview]: !!dataProduct?.name,
@@ -30,7 +27,7 @@ const deriveStepCompletionMap = (
 });
 
 export const deriveStepMetaByStep = (
-  dataProduct?: DataProductDefinition,
+  dataProduct?: DataProduct,
 ): DataProductBuilderStepMetaMap => {
   const completedByStep = deriveStepCompletionMap(dataProduct);
   const isDraftState = dataProduct?.state === DataProductStateType.DRAFT;

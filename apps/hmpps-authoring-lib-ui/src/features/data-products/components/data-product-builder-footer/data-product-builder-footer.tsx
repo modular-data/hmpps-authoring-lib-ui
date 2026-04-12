@@ -5,7 +5,10 @@ import {
   ButtonGroup,
   ButtonVariant,
 } from '@modular-data/gds-components';
-import { type DataProductDefinition } from '@/generated/core-api';
+import {
+  type DataProduct,
+  type DataProductDefinition,
+} from '@/generated/core-api';
 import {
   type DataProductBuilderStep,
   type DataProductBuilderStepMetaMap,
@@ -16,7 +19,8 @@ import { getStepSubmitLabel, shouldShowPreviewAction } from './helpers';
 interface DataProductBuilderFooterProps {
   className?: string;
   formId: string;
-  dataProduct?: DataProductDefinition;
+  dataProduct?: DataProduct;
+  dataProductDefinition?: DataProductDefinition;
   currentStep: DataProductBuilderStep;
   stepMetaByStep: DataProductBuilderStepMetaMap;
   canEditDataProduct: boolean;
@@ -28,6 +32,7 @@ export const DataProductBuilderFooter = ({
   className,
   formId,
   dataProduct,
+  dataProductDefinition,
   currentStep,
   stepMetaByStep,
   canEditDataProduct,
@@ -76,14 +81,13 @@ export const DataProductBuilderFooter = ({
           </Button>
         )}
 
-        {dataProduct && (
+        {dataProductDefinition && (
           <Button
             type="button"
             variant={ButtonVariant.Secondary}
             disabled={isStepSubmitting}
             onClick={() => {
-              // TODO-IMPLEMENT: Download the data product definition when backend is implemented
-              downloadDataProductDefinition(dataProduct);
+              downloadDataProductDefinition(dataProductDefinition);
             }}
           >
             Download DPD
