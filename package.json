@@ -2,7 +2,9 @@
   "name": "@modular-data/hmpps-authoring-ui-monorepo",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
+  },
   "private": true,
   "lint-staged": {
     "*.{js,ts,tsx,scss}": [
@@ -32,6 +34,7 @@
     "@babel/preset-react": "^7.14.5",
     "@eslint/js": "^9.8.0",
     "@hey-api/openapi-ts": "^0.94.0",
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@next/eslint-plugin-next": "^16.0.1",
     "@nx/eslint": "22.3.3",
     "@nx/eslint-plugin": "22.3.3",
