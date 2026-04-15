@@ -1,3 +1,5 @@
+// TODO: Remove this file once the backend contract is fixed.
+
 type PatchableSchema = {
   properties?: Record<string, unknown>;
   required?: string[];
