@@ -207,7 +207,7 @@ export type DataProductMetadata = {
 };
 
 export type DataProductOverview = {
-    id?: string;
+    id: string;
     name: string;
     description: string;
     state?: StateEnum;
