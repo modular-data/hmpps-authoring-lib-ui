@@ -332,7 +332,7 @@ export const zStateEnum = zDataProductStateType;
 export type StateEnumZodType = z.infer<typeof zStateEnum>;
 
 export const zDataProductOverview = z.object({
-    id: z.uuid().optional(),
+    id: z.uuid(),
     name: z.string().min(0).max(255),
     description: z.string().min(20).max(500),
     state: zStateEnum.optional(),
