@@ -1,6 +1,5 @@
 import { type DataProduct } from '@/generated/core-api';
 import { ValidationError, type ValidationErrorItems } from '@/errors';
-import { getServices } from '@/server/services-registry';
 
 export type DataProductBuilderActionSuccessResult = {
   ok: true;
@@ -27,10 +26,4 @@ export const handleDataProductBuilderActionError = (
   }
 
   throw error;
-};
-
-export const getFreshDataProduct = async (id: string): Promise<DataProduct> => {
-  const { dataProductService } = getServices();
-
-  return dataProductService.getById(id);
 };

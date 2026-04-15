@@ -6,7 +6,6 @@ import { zDataProductCreateInput } from '@/generated/core-api/zod.gen';
 import { getServices } from '@/server/services-registry';
 import {
   type DataProductBuilderActionResult,
-  getFreshDataProduct,
   handleDataProductBuilderActionError,
 } from './shared';
 
@@ -28,7 +27,9 @@ export const createDataProduct = async (
 
     return {
       ok: true,
-      dataProduct: await getFreshDataProduct(createdDataProductOverview.id),
+      dataProduct: await dataProductService.getById(
+        createdDataProductOverview.id,
+      ),
     };
   } catch (error) {
     return handleDataProductBuilderActionError(error);

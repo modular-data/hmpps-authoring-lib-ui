@@ -7,7 +7,6 @@ import { zDataProductUpdateInput } from '@/generated/core-api/zod.gen';
 import { getServices } from '@/server/services-registry';
 import {
   type DataProductBuilderActionResult,
-  getFreshDataProduct,
   handleDataProductBuilderActionError,
 } from './shared';
 
@@ -25,12 +24,11 @@ export const saveDataProductOverview = async (
     const { dataProductService } = getServices();
 
     await dataProductService.saveOverview(id, parseResult.data);
-
     refresh();
 
     return {
       ok: true,
-      dataProduct: await getFreshDataProduct(id),
+      dataProduct: await dataProductService.getById(id),
     };
   } catch (error) {
     return handleDataProductBuilderActionError(error);
