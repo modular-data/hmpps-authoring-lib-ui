@@ -30,12 +30,15 @@ export const deriveStepMetaByStep = (
   dataProduct?: DataProduct,
 ): DataProductBuilderStepMetaMap => {
   const completedByStep = deriveStepCompletionMap(dataProduct);
-  const isDraftState = dataProduct?.state === DataProductStateType.DRAFT;
 
   const { stepMetaByStep } = DATA_PRODUCT_BUILDER_STEP_ORDER.reduce(
     (accumulator, step) => {
       const completed = completedByStep[step];
-      const available = !isDraftState || accumulator.allPreviousStepsCompleted;
+      let available = accumulator.allPreviousStepsCompleted;
+
+      if (dataProduct && dataProduct.state !== DataProductStateType.DRAFT) {
+        available = true;
+      }
 
       accumulator.stepMetaByStep[step] = { completed, available };
       accumulator.allPreviousStepsCompleted &&= completed;
