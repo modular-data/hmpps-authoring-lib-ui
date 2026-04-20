@@ -7,9 +7,9 @@ const combineMessages = (messages: string[]) => {
   return messages.join('. ');
 };
 
-export const mapValidationErrorsToForm = <T extends FieldValues>(
+export const mapValidationErrorsToForm = <TFieldValues extends FieldValues>(
   errors: ValidationErrorItems,
-  setError: UseFormSetError<T>,
+  setError: UseFormSetError<TFieldValues>,
 ) => {
   const groupedErrors = new Map<string, string[]>();
 
