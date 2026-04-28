@@ -1,0 +1,9 @@
+@use '@modular-data/gds-components/styles/base.scss' as base;
+
+.data-product-builder-overview-dev-helpers {
+  margin-bottom: base.govuk-spacing(6);
+
+  &__description {
+    margin-bottom: base.govuk-spacing(3);
+  }
+}

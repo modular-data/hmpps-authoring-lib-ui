@@ -2,11 +2,11 @@ import { DataProductStateType, type DataProduct } from '@/generated/core-api';
 import {
   DATA_PRODUCT_BUILDER_LAST_STEP,
   DATA_PRODUCT_BUILDER_STEP_ORDER,
-} from '../constants/steps';
+} from '@/features/data-products/constants/steps';
 import {
   DataProductBuilderStep,
   type DataProductBuilderStepMetaMap,
-} from '../types/steps';
+} from '@/features/data-products/types/steps';
 
 type DataProductBuilderStepCompletionMap = Record<
   DataProductBuilderStep,
@@ -88,4 +88,21 @@ export const getPreviousAvailableStep = (
   ).findLast((step) => stepMetaByStep[step].available);
 
   return previousStep ?? null;
+};
+
+export const getNextAvailableStep = (
+  currentStep: DataProductBuilderStep,
+  stepMetaByStep: DataProductBuilderStepMetaMap,
+): DataProductBuilderStep | null => {
+  const currentStepIndex = DATA_PRODUCT_BUILDER_STEP_ORDER.indexOf(currentStep);
+
+  if (currentStepIndex < 0) {
+    return null;
+  }
+
+  const nextStep = DATA_PRODUCT_BUILDER_STEP_ORDER.slice(
+    currentStepIndex + 1,
+  ).find((step) => stepMetaByStep[step].available);
+
+  return nextStep ?? null;
 };

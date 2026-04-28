@@ -190,7 +190,7 @@ export const zReportSpecification = z.object({
 export type ReportSpecificationZodType = z.infer<typeof zReportSpecification>;
 
 export const zReport = z.object({
-    id: z.uuid(),
+    id: z.uuid().readonly(),
     name: z.string().min(0).max(255),
     description: z.string().min(0).max(500),
     classification: z.string().optional(),
@@ -205,10 +205,14 @@ export const zReport = z.object({
 
 export type ReportZodType = z.infer<typeof zReport>;
 
+export const zReports = z.object({
+    reports: z.array(zReport)
+});
+
+export type ReportsZodType = z.infer<typeof zReports>;
+
 export const zPolicy = z.object({
-    id: z.uuid(),
-    dataProductId: z.uuid(),
-    dataSetId: z.uuid(),
+    id: z.uuid().readonly(),
     name: z.string().min(0).max(255),
     description: z.string().min(0).max(500),
     type: zPolicyType,
@@ -220,6 +224,12 @@ export const zPolicy = z.object({
 });
 
 export type PolicyZodType = z.infer<typeof zPolicy>;
+
+export const zPolicies = z.object({
+    policies: z.array(zPolicy)
+});
+
+export type PoliciesZodType = z.infer<typeof zPolicies>;
 
 export const zDataProductMetadataInput = z.object({
     version: z.string().min(1).regex(/^\d+\.\d+\.\d+$/),
@@ -270,7 +280,7 @@ export const zDataSetSchema = z.object({
 export type DataSetSchemaZodType = z.infer<typeof zDataSetSchema>;
 
 export const zDataSet = z.object({
-    id: z.uuid(),
+    id: z.uuid().readonly(),
     name: z.string().min(0).max(255),
     description: z.string().min(0).max(255),
     dataSourceId: z.uuid(),
@@ -282,6 +292,12 @@ export const zDataSet = z.object({
 });
 
 export type DataSetZodType = z.infer<typeof zDataSet>;
+
+export const zDataSets = z.object({
+    datasets: z.array(zDataSet)
+});
+
+export type DataSetsZodType = z.infer<typeof zDataSets>;
 
 export const zDataProductCreateInput = z.object({
     name: z.string().min(0).max(255),
@@ -314,13 +330,13 @@ export type DataProductDefinitionMetadataZodType = z.infer<typeof zDataProductDe
 export const zDataProductDefinition = z.object({
     id: z.string(),
     name: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     scheduled: z.boolean().optional(),
     metadata: zDataProductDefinitionMetadata,
     datasource: z.array(z.unknown()),
     dataset: z.array(z.unknown()),
     dashboard: z.array(z.unknown()).optional(),
-    policy: z.array(z.unknown()).optional(),
+    policy: z.array(z.unknown()),
     report: z.array(z.unknown()),
     errors: z.array(z.unknown()).optional()
 });
@@ -335,7 +351,7 @@ export const zDataProductOverview = z.object({
     id: z.uuid(),
     name: z.string().min(0).max(255),
     description: z.string().min(20).max(500),
-    state: zStateEnum.optional(),
+    state: zStateEnum,
     metadata: zDataProductMetadata
 });
 
@@ -344,16 +360,93 @@ export type DataProductOverviewZodType = z.infer<typeof zDataProductOverview>;
 export const zDataProduct = z.object({
     id: z.uuid(),
     name: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     state: zStateEnum,
     metadata: zDataProductMetadata,
     datasource: z.array(zDataSource),
     dataset: z.array(zDataSet),
     report: z.array(zReport),
-    policy: z.array(zPolicy).optional()
+    policy: z.array(zPolicy)
 });
 
 export type DataProductZodType = z.infer<typeof zDataProduct>;
+
+export const zReportInput = z.object({
+    name: z.string().min(0).max(255),
+    description: z.string().min(0).max(500),
+    classification: z.string().optional(),
+    version: z.string().optional(),
+    render: zReportRenderType,
+    loadType: z.string().optional(),
+    dataSetId: z.uuid(),
+    specification: zReportSpecification,
+    createdAt: z.iso.datetime().optional(),
+    updatedAt: z.iso.datetime().optional()
+});
+
+export type ReportInputZodType = z.infer<typeof zReportInput>;
+
+export const zReportsInput = z.object({
+    reports: z.array(zReportInput)
+});
+
+export type ReportsInputZodType = z.infer<typeof zReportsInput>;
+
+export const zPolicyInput = z.object({
+    name: z.string().min(0).max(255),
+    description: z.string().min(0).max(500),
+    type: zPolicyType,
+    createdAt: z.iso.datetime().optional(),
+    updatedAt: z.iso.datetime().optional(),
+    valid: z.boolean().optional(),
+    invalidReason: z.string().optional(),
+    rule: z.array(zPolicyRule)
+});
+
+export type PolicyInputZodType = z.infer<typeof zPolicyInput>;
+
+export const zPoliciesInput = z.object({
+    policies: z.array(zPolicyInput)
+});
+
+export type PoliciesInputZodType = z.infer<typeof zPoliciesInput>;
+
+export const zDataSetInput = z.object({
+    name: z.string().min(0).max(255),
+    description: z.string().min(0).max(255),
+    dataSourceId: z.uuid(),
+    query: z.string().min(1),
+    schema: zDataSetSchema,
+    schedule: z.string().optional(),
+    createdAt: z.iso.datetime().optional(),
+    updatedAt: z.iso.datetime().optional()
+});
+
+export type DataSetInputZodType = z.infer<typeof zDataSetInput>;
+
+export const zDataSetsInput = z.object({
+    datasets: z.array(zDataSetInput)
+});
+
+export type DataSetsInputZodType = z.infer<typeof zDataSetsInput>;
+
+export const zStateEnumInput = zDataProductStateType;
+
+export type StateEnumInputZodType = z.infer<typeof zStateEnumInput>;
+
+export const zDataProductInput = z.object({
+    id: z.uuid(),
+    name: z.string(),
+    description: z.string(),
+    state: zStateEnumInput,
+    metadata: zDataProductMetadata,
+    datasource: z.array(zDataSource),
+    dataset: z.array(zDataSetInput),
+    report: z.array(zReportInput),
+    policy: z.array(zPolicyInput)
+});
+
+export type DataProductInputZodType = z.infer<typeof zDataProductInput>;
 
 export const zGetReportsData = z.object({
     body: z.never().optional(),
@@ -373,7 +466,7 @@ export const zGetReportsResponse = z.array(zReport);
 export type GetReportsResponseZodType = z.infer<typeof zGetReportsResponse>;
 
 export const zUpdateReportsData = z.object({
-    body: z.array(zReport),
+    body: zReportsInput,
     path: z.object({
         id: z.uuid()
     }),
@@ -385,7 +478,7 @@ export type UpdateReportsDataZodType = z.infer<typeof zUpdateReportsData>;
 /**
  * OK
  */
-export const zUpdateReportsResponse = z.array(zReport);
+export const zUpdateReportsResponse = zReports;
 
 export type UpdateReportsResponseZodType = z.infer<typeof zUpdateReportsResponse>;
 
@@ -407,7 +500,7 @@ export const zGetPoliciesResponse = z.array(zPolicy);
 export type GetPoliciesResponseZodType = z.infer<typeof zGetPoliciesResponse>;
 
 export const zUpdatePoliciesData = z.object({
-    body: z.array(zPolicy),
+    body: zPoliciesInput,
     path: z.object({
         id: z.uuid()
     }),
@@ -419,7 +512,7 @@ export type UpdatePoliciesDataZodType = z.infer<typeof zUpdatePoliciesData>;
 /**
  * OK
  */
-export const zUpdatePoliciesResponse = z.array(zPolicy);
+export const zUpdatePoliciesResponse = zPolicies;
 
 export type UpdatePoliciesResponseZodType = z.infer<typeof zUpdatePoliciesResponse>;
 
@@ -509,7 +602,7 @@ export const zGetDataSetsResponse = z.array(zDataSet);
 export type GetDataSetsResponseZodType = z.infer<typeof zGetDataSetsResponse>;
 
 export const zUpdateDataSetsData = z.object({
-    body: z.array(zDataSet),
+    body: zDataSetsInput,
     path: z.object({
         id: z.uuid()
     }),
@@ -521,7 +614,7 @@ export type UpdateDataSetsDataZodType = z.infer<typeof zUpdateDataSetsData>;
 /**
  * OK
  */
-export const zUpdateDataSetsResponse = z.array(zDataSet);
+export const zUpdateDataSetsResponse = zDataSets;
 
 export type UpdateDataSetsResponseZodType = z.infer<typeof zUpdateDataSetsResponse>;
 

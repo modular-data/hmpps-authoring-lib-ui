@@ -2,9 +2,9 @@
 
 import { refresh } from 'next/cache';
 import { ValidationError } from '@/errors';
-import { type DataProductUpdateInput } from '@/generated/core-api';
-import { zDataProductUpdateInput } from '@/generated/core-api/zod.gen';
 import { getServices } from '@/server/services-registry';
+import { type DataProductUpdateInput } from '@/generated/core-api';
+import { overviewStepSchema } from '@/features/data-products/schemas/overview-step.schema';
 import {
   type DataProductBuilderActionResult,
   handleDataProductBuilderActionError,
@@ -15,7 +15,7 @@ export const saveDataProductOverview = async (
   data: DataProductUpdateInput,
 ): Promise<DataProductBuilderActionResult> => {
   try {
-    const parseResult = zDataProductUpdateInput.safeParse(data);
+    const parseResult = overviewStepSchema.safeParse(data);
 
     if (!parseResult.success) {
       throw ValidationError.fromZod(parseResult.error);

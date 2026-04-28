@@ -1,19 +1,21 @@
 'use server';
 
 import { ValidationError } from '@/errors';
-import { type DataProductCreateInput } from '@/generated/core-api';
-import { zDataProductCreateInput } from '@/generated/core-api/zod.gen';
 import { getServices } from '@/server/services-registry';
+import {
+  overviewStepSchema,
+  type OverviewStepValues,
+} from '@/features/data-products/schemas/overview-step.schema';
 import {
   type DataProductBuilderActionResult,
   handleDataProductBuilderActionError,
 } from './shared';
 
 export const createDataProduct = async (
-  data: DataProductCreateInput,
+  data: OverviewStepValues,
 ): Promise<DataProductBuilderActionResult> => {
   try {
-    const parseResult = zDataProductCreateInput.safeParse(data);
+    const parseResult = overviewStepSchema.safeParse(data);
 
     if (!parseResult.success) {
       throw ValidationError.fromZod(parseResult.error);

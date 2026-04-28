@@ -2,7 +2,7 @@ import {
   DataProductBuilderStep,
   type DataProductBuilderStepDefinition,
   type DataProductBuilderStepDefinitions,
-} from '../types/steps';
+} from '@/features/data-products/types/steps';
 
 type DataProductBuilderStepDefinitionsMap = {
   [TStep in DataProductBuilderStep]: DataProductBuilderStepDefinition & {
