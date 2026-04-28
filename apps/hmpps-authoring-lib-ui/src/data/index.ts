@@ -4,7 +4,7 @@ import {
   AuthenticationClient,
 } from '@ministryofjustice/hmpps-auth-clients';
 import { type ApiConfig } from '@ministryofjustice/hmpps-rest-client';
-import { logger } from '../logger';
+import { logger } from '@/logger';
 import {
   CoreApiClient,
   DataSourceApiClient,

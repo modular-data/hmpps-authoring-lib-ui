@@ -1,4 +1,4 @@
-import { type DataAccess } from '../data';
+import { type DataAccess } from '@/data';
 import { DataSourceService } from './data-source.service';
 import { DataProductService } from './data-product.service';
 

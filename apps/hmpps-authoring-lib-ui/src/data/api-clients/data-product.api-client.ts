@@ -10,7 +10,6 @@ import {
   type GetAllDataProductsResponse,
   type GetDataProductData,
   type GetDataProductResponse,
-  type Policy,
   type PutAllDataSourcesData,
   type PutAllDataSourcesResponse,
   type UpdateDataSetsData,
@@ -21,7 +20,7 @@ import {
   type UpdatePoliciesResponse,
   type UpdateReportsData,
   type UpdateReportsResponse,
-} from '../../generated/core-api';
+} from '@/generated/core-api';
 import { type CoreApiClient } from './core';
 
 // TODO: Rename types after backend fixes OpenAPI naming issues
@@ -98,8 +97,8 @@ export class DataProductApiClient {
 
   async savePolicies(
     id: UpdatePoliciesData['path']['id'],
-    data: Policy[],
-  ): Promise<Policy[]> {
+    data: UpdatePoliciesData['body'],
+  ): Promise<UpdatePoliciesResponse> {
     return this.coreApiClient.put<UpdatePoliciesResponse>(
       {
         path: `${DataProductApiClient.ROOT_PATH}/${id}/policies`,
