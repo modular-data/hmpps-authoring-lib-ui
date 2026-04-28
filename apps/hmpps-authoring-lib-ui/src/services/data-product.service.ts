@@ -1,6 +1,7 @@
 import {
   type DataProduct,
   type DataProductCreateInput,
+  type DataProductDefinition,
   type DataProductOverview,
   type DataProductStateActions,
   type DataProductUpdateInput,
@@ -28,6 +29,10 @@ export class DataProductService {
 
   async getById(id: string): Promise<DataProduct> {
     return this.dataProductApiClient.getById(id);
+  }
+
+  async getDefinitionById(id: string): Promise<DataProductDefinition> {
+    return this.dataProductApiClient.getDefinitionById(id);
   }
 
   async saveOverview(

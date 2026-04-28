@@ -3,12 +3,15 @@ import {
   type CreateDraftResponse,
   type DataProduct,
   type DataProductCreateInput,
+  type DataProductDefinition,
   type DataProductOverview,
   type DataProductUpdateInput,
   type ExecuteActionData,
   type ExecuteActionResponse,
   type GetAllDataProductsResponse,
   type GetDataProductData,
+  type GetDataProductDefinitionData,
+  type GetDataProductDefinitionResponse,
   type GetDataProductResponse,
   type PutAllDataSourcesData,
   type PutAllDataSourcesResponse,
@@ -51,6 +54,17 @@ export class DataProductApiClient {
     return this.coreApiClient.get<GetDataProductResponse>(
       {
         path: `${DataProductApiClient.ROOT_PATH}/${id}`,
+      },
+      asSystem(),
+    );
+  }
+
+  async getDefinitionById(
+    id: GetDataProductDefinitionData['path']['id'],
+  ): Promise<DataProductDefinition> {
+    return this.coreApiClient.get<GetDataProductDefinitionResponse>(
+      {
+        path: `${DataProductApiClient.ROOT_PATH}/${id}/definition`,
       },
       asSystem(),
     );
