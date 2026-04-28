@@ -12,8 +12,8 @@ import {
 import {
   type DataProductBuilderStep,
   type DataProductBuilderStepMetaMap,
-} from '../../types/steps';
-import { downloadDataProductDefinition } from '../../utils/download-data-product-definition';
+} from '@/features/data-products/types/steps';
+import { downloadDataProductDefinition } from '@/features/data-products/utils/download-data-product-definition';
 import { getStepSubmitLabel, shouldShowPreviewAction } from './helpers';
 
 interface DataProductBuilderFooterProps {

@@ -2,8 +2,8 @@
 
 import { type FieldValues } from 'react-hook-form';
 import { type InputProps, Input } from '@modular-data/gds-components';
-import { useFormFieldErrorMessage } from '../hooks/use-form-field-error-message';
-import { type RegisteredFormFieldProps } from '../types';
+import { useFormFieldErrorMessage } from '@/components/forms/hooks/use-form-field-error-message';
+import { type RegisteredFormFieldProps } from '@/components/forms/types';
 
 export type FormInputProps<TFormValues extends FieldValues> =
   RegisteredFormFieldProps<TFormValues, InputProps>;

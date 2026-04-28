@@ -1,0 +1,1 @@
+export const DATA_PRODUCT_DEFAULT_VERSION = '1.0.0';

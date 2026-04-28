@@ -159,7 +159,7 @@ export type DataProductReportField = {
 };
 
 export type Report = {
-    id: string;
+    readonly id: string;
     name: string;
     description: string;
     classification?: string;
@@ -172,10 +172,16 @@ export type Report = {
     updatedAt?: string;
 };
 
+export type Reports = {
+    reports: Array<Report>;
+};
+
+export type Policies = {
+    policies: Array<Policy>;
+};
+
 export type Policy = {
-    id: string;
-    dataProductId: string;
-    dataSetId: string;
+    readonly id: string;
     name: string;
     description: string;
     type: PolicyType;
@@ -210,12 +216,12 @@ export type DataProductOverview = {
     id: string;
     name: string;
     description: string;
-    state?: StateEnum;
+    state: StateEnum;
     metadata: DataProductMetadata;
 };
 
 export type DataSet = {
-    id: string;
+    readonly id: string;
     name: string;
     description: string;
     dataSourceId: string;
@@ -228,6 +234,10 @@ export type DataSet = {
 
 export type DataSetSchema = {
     field: Array<SchemaField>;
+};
+
+export type DataSets = {
+    datasets: Array<DataSet>;
 };
 
 export type SchemaField = {
@@ -253,13 +263,13 @@ export type DataProductCreateInput = {
 export type DataProduct = {
     id: string;
     name: string;
-    description?: string;
+    description: string;
     state: StateEnum;
     metadata: DataProductMetadata;
     datasource: Array<DataSource>;
     dataset: Array<DataSet>;
     report: Array<Report>;
-    policy?: Array<Policy>;
+    policy: Array<Policy>;
 };
 
 export type DataSource = {
@@ -274,13 +284,13 @@ export type DataSource = {
 export type DataProductDefinition = {
     id: string;
     name: string;
-    description?: string;
+    description: string;
     scheduled?: boolean;
     metadata: DataProductDefinitionMetadata;
     datasource: Array<unknown>;
     dataset: Array<unknown>;
     dashboard?: Array<unknown>;
-    policy?: Array<unknown>;
+    policy: Array<unknown>;
     report: Array<unknown>;
     errors?: Array<unknown>;
 };
@@ -293,6 +303,67 @@ export type DataProductDefinitionMetadata = {
 };
 
 export type StateEnum = DataProductStateType;
+
+export type ReportInput = {
+    name: string;
+    description: string;
+    classification?: string;
+    version?: string;
+    render: ReportRenderType;
+    loadType?: string;
+    dataSetId: string;
+    specification: ReportSpecification;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export type ReportsInput = {
+    reports: Array<ReportInput>;
+};
+
+export type PoliciesInput = {
+    policies: Array<PolicyInput>;
+};
+
+export type PolicyInput = {
+    name: string;
+    description: string;
+    type: PolicyType;
+    createdAt?: string;
+    updatedAt?: string;
+    valid?: boolean;
+    invalidReason?: string;
+    rule: Array<PolicyRule>;
+};
+
+export type DataSetInput = {
+    name: string;
+    description: string;
+    dataSourceId: string;
+    query: string;
+    schema: DataSetSchema;
+    schedule?: string;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export type DataSetsInput = {
+    datasets: Array<DataSetInput>;
+};
+
+export type DataProductInput = {
+    id: string;
+    name: string;
+    description: string;
+    state: StateEnumInput;
+    metadata: DataProductMetadata;
+    datasource: Array<DataSource>;
+    dataset: Array<DataSetInput>;
+    report: Array<ReportInput>;
+    policy: Array<PolicyInput>;
+};
+
+export type StateEnumInput = DataProductStateType;
 
 export type GetReportsData = {
     body?: never;
@@ -334,7 +405,7 @@ export type GetReportsResponses = {
 export type GetReportsResponse = GetReportsResponses[keyof GetReportsResponses];
 
 export type UpdateReportsData = {
-    body: Array<Report>;
+    body: ReportsInput;
     path: {
         id: string;
     };
@@ -367,7 +438,7 @@ export type UpdateReportsResponses = {
     /**
      * OK
      */
-    200: Array<Report>;
+    200: Reports;
 };
 
 export type UpdateReportsResponse = UpdateReportsResponses[keyof UpdateReportsResponses];
@@ -412,7 +483,7 @@ export type GetPoliciesResponses = {
 export type GetPoliciesResponse = GetPoliciesResponses[keyof GetPoliciesResponses];
 
 export type UpdatePoliciesData = {
-    body: Array<Policy>;
+    body: PoliciesInput;
     path: {
         id: string;
     };
@@ -445,7 +516,7 @@ export type UpdatePoliciesResponses = {
     /**
      * OK
      */
-    200: Array<Policy>;
+    200: Policies;
 };
 
 export type UpdatePoliciesResponse = UpdatePoliciesResponses[keyof UpdatePoliciesResponses];
@@ -646,7 +717,7 @@ export type GetDataSetsResponses = {
 export type GetDataSetsResponse = GetDataSetsResponses[keyof GetDataSetsResponses];
 
 export type UpdateDataSetsData = {
-    body: Array<DataSet>;
+    body: DataSetsInput;
     path: {
         id: string;
     };
@@ -679,7 +750,7 @@ export type UpdateDataSetsResponses = {
     /**
      * OK
      */
-    200: Array<DataSet>;
+    200: DataSets;
 };
 
 export type UpdateDataSetsResponse = UpdateDataSetsResponses[keyof UpdateDataSetsResponses];

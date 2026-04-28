@@ -4,8 +4,8 @@ import {
   RestClient,
 } from '@ministryofjustice/hmpps-rest-client';
 import { type AuthenticationClient } from '@ministryofjustice/hmpps-auth-clients';
-import { logger } from '../../../logger';
-import { ValidationError } from '../../../errors';
+import { logger } from '@/logger';
+import { ValidationError } from '@/errors';
 import { isCoreApiValidationError } from './errors';
 
 export class CoreApiClient extends RestClient {

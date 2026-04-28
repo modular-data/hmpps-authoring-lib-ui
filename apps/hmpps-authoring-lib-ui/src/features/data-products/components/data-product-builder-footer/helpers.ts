@@ -1,10 +1,10 @@
 import { DataProductStateType, type DataProduct } from '@/generated/core-api';
-import { DATA_PRODUCT_BUILDER_LAST_STEP } from '../../constants/steps';
+import { DATA_PRODUCT_BUILDER_LAST_STEP } from '@/features/data-products/constants/steps';
 import {
   type DataProductBuilderStep,
   type DataProductBuilderStepMetaMap,
-} from '../../types/steps';
-import { areAllStepsCompleted } from '../../utils/steps';
+} from '@/features/data-products/types/steps';
+import { areAllStepsCompleted } from '@/features/data-products/utils/steps';
 
 export const shouldShowPreviewAction = (
   stepMetaByStep: DataProductBuilderStepMetaMap,

@@ -12,8 +12,8 @@ import {
 import {
   type DataProductBuilderStep,
   type DataProductBuilderStepMetaMap,
-} from '../../types/steps';
-import { DATA_PRODUCT_BUILDER_STEP_DEFINITIONS } from '../../constants/steps';
+} from '@/features/data-products/types/steps';
+import { DATA_PRODUCT_BUILDER_STEP_DEFINITIONS } from '@/features/data-products/constants/steps';
 import './data-product-builder-stepper.scss';
 
 interface DataProductBuilderStepperProps {

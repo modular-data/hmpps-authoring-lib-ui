@@ -1,5 +1,5 @@
 import { asSystem } from '@ministryofjustice/hmpps-rest-client';
-import { type GetDataSourcesResponse } from '../../generated/core-api';
+import { type GetDataSourcesResponse } from '@/generated/core-api';
 import { type CoreApiClient } from './core';
 
 export class DataSourceApiClient {

@@ -10,8 +10,8 @@ import {
   type FieldValues,
   useController,
 } from 'react-hook-form';
-import { toFormFieldErrorMessage } from '../utils/to-form-field-error-message';
-import { type FormFieldControlProps } from '../types';
+import { toFormFieldErrorMessage } from '@/components/forms/utils/to-form-field-error-message';
+import { type FormFieldControlProps } from '@/components/forms/types';
 
 type ControllerManagedPropKeys =
   | 'name'
