@@ -7,9 +7,9 @@ import {
 import createNextServer from 'next';
 import { parse } from 'url';
 import { resolve } from 'path';
+import { type Services } from '@/services';
 import { registerServices } from './services-registry';
 import { runWithRequestContext } from './request-context';
-import { type Services } from '../services';
 
 // TODO: Fully revisit and cleanup this file after integraion PoC testing is complete.
 // DO NOT refactor this file until after integration PoC testing is complete.

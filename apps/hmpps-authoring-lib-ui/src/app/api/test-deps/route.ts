@@ -1,7 +1,7 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
 import { NextResponse } from 'next/server';
-import { getServices } from '../../../server/services-registry';
+import { getServices } from '@/server/services-registry';
 
 export async function GET() {
   try {

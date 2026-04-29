@@ -1,21 +1,25 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
-import { getDprUser } from '../../../server/request-context';
+import { getDprUser } from '@/server/request-context';
+import DeepUserProbe from './deep-user-probe';
 
-export default function DeepUserProbe() {
+export default function NestedUserProbe() {
   const dprUser = getDprUser<Record<string, unknown>>();
 
   return (
-    <pre>
-      {JSON.stringify(
-        {
-          layer: 'deep-nested-rsc',
-          dprUserProbe: getUserProbe(dprUser),
-        },
-        null,
-        2,
-      )}
-    </pre>
+    <div>
+      <pre>
+        {JSON.stringify(
+          {
+            layer: 'nested-rsc',
+            dprUserProbe: getUserProbe(dprUser),
+          },
+          null,
+          2,
+        )}
+      </pre>
+      <DeepUserProbe />
+    </div>
   );
 }
 

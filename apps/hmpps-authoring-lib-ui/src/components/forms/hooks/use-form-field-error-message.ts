@@ -1,8 +1,8 @@
 'use client';
 
 import { type FieldValues, type Path, useFormState } from 'react-hook-form';
-import { type FormFieldControlProps } from '../types';
-import { toFormFieldErrorMessage } from '../utils/to-form-field-error-message';
+import { type FormFieldControlProps } from '@/components/forms/types';
+import { toFormFieldErrorMessage } from '@/components/forms/utils/to-form-field-error-message';
 
 export const useFormFieldErrorMessage = <
   TFormValues extends FieldValues,
