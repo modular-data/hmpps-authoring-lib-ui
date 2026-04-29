@@ -1,4 +1,4 @@
-import { type Services } from '../services';
+import { type Services } from '@/services';
 
 // TODO: Fully revisit and cleanup this file after integraion PoC testing is complete.
 // DO NOT refactor this file until after integration PoC testing is complete.

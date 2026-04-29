@@ -1,7 +1,7 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
 import { NextResponse } from 'next/server';
-import { getDprUser } from '../../../server/request-context';
+import { getDprUser } from '@/server/request-context';
 
 export async function GET() {
   const dprUser = getDprUser<Record<string, unknown>>();

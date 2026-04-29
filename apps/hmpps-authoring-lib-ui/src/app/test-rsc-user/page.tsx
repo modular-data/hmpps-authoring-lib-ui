@@ -1,7 +1,7 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
-import NestedUserProbe from './components/NestedUserProbe';
-import { getDprUser } from '../../server/request-context';
+import { getDprUser } from '@/server/request-context';
+import NestedUserProbe from './components/nested-user-probe';
 
 export const dynamic = 'force-dynamic';
 

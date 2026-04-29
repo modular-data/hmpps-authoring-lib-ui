@@ -1,7 +1,7 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
 import { Suspense } from 'react';
-import ProbeListItem from './ProbeListItem';
+import ProbeListItem from './probe-list-item';
 
 type ProbeListProps = {
   itemCount: number;

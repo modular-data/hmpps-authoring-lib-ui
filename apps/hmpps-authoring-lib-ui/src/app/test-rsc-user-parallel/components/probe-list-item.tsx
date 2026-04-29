@@ -1,6 +1,6 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
-import { getDprUser } from '../../../server/request-context';
+import { getDprUser } from '@/server/request-context';
 
 type ProbeListItemProps = {
   itemIndex: number;

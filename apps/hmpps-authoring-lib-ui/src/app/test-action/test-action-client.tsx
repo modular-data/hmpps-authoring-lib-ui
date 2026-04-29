@@ -6,7 +6,7 @@ import { useActionState } from 'react';
 import {
   testDependencies,
   type TestDependenciesState,
-} from '../actions/test-action';
+} from '@/app/actions/test-action';
 
 const initialState: TestDependenciesState = { ok: false, dataSources: [] };
 

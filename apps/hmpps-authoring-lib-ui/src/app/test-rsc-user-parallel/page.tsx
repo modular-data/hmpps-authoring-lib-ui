@@ -1,6 +1,6 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
-import ProbeList from './components/ProbeList';
+import ProbeList from './components/probe-list';
 
 export const dynamic = 'force-dynamic';
 
