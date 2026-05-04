@@ -1,0 +1,11 @@
+@use '@modular-data/gds-components/styles/base.scss';
+
+.data-product-builder {
+  &__stepper {
+    margin-top: base.govuk-spacing(4);
+  }
+
+  &__definition-viewer {
+    margin-top: base.govuk-spacing(6);
+  }
+}

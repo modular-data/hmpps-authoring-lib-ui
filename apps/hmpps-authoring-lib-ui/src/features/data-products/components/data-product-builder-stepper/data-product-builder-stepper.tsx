@@ -17,6 +17,7 @@ import { DATA_PRODUCT_BUILDER_STEP_DEFINITIONS } from '@/features/data-products/
 import './data-product-builder-stepper.scss';
 
 interface DataProductBuilderStepperProps {
+  className?: string;
   currentStep: DataProductBuilderStep;
   stepMetaByStep: DataProductBuilderStepMetaMap;
   onStepChange: (step: DataProductBuilderStep) => void;
@@ -35,6 +36,7 @@ const getStepTagColour = (isCompleted: boolean, isCurrent: boolean) => {
 };
 
 export const DataProductBuilderStepper = ({
+  className,
   currentStep,
   stepMetaByStep,
   onStepChange,
@@ -46,8 +48,13 @@ export const DataProductBuilderStepper = ({
     };
   };
 
+  const combinedClassName = classNames(
+    'data-product-builder-stepper',
+    className,
+  );
+
   return (
-    <nav className="data-product-builder-stepper" aria-label="Builder progress">
+    <nav className={combinedClassName} aria-label="Builder progress">
       <ol className="data-product-builder-stepper__list govuk-list">
         {DATA_PRODUCT_BUILDER_STEP_DEFINITIONS.map((definition, index) => {
           const { step, title, description } = definition;
