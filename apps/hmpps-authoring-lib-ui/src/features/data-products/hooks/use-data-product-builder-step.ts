@@ -10,6 +10,7 @@ import {
 import { type ZodType } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type DataProduct } from '@/generated/core-api';
+import { useSyncRhfErrorSummary } from '@/components/page-error-summary';
 import {
   mapValidationErrorsToForm,
   ROOT_SERVER_ERROR_PATH,
@@ -41,11 +42,14 @@ export const useDataProductBuilderStep = <TValues extends FieldValues>({
   const form = useForm({
     resolver: zodResolver(schema),
     mode: 'onTouched',
+    shouldFocusError: false,
     defaultValues,
   });
 
   const { formState, handleSubmit, setError } = form;
   const { isSubmitting } = formState;
+
+  useSyncRhfErrorSummary(formState);
 
   const handleFormSubmit = async (values: TValues) => {
     try {
