@@ -65,9 +65,11 @@ export const areAllStepsCompleted = (
 export const deriveDefaultStep = (
   stepMetaByStep: DataProductBuilderStepMetaMap,
 ): DataProductBuilderStep => {
-  const firstIncompleteStep = DATA_PRODUCT_BUILDER_STEP_ORDER.find(
-    (step) => !stepMetaByStep[step].completed,
-  );
+  const firstIncompleteStep = DATA_PRODUCT_BUILDER_STEP_ORDER.find((step) => {
+    const { available, completed } = stepMetaByStep[step];
+
+    return available && !completed;
+  });
 
   return firstIncompleteStep ?? DATA_PRODUCT_BUILDER_LAST_STEP;
 };
