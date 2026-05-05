@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference -- Keep the ambient govuk-frontend declaration attached to the package entrypoint.
 /// <reference path="./types/govuk-frontend.d.ts" />
 
 export * from './components/back-link';
@@ -18,6 +19,7 @@ export * from './components/label';
 export * from './components/layout';
 export * from './components/link';
 export * from './components/select';
+export * from './components/skip-link';
 export * from './components/tag';
 export * from './components/textarea';
 export * from './components/typography';
