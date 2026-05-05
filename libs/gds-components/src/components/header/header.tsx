@@ -27,7 +27,7 @@ export const Header: FC<HeaderProps> = ({
   return (
     <header
       className={classNames('govuk-header', className)}
-      data-module="'govuk-header"
+      data-module="govuk-header"
       {...restProps}
     >
       <div
