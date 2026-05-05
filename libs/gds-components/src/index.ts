@@ -12,6 +12,7 @@ export * from './components/fieldset';
 export * from './components/footer';
 export * from './components/form-group';
 export * from './components/govuk-logo';
+export * from './components/header';
 export * from './components/hint';
 export * from './components/input';
 export * from './components/inset-text';
