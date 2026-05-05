@@ -28,6 +28,9 @@ const meta = {
       },
     },
   },
+  args: {
+    children: 'Skip to main content',
+  },
 } satisfies Meta<typeof SkipLink>;
 
 export default meta;
