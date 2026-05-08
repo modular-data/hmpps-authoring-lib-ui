@@ -7,7 +7,6 @@ export const GovukPageTemplateShell = ({
   bodyStart,
   skipLink,
   header,
-  serviceNavigation,
   children,
   footer,
   bodyEnd,
@@ -33,8 +32,6 @@ export const GovukPageTemplateShell = ({
       {resolvedSkipLink}
 
       {resolvedHeader}
-
-      {serviceNavigation}
 
       {children}
 
