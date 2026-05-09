@@ -1,3 +1,7 @@
+import {
+  GovukPageTemplateRoot,
+  GovukPageTemplateShell,
+} from '@modular-data/gds-components';
 import './global.scss';
 
 export const metadata = {
@@ -11,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <GovukPageTemplateRoot>
+      <GovukPageTemplateShell>{children}</GovukPageTemplateShell>
+    </GovukPageTemplateRoot>
   );
 }
