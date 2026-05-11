@@ -1,6 +1,6 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
-import { Button } from '@modular-data/gds-components';
+import { Button, GovukPageTemplateContent } from '@modular-data/gds-components';
 import { getServices } from '@/server/services-registry';
 import { getDprUser } from '@/server/request-context';
 
@@ -16,7 +16,7 @@ export default async function Index() {
   const dataSources = await dataSourceService.getList();
 
   return (
-    <div>
+    <GovukPageTemplateContent>
       Hello Authoring UI!
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <Button href="/data-products">Go to Data Products</Button>
@@ -31,6 +31,6 @@ export default async function Index() {
       </div>
       <pre>{JSON.stringify(dprUser, null, 2)}</pre>
       <pre>{JSON.stringify(dataSources, null, 2)}</pre>
-    </div>
+    </GovukPageTemplateContent>
   );
 }

@@ -1,5 +1,6 @@
 // TODO (integration-probe-cleanup): Cleanup temporary probe logic after published integration testing is complete.
 
+import { GovukPageTemplateContent } from '@modular-data/gds-components';
 import { getDprUser } from '@/server/request-context';
 import NestedUserProbe from './components/nested-user-probe';
 
@@ -9,7 +10,7 @@ export default function TestRscUserPage() {
   const dprUser = getDprUser<Record<string, unknown>>();
 
   return (
-    <div style={{ padding: '20px' }}>
+    <GovukPageTemplateContent>
       <h1>Nested RSC dprUser Test</h1>
       <pre>
         {JSON.stringify(
@@ -22,7 +23,7 @@ export default function TestRscUserPage() {
         )}
       </pre>
       <NestedUserProbe />
-    </div>
+    </GovukPageTemplateContent>
   );
 }
 

@@ -19,6 +19,7 @@ export * from './components/inset-text';
 export * from './components/label';
 export * from './components/layout';
 export * from './components/link';
+export * from './components/page-template';
 export * from './components/select';
 export * from './components/skip-link';
 export * from './components/tag';
