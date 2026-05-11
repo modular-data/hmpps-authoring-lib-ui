@@ -18,7 +18,9 @@ export const metadata: Metadata = {
   description: 'TODO: Add description',
 };
 
-export const viewport: Viewport = getGovukPageTemplateViewport(govukRebrand);
+export const viewport: Viewport = getGovukPageTemplateViewport({
+  govukRebrand,
+});
 
 export default function RootLayout({
   children,
