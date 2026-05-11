@@ -1,5 +1,6 @@
 export {
   type GovukPageTemplateMetadataOptions,
+  type GovukPageTemplateViewportOptions,
   getGovukPageTemplateMetadata,
   getGovukPageTemplateViewport,
 } from './page-template-head';
