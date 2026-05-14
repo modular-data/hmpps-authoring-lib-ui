@@ -12,6 +12,8 @@ import { DataProductsBreadcrumbs } from '@/features/data-products/components/dat
 import { DataProductBuilder } from '@/features/data-products/components/data-product-builder';
 
 export const DataProductCreatePage = async () => {
+  const { dataSourceService } = getServices();
+
   const beforeContent = (
     <DataProductsBreadcrumbs items={[{ children: 'Create' }]} />
   );
@@ -23,8 +25,6 @@ export const DataProductCreatePage = async () => {
   };
 
   try {
-    const { dataSourceService } = getServices();
-
     const availableDataSources = await dataSourceService.getList();
 
     return (
@@ -41,7 +41,9 @@ export const DataProductCreatePage = async () => {
   } catch {
     return (
       <GovukPageTemplateContent beforeContent={beforeContent}>
-        <Typography>Unable to load data sources.</Typography>
+        <Typography>
+          Unable to load the data product creation page. Please try again later.
+        </Typography>
       </GovukPageTemplateContent>
     );
   }
