@@ -1,18 +1,18 @@
 import {
   type DataProduct,
   type DataProductCreateInput,
+  type DataProductDataSets,
+  type DataProductDataSetsInput,
   type DataProductDefinition,
   type DataProductOverview,
+  type DataProductPolicies,
+  type DataProductPoliciesInput,
+  type DataProductReports,
+  type DataProductReportsInput,
   type DataProductStateActions,
   type DataProductUpdateInput,
-  type DataSets,
-  type DataSetsInput,
-  type DataSourceIdsRequest,
-  type DataSourceIdsResponse,
-  type Policies,
-  type PoliciesInput,
-  type Reports,
-  type ReportsInput,
+  type DataSourceIds,
+  type DataSourceIdsInput,
 } from '@/generated/core-api';
 import { type DataProductApiClient } from '@/data/api-clients';
 
@@ -44,20 +44,29 @@ export class DataProductService {
 
   async saveDataSources(
     id: string,
-    data: DataSourceIdsRequest,
-  ): Promise<DataSourceIdsResponse> {
+    data: DataSourceIdsInput,
+  ): Promise<DataSourceIds> {
     return this.dataProductApiClient.saveDataSources(id, data);
   }
 
-  async saveDatasets(id: string, data: DataSetsInput): Promise<DataSets> {
+  async saveDatasets(
+    id: string,
+    data: DataProductDataSetsInput,
+  ): Promise<DataProductDataSets> {
     return this.dataProductApiClient.saveDatasets(id, data);
   }
 
-  async savePolicies(id: string, data: PoliciesInput): Promise<Policies> {
+  async savePolicies(
+    id: string,
+    data: DataProductPoliciesInput,
+  ): Promise<DataProductPolicies> {
     return this.dataProductApiClient.savePolicies(id, data);
   }
 
-  async saveReports(id: string, data: ReportsInput): Promise<Reports> {
+  async saveReports(
+    id: string,
+    data: DataProductReportsInput,
+  ): Promise<DataProductReports> {
     return this.dataProductApiClient.saveReports(id, data);
   }
 

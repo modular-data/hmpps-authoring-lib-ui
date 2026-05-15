@@ -20,10 +20,10 @@ const deriveStepCompletionMap = (
 ): DataProductBuilderStepCompletionMap => ({
   // TODO: Improve Overview completion logic after first priority tasks are completed
   [DataProductBuilderStep.Overview]: !!dataProduct?.name,
-  [DataProductBuilderStep.DataSources]: hasItems(dataProduct?.datasource),
-  [DataProductBuilderStep.Datasets]: hasItems(dataProduct?.dataset),
-  [DataProductBuilderStep.Policies]: hasItems(dataProduct?.policy),
-  [DataProductBuilderStep.Reports]: hasItems(dataProduct?.report),
+  [DataProductBuilderStep.DataSources]: hasItems(dataProduct?.dataSources),
+  [DataProductBuilderStep.Datasets]: hasItems(dataProduct?.datasets),
+  [DataProductBuilderStep.Policies]: hasItems(dataProduct?.policies),
+  [DataProductBuilderStep.Reports]: hasItems(dataProduct?.reports),
 });
 
 export const deriveStepMetaByStep = (

@@ -28,7 +28,9 @@ export const DataProductBuilderDataSourcesStep = ({
   const { form, formProps } = useDataProductBuilderStep<DataSourcesStepValues>({
     schema: dataSourcesStepSchema,
     defaultValues: {
-      datasourceIds: (dataProduct?.datasource || []).map((source) => source.id),
+      dataSourceIds: (dataProduct?.dataSources || []).map(
+        (source) => source.id,
+      ),
     },
     onSubmittingChange,
     submitAction: async (values) => {
@@ -60,7 +62,7 @@ export const DataProductBuilderDataSourcesStep = ({
   return (
     <form id={formId} {...formProps}>
       <FormCheckboxes
-        name="datasourceIds"
+        name="dataSourceIds"
         control={control}
         fieldset={{
           legend: {
