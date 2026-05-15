@@ -27,6 +27,22 @@ export type ErrorResponse = {
     domain?: DomainType;
 };
 
+export type DataProductReportField = {
+    name: string;
+    description?: string;
+    display?: string;
+    formula?: string;
+    visible: FieldVisibilityType;
+    sortable?: boolean;
+    wordwrap?: string;
+    alias?: Array<string>;
+    filter?: string;
+    type?: string;
+    header?: boolean;
+    defaultSort?: boolean;
+    sortDirection?: SortDirectionType;
+};
+
 export const FieldVisibilityType = {
     TRUE: 'true',
     FALSE: 'false',
@@ -122,15 +138,25 @@ export const DataProductStateType = {
 
 export type DataProductStateType = typeof DataProductStateType[keyof typeof DataProductStateType];
 
-export type DataSourceIdsRequest = {
-    datasourceIds?: Array<string>;
-};
-
-export type DataSourceIdsResponse = {
-    datasourceIds?: Array<string>;
+export type DataSetSchema = {
+    field: Array<SchemaField>;
 };
 
 export type JsonNode = unknown;
+
+export type SchemaField = {
+    index?: number;
+    name: string;
+    display?: string;
+    description?: string;
+    type: string;
+    sensitivity?: string;
+    alias?: Array<string>;
+    tags?: Array<string>;
+    filter?: JsonNode;
+    glossaryindex?: string;
+    piiindex?: string;
+};
 
 export const DataProductStateActions = {
     PREVIEW: 'PREVIEW',
@@ -142,24 +168,22 @@ export const DataProductStateActions = {
 
 export type DataProductStateActions = typeof DataProductStateActions[keyof typeof DataProductStateActions];
 
-export type DataProductReportField = {
-    name: string;
-    description?: string;
-    display?: string;
-    formula?: string;
-    visible: FieldVisibilityType;
-    sortable?: boolean;
-    wordwrap?: string;
-    alias?: Array<string>;
-    filter?: string;
-    type?: string;
-    header?: boolean;
-    defaultSort?: boolean;
-    sortDirection?: SortDirectionType;
+export type DataProductDefinitionMetadata = {
+    version: string;
+    author?: string;
+    owner?: string;
+    tags?: Array<string>;
 };
 
-export type Report = {
-    readonly id: string;
+export type DataProductReportsInput = {
+    reports: Array<ReportInput>;
+};
+
+export type ReportInput = {
+    /**
+     * If present, the report will be updated. If omitted, a new report will be created.
+     */
+    id?: string;
     name: string;
     description: string;
     classification?: string;
@@ -168,25 +192,53 @@ export type Report = {
     loadType?: string;
     dataSetId: string;
     specification: ReportSpecification;
-    createdAt?: string;
-    updatedAt?: string;
 };
 
-export type Reports = {
+export type DataProductReports = {
     reports: Array<Report>;
 };
 
-export type Policies = {
+export type Report = {
+    id: string;
+    name: string;
+    description: string;
+    classification?: string;
+    version: string;
+    render: ReportRenderType;
+    loadType?: string;
+    dataSetId: string;
+    specification: ReportSpecification;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type DataProductPoliciesInput = {
+    policies: Array<PolicyInput>;
+};
+
+export type PolicyInput = {
+    /**
+     * If present, the policy will be updated. If omitted, a new policy will be created.
+     */
+    id?: string;
+    name: string;
+    description: string;
+    type: PolicyType;
+    rule: Array<PolicyRule>;
+};
+
+export type DataProductPolicies = {
     policies: Array<Policy>;
 };
 
 export type Policy = {
-    readonly id: string;
+    id: string;
+    dataProductId: string;
     name: string;
     description: string;
     type: PolicyType;
-    createdAt?: string;
-    updatedAt?: string;
+    createdAt: string;
+    updatedAt: string;
     valid?: boolean;
     invalidReason?: string;
     rule: Array<PolicyRule>;
@@ -208,8 +260,8 @@ export type DataProductMetadata = {
     version: string;
     owner: string;
     author?: string;
-    createdAt?: string;
-    updatedAt?: string;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export type DataProductOverview = {
@@ -220,38 +272,45 @@ export type DataProductOverview = {
     metadata: DataProductMetadata;
 };
 
-export type DataSet = {
-    readonly id: string;
+export type DataSourceIdsInput = {
+    dataSourceIds?: Array<string>;
+};
+
+export type DataSourceIds = {
+    datasourceIds?: Array<string>;
+};
+
+export type DataProductDataSetsInput = {
+    datasets: Array<DataSetInput>;
+};
+
+export type DataSetInput = {
+    /**
+     * If present, the dataset will be updated. If omitted, a new dataset will be created.
+     */
+    id?: string;
     name: string;
     description: string;
     dataSourceId: string;
     query: string;
     schema: DataSetSchema;
     schedule?: string;
-    createdAt?: string;
-    updatedAt?: string;
 };
 
-export type DataSetSchema = {
-    field: Array<SchemaField>;
-};
-
-export type DataSets = {
+export type DataProductDataSets = {
     datasets: Array<DataSet>;
 };
 
-export type SchemaField = {
-    index?: number;
+export type DataSet = {
+    id: string;
     name: string;
-    display?: string;
-    description?: string;
-    type: string;
-    sensitivity?: string;
-    alias?: Array<string>;
-    tags?: Array<string>;
-    filter?: JsonNode;
-    glossaryindex?: string;
-    piiindex?: string;
+    description: string;
+    dataSourceId: string;
+    query: string;
+    schema: DataSetSchema;
+    schedule?: string;
+    createdAt: string;
+    updatedAt: string;
 };
 
 export type DataProductCreateInput = {
@@ -266,10 +325,10 @@ export type DataProduct = {
     description: string;
     state: StateEnum;
     metadata: DataProductMetadata;
-    datasource: Array<DataSource>;
-    dataset: Array<DataSet>;
-    report: Array<Report>;
-    policy: Array<Policy>;
+    dataSources: Array<DataSource>;
+    datasets: Array<DataSet>;
+    reports: Array<Report>;
+    policies: Array<Policy>;
 };
 
 export type DataSource = {
@@ -287,83 +346,15 @@ export type DataProductDefinition = {
     description: string;
     scheduled?: boolean;
     metadata: DataProductDefinitionMetadata;
-    datasource: Array<unknown>;
-    dataset: Array<unknown>;
-    dashboard?: Array<unknown>;
-    policy: Array<unknown>;
-    report: Array<unknown>;
+    dataSource: Array<unknown>;
+    datasets: Array<unknown>;
+    dashboards?: Array<unknown>;
+    policies: Array<unknown>;
+    reports: Array<unknown>;
     errors?: Array<unknown>;
 };
 
-export type DataProductDefinitionMetadata = {
-    version: string;
-    author?: string;
-    owner?: string;
-    tags?: Array<string>;
-};
-
 export type StateEnum = DataProductStateType;
-
-export type ReportInput = {
-    name: string;
-    description: string;
-    classification?: string;
-    version?: string;
-    render: ReportRenderType;
-    loadType?: string;
-    dataSetId: string;
-    specification: ReportSpecification;
-    createdAt?: string;
-    updatedAt?: string;
-};
-
-export type ReportsInput = {
-    reports: Array<ReportInput>;
-};
-
-export type PoliciesInput = {
-    policies: Array<PolicyInput>;
-};
-
-export type PolicyInput = {
-    name: string;
-    description: string;
-    type: PolicyType;
-    createdAt?: string;
-    updatedAt?: string;
-    valid?: boolean;
-    invalidReason?: string;
-    rule: Array<PolicyRule>;
-};
-
-export type DataSetInput = {
-    name: string;
-    description: string;
-    dataSourceId: string;
-    query: string;
-    schema: DataSetSchema;
-    schedule?: string;
-    createdAt?: string;
-    updatedAt?: string;
-};
-
-export type DataSetsInput = {
-    datasets: Array<DataSetInput>;
-};
-
-export type DataProductInput = {
-    id: string;
-    name: string;
-    description: string;
-    state: StateEnumInput;
-    metadata: DataProductMetadata;
-    datasource: Array<DataSource>;
-    dataset: Array<DataSetInput>;
-    report: Array<ReportInput>;
-    policy: Array<PolicyInput>;
-};
-
-export type StateEnumInput = DataProductStateType;
 
 export type GetReportsData = {
     body?: never;
@@ -405,7 +396,7 @@ export type GetReportsResponses = {
 export type GetReportsResponse = GetReportsResponses[keyof GetReportsResponses];
 
 export type UpdateReportsData = {
-    body: ReportsInput;
+    body: DataProductReportsInput;
     path: {
         id: string;
     };
@@ -438,7 +429,7 @@ export type UpdateReportsResponses = {
     /**
      * OK
      */
-    200: Reports;
+    200: DataProductReports;
 };
 
 export type UpdateReportsResponse = UpdateReportsResponses[keyof UpdateReportsResponses];
@@ -483,7 +474,7 @@ export type GetPoliciesResponses = {
 export type GetPoliciesResponse = GetPoliciesResponses[keyof GetPoliciesResponses];
 
 export type UpdatePoliciesData = {
-    body: PoliciesInput;
+    body: DataProductPoliciesInput;
     path: {
         id: string;
     };
@@ -516,7 +507,7 @@ export type UpdatePoliciesResponses = {
     /**
      * OK
      */
-    200: Policies;
+    200: DataProductPolicies;
 };
 
 export type UpdatePoliciesResponse = UpdatePoliciesResponses[keyof UpdatePoliciesResponses];
@@ -639,7 +630,7 @@ export type GetAllDataSourcesResponses = {
 export type GetAllDataSourcesResponse = GetAllDataSourcesResponses[keyof GetAllDataSourcesResponses];
 
 export type PutAllDataSourcesData = {
-    body: DataSourceIdsRequest;
+    body: DataSourceIdsInput;
     path: {
         id: string;
     };
@@ -672,7 +663,7 @@ export type PutAllDataSourcesResponses = {
     /**
      * OK
      */
-    200: DataSourceIdsResponse;
+    200: DataSourceIds;
 };
 
 export type PutAllDataSourcesResponse = PutAllDataSourcesResponses[keyof PutAllDataSourcesResponses];
@@ -717,7 +708,7 @@ export type GetDataSetsResponses = {
 export type GetDataSetsResponse = GetDataSetsResponses[keyof GetDataSetsResponses];
 
 export type UpdateDataSetsData = {
-    body: DataSetsInput;
+    body: DataProductDataSetsInput;
     path: {
         id: string;
     };
@@ -750,7 +741,7 @@ export type UpdateDataSetsResponses = {
     /**
      * OK
      */
-    200: DataSets;
+    200: DataProductDataSets;
 };
 
 export type UpdateDataSetsResponse = UpdateDataSetsResponses[keyof UpdateDataSetsResponses];
@@ -833,9 +824,6 @@ export type ExecuteActionData = {
     body?: never;
     path: {
         id: string;
-        /**
-         * State transition action to execute
-         */
         action: DataProductStateActions;
     };
     query?: never;

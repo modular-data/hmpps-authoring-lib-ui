@@ -4,9 +4,17 @@ import { createSchemaContractWorkarounds } from './openapi-ts.contract-workaroun
 
 const DEFAULT_OPEN_API_DOCS_URL = 'http://localhost:8082/v3/api-docs';
 const outputPath = join(__dirname, 'src/generated/core-api');
+const PRESERVE_ORIGINAL_SCHEMA_NAMES = new Set(['ErrorResponse']);
 
 const transformSchemaName = (name: string) => {
-  return name.replace(/RequestDto$/, 'Input').replace(/Dto$/, '');
+  if (PRESERVE_ORIGINAL_SCHEMA_NAMES.has(name)) {
+    return name;
+  }
+
+  return name
+    .replace(/Dto$/, '')
+    .replace(/Request$/, 'Input')
+    .replace(/Response$/, '');
 };
 
 export default defineConfig({
