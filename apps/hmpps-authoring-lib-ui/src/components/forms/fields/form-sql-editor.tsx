@@ -28,8 +28,8 @@ export type FormSQLEditorProps<TFormValues extends FieldValues> = Omit<
 > &
   FormFieldControlProps<TFormValues, FieldPathByValue<TFormValues, string>> & {
     id?: string;
-    label: Omit<LabelProps, 'htmlFor' | 'id'>;
-    hint?: HintProps;
+    label: Omit<LabelProps, 'htmlFor'>;
+    hint?: Omit<HintProps, 'id'>;
     config?: SQLEditorConfig;
   };
 
