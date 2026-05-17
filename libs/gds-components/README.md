@@ -1,57 +1,21 @@
 # @modular-data/gds-components
 
-React components library based on the [GOV.UK Design System](https://design-system.service.gov.uk/).
+React components and style entry points based on [GOV.UK Frontend](https://github.com/alphagov/govuk-frontend).
 
-## GDS Version
+This package is a workspace library for shared GOV.UK Design System React components. Component usage and variants are documented in Storybook.
 
-This library implements components based on **GOV.UK Frontend**.
+## Usage
 
-All components in this library are implemented from the same GDS version to ensure consistency.
+Import React components from the package entry point: `@modular-data/gds-components`.
 
-**GDS Source**: [govuk-frontend](https://github.com/alphagov/govuk-frontend)
-
-## Overview
-
-This library provides React-idiomatic implementations of GDS components. While the components follow GDS design patterns and use GDS styles, they use React best practices (e.g., `children` prop instead of `text`/`html` props).
-
-## Components
-
-### Button
-
-React implementation of the [GDS Button component](https://design-system.service.gov.uk/components/button/).
-
-**See Storybook for usage examples and all variants.**
-
-## Installation
-
-This library is part of the monorepo. To use it in your application:
-
-```tsx
-import { Button } from '@modular-data/gds-components';
-```
-
-## Styles
-
-Import GDS styles in your application:
+Import the full style entry point once in the consuming app:
 
 ```scss
-@use '@modular-data/gds-components/styles';
+@use '@modular-data/gds-components/styles/index.scss' as *;
 ```
 
-Or in your Next.js app, import in `*.tsx` files:
+Use focused style helpers from package subpaths when a component stylesheet only needs shared mixins or variables:
 
-```tsx
-import '@modular-data/gds-components/styles';
+```scss
+@use '@modular-data/gds-components/styles/base.scss';
 ```
-
-## Storybook
-
-View all components and their variants in Storybook:
-
-```bash
-nx storybook @modular-data/gds-components
-```
-
-## Running unit tests
-
-Run `nx test @modular-data/gds-components` to execute the unit tests via [Jest](https://jestjs.io).

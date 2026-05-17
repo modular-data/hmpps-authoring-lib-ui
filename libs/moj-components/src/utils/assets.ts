@@ -2,23 +2,16 @@ import { cp, mkdir } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 
-// TODO: Revisit this file and all usages after first priority tasks are complete.
-
 const require = createRequire(import.meta.url);
 
-const MANAGED_ASSET_ENTRIES = [
-  { name: 'fonts', recursive: true },
-  { name: 'images', recursive: true },
-  { name: 'rebrand', recursive: true },
-  { name: 'manifest.json', recursive: false },
-] as const;
+const MANAGED_ASSET_ENTRIES = [{ name: 'images', recursive: true }] as const;
 
 export const resolveAssetsDir = (): string => {
-  const govukFrontendPackagePath = require.resolve(
-    'govuk-frontend/package.json',
+  const mojFrontendPackagePath = require.resolve(
+    '@ministryofjustice/frontend/package.json',
   );
 
-  return join(dirname(govukFrontendPackagePath), 'dist/govuk/assets');
+  return join(dirname(mojFrontendPackagePath), 'moj/assets');
 };
 
 export const copyAssetsTo = async (destination: string): Promise<void> => {
