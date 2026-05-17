@@ -1,0 +1,33 @@
+@use '@modular-data/gds-components/styles/base.scss';
+
+.sql-editor {
+  width: 100%;
+  height: 100%;
+  padding: base.$govuk-border-width-form-element;
+  border: base.$govuk-border-width-form-element solid
+    base.$govuk-input-border-colour;
+
+  &:focus-within {
+    @include base.govuk-focused-form-input;
+  }
+
+  &--error {
+    border-color: base.$govuk-error-colour;
+
+    &:focus-within {
+      border-color: base.$govuk-input-border-colour;
+    }
+  }
+
+  .cm-editor {
+    &.cm-focused {
+      outline: none;
+    }
+  }
+
+  .cm-lineNumbers {
+    .cm-gutterElement {
+      min-width: 3.25rem;
+    }
+  }
+}
