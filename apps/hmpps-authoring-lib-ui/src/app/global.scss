@@ -1,2 +1,8 @@
 @use '@modular-data/gds-components/styles/index.scss' as *;
 @use '@modular-data/moj-components/styles/index.scss' as *;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
