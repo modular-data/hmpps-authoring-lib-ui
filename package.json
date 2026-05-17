@@ -13,10 +13,12 @@
     ]
   },
   "dependencies": {
+    "@codemirror/lang-sql": "^6.10.0",
     "@hookform/resolvers": "^5.2.2",
     "@ministryofjustice/hmpps-auth-clients": "^1.0.2",
     "@ministryofjustice/hmpps-rest-client": "^1.0.1",
     "@reduxjs/toolkit": "^2.11.2",
+    "@uiw/react-codemirror": "^4.25.9",
     "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "classnames": "^2.5.1",
