@@ -10,7 +10,7 @@
       "cache": false,
       "outputs": ["{projectRoot}/public/assets"],
       "options": {
-        "command": "node apps/hmpps-authoring-lib-ui/scripts/sync-gds-assets.mjs"
+        "command": "node apps/hmpps-authoring-lib-ui/scripts/sync-design-system-assets.mjs"
       }
     },
     "build": {

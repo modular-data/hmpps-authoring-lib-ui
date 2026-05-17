@@ -8,6 +8,9 @@
     },
     {
       "path": "./libs/gds-components"
+    },
+    {
+      "path": "./libs/moj-components"
     }
   ]
 }
